@@ -1,0 +1,10 @@
+{
+  "name": "terakoya-client-static-node18",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "node18",
+  "workspaceFolder": "/app",
+  "settings": {
+    "editor.formatOnSave": true
+  },
+  "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+}

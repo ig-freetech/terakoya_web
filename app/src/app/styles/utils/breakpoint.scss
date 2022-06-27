@@ -1,0 +1,7 @@
+$breakpoint-tablet: 960px;
+
+@mixin mq-tablet {
+  @media screen and (max-width: $breakpoint-tablet) {
+    @content;
+  }
+}

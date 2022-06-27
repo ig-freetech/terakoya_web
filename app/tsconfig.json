@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "target": "ES2015",
+    "sourceMap": true,
+    "strict": true,
+    "lib": ["DOM", "ES2021"],
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "@pages/*": ["src/app/pages/*"],
+      "@styles/*": ["src/app/styles/*"],
+      "@apis/*": ["src/app/apis/*"],
+      "@utils/*": ["src/app/utils/*"]
+    },
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["node_modules"]
+}
