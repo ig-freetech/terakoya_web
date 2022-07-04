@@ -20,6 +20,7 @@ $common-border-radius: 10px;
 .wallpaper {
   background-color: color.$color-wallpaper;
   min-height: 100vh;
+  padding: 5px;
   .container {
     @extend .common-flex-justify-center;
     padding: $common-padding;
@@ -28,6 +29,9 @@ $common-border-radius: 10px;
       box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.6);
       padding: $common-padding;
       border-radius: $common-border-radius;
+      @include breakpoint.mq-tablet {
+        width: 100%;
+      }
       .to-home {
         font-weight: bold;
         &:hover {
@@ -40,11 +44,13 @@ $common-border-radius: 10px;
           color: color.$color-terakoya-dark-brown;
           font-weight: bold;
           letter-spacing: 0.1em;
+          text-align: center;
           font-size: 32px;
           line-height: 48px;
           @include breakpoint.mq-tablet {
             font-size: 24px;
             line-height: 36px;
+            letter-spacing: -0.01em;
           }
         }
       }
@@ -57,6 +63,7 @@ $common-border-radius: 10px;
             margin-top: $common-margin-top;
             .label-item {
               font-size: 20px;
+              letter-spacing: -0.001em;
             }
             .simple-input {
               outline: none;
@@ -124,11 +131,16 @@ $common-border-radius: 10px;
   margin-top: $common-margin-top;
   .submit {
     cursor: pointer;
+    border: none;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
     background-color: color.$color-white;
     border-radius: 5px;
     color: color.$color-terakoya-dark-brown;
     font-weight: bold;
     width: 100px;
     height: 40px;
+    &:hover {
+      opacity: 0.7;
+    }
   }
 }

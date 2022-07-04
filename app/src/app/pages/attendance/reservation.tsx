@@ -297,14 +297,13 @@ export const Form: React.FC<FormProps> = (props) => {
     axios
       .post(BASE_URL + "/test2", data)
       .then((res) => {
-        console.log("res is " + JSON.stringify(res));
         navigate("/result");
       })
       .catch((error) => {
         console.log("error is " + JSON.stringify(error));
         const axiosError: AxiosError = error;
         if (axiosError.response?.status === 500) {
-          console.log("re-api access because of " + JSON.stringify(axiosError));
+          console.log("re-api access because of " + axiosError.message);
           setTimeout(() => onApiAccess(data), 3000);
         } else {
           alert("エラーが発生しました。");
@@ -327,7 +326,7 @@ export const Form: React.FC<FormProps> = (props) => {
 
   type GroupInputPropNameTypes = Extract<
     InputPropNameTypes,
-    "attendanceDate" | "terakoyaExperience"
+    "attendanceDate" | "terakoyaExperience" | "terakoyaType"
   >;
   const onChangeGroupValue = (
     inputPropNameTypes: GroupInputPropNameTypes,
@@ -349,6 +348,9 @@ export const Form: React.FC<FormProps> = (props) => {
     } else if (inputPropNameTypes === "terakoyaExperience") {
       setTerakoyaExperience(value);
       setValue("terakoyaExperience", value);
+    } else if (inputPropNameTypes === "terakoyaType") {
+      setJhsTerakoyaType(value);
+      setValue("terakoyaType", value);
     }
     console.log("getValues is " + JSON.stringify(getValues()));
   };
@@ -400,7 +402,9 @@ export const Form: React.FC<FormProps> = (props) => {
                       inputType={groupTerakoyaTypeData.inputType}
                       valueLabel={valueLabel}
                       isRequired={true}
-                      onChange={(e) => setJhsTerakoyaType(e.target.value)}
+                      onChange={(e) =>
+                        onChangeGroupValue("terakoyaType", e.target.value)
+                      }
                     />
                   ))}
                 </LabelInputItem>
