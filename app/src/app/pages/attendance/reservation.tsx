@@ -1,5 +1,5 @@
 import * as React from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useForm, SubmitHandler, UseFormRegister } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import ReactLoading from "react-loading";
@@ -293,6 +293,25 @@ export const Form: React.FC<FormProps> = (props) => {
       attendanceDate: [],
     },
   });
+  const onApiAccess = (data: Inputs) => {
+    axios
+      .post(BASE_URL + "/test2", data)
+      .then((res) => {
+        console.log("res is " + JSON.stringify(res));
+        navigate("/result");
+      })
+      .catch((error) => {
+        console.log("error is " + JSON.stringify(error));
+        const axiosError: AxiosError = error;
+        if (axiosError.response?.status === 500) {
+          console.log("re-api access because of " + JSON.stringify(axiosError));
+          setTimeout(() => onApiAccess(data), 3000);
+        } else {
+          alert("エラーが発生しました。");
+          navigate("/error");
+        }
+      });
+  };
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(JSON.stringify(data));
     if (data.attendanceDate.length === 0) {
@@ -300,17 +319,7 @@ export const Form: React.FC<FormProps> = (props) => {
       return;
     }
     setIsLoading(true);
-    axios
-      .post(BASE_URL + "/test2", data)
-      .then((res) => {
-        console.log("res is " + res);
-        navigate("/result");
-      })
-      .catch((error) => {
-        console.log("error is " + error);
-        alert("エラーが発生しました。");
-        navigate("/error");
-      });
+    onApiAccess(data);
   };
 
   const [terakoyaExperience, setTerakoyaExperience] = React.useState("");
