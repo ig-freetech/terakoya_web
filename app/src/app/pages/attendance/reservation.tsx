@@ -300,11 +300,11 @@ export const Form: React.FC<FormProps> = (props) => {
         navigate("/result");
       })
       .catch((error) => {
-        console.log("error is " + JSON.stringify(error));
+        console.log("error is " + error.message);
         const axiosError: AxiosError = error;
         if (axiosError.response?.status === 500) {
           console.log("re-api access because of " + axiosError.message);
-          setTimeout(() => onApiAccess(data), 3000);
+          setTimeout(() => onApiAccess(data), 3000); // コールドスタート&メールサーバ接続時間対策
         } else {
           alert("エラーが発生しました。");
           navigate("/error");
