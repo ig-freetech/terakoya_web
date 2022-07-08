@@ -79,13 +79,15 @@ type CommonInputProps<T> = {
 
 type LabelInputItemProps = {
   label: string;
+  description?: string | JSX.Element;
   children: React.ReactNode;
 };
 const LabelInputItem: React.FC<LabelInputItemProps> = (props) => {
-  const { label, children } = props;
+  const { label, description, children } = props;
   return (
     <label className="label">
       <span className="label-item">{label}</span>
+      <span className="label-description">{description}</span>
       {children}
     </label>
   );
@@ -156,10 +158,14 @@ const GroupInput: React.FC<GroupInputProps> = (props) => {
 };
 
 type GroupInputItemData = Pick<LabelInputItemProps, "label"> &
-  Omit<CommonInputProps<GroupInputTypes>, "register">;
+  Omit<CommonInputProps<GroupInputTypes>, "register"> & {
+    description?: string;
+  };
 const groupInputItemDataList: Array<GroupInputItemData> = [
   {
     label: "参加希望",
+    description:
+      "※下記の選択に応じて参加希望日で選択できる日程が切り替わります。",
     inputPropName: "terakoyaType",
     inputType: "radio",
   },
@@ -394,7 +400,10 @@ export const Form: React.FC<FormProps> = (props) => {
                 />
               </LabelInputItem>
               {terakoyaType === "テラコヤ中等部(池袋/渋谷)" ? (
-                <LabelInputItem label={groupTerakoyaTypeData.label}>
+                <LabelInputItem
+                  label={groupTerakoyaTypeData.label}
+                  description={groupTerakoyaTypeData.description}
+                >
                   {TERAKOYA_JHS_ATTEND_TYPE.map((valueLabel) => (
                     <GroupInput
                       register={register}

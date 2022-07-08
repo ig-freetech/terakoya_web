@@ -6,6 +6,7 @@ $common-input-padding: 10px;
 $common-margin-top: 20px;
 $common-margin-left: 10px;
 $common-border-radius: 10px;
+$common-opacity: 0.7;
 
 .common-flex-justify-center {
   display: flex;
@@ -35,7 +36,7 @@ $common-border-radius: 10px;
       .to-home {
         font-weight: bold;
         &:hover {
-          opacity: 60%;
+          opacity: $common-opacity;
         }
       }
       .main-caption {
@@ -65,6 +66,9 @@ $common-border-radius: 10px;
               font-size: 20px;
               letter-spacing: -0.001em;
             }
+            .label-description {
+              font-size: 14px;
+            }
             .simple-input {
               outline: none;
               border: none;
@@ -73,7 +77,7 @@ $common-border-radius: 10px;
               border-radius: $common-border-radius;
               color: color.$color-terakoya-dark-brown;
               &:hover {
-                opacity: 0.7;
+                opacity: $common-opacity;
               }
               &:focus {
                 opacity: initial;
@@ -90,7 +94,7 @@ $common-border-radius: 10px;
               border-radius: $common-border-radius;
               color: color.$color-terakoya-dark-brown;
               &:hover {
-                opacity: 0.7;
+                opacity: $common-opacity;
               }
               .option {
               }
@@ -102,7 +106,7 @@ $common-border-radius: 10px;
               margin-right: auto;
               cursor: pointer;
               &:hover {
-                opacity: 0.7;
+                opacity: $common-opacity;
               }
               .group-input-label {
                 margin-left: $common-margin-left;
@@ -140,7 +144,7 @@ $common-border-radius: 10px;
     width: 100px;
     height: 40px;
     &:hover {
-      opacity: 0.7;
+      opacity: $common-opacity;
     }
   }
 }

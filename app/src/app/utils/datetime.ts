@@ -13,7 +13,13 @@ export const SATURDAY = 6;
 
 const START_TIME = 17; // テラコヤ開始時刻
 const FORWARD_NEXT_WEEK = 7;
-const GET_COUNT = 3; // 直近３日間
+const GET_COUNT = 3; // 直近３日
+
+// 参加希望日に表示しない日程のリスト
+const EXCLUDE_DATE_LIST: Array<Dayjs> = [
+  dayjs("2022-08-13"),
+  dayjs("2022-08-16"),
+];
 
 const isBeforeDay = (day: number, getTargetDay: number) => day < getTargetDay;
 
@@ -21,7 +27,7 @@ const isBeforeENDTime = (todayHour: number) => {
   return todayHour < START_TIME;
 };
 
-const formatDate = (datetime: Dayjs): string => datetime.format("M/D (ddd)");
+const formatDate = (datetime: Dayjs): string => datetime.format("MM/DD (ddd)");
 
 const getThreeDayList = (
   startDatetime: Dayjs,
@@ -29,9 +35,15 @@ const getThreeDayList = (
 ): Array<string> => {
   let tuesdayList: Array<string> = [];
   for (let i = 0; i < getCount; i++) {
-    const formattedTuesday = formatDate(
-      startDatetime.add(FORWARD_NEXT_WEEK * i, "day")
-    );
+    const nextWeekDateTime = startDatetime.add(FORWARD_NEXT_WEEK * i, "day");
+    if (
+      EXCLUDE_DATE_LIST.some(
+        (excludeDate) => excludeDate.diff(nextWeekDateTime, "day") === 0
+      )
+    ) {
+      continue;
+    }
+    const formattedTuesday = formatDate(nextWeekDateTime);
     tuesdayList.push(formattedTuesday);
   }
   return tuesdayList;

@@ -5,6 +5,7 @@ $common-margin-top: 20px;
 $common-margin-left: 10px;
 $common-padding: 30px;
 $common-border-radius: 10px;
+$common-opacity: 0.7;
 
 .common-flex-justify-center {
   display: flex;
@@ -61,7 +62,7 @@ $common-border-radius: 10px;
             width: 250px;
             height: 100px;
             &:hover {
-              opacity: 0.7;
+              opacity: $common-opacity;
             }
           }
         }
@@ -96,7 +97,7 @@ $common-border-radius: 10px;
       margin-top: $common-margin-top;
       line-height: 30px;
       &:hover {
-        opacity: 0.7;
+        opacity: $common-opacity;
       }
     }
   }
