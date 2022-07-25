@@ -1,0 +1,150 @@
+@use "@styles/utils/breakpoint.scss" as breakpoint;
+@use "@styles/utils/color.scss" as color;
+
+$common-padding: 30px;
+$common-input-padding: 10px;
+$common-margin-top: 20px;
+$common-margin-left: 10px;
+$common-border-radius: 10px;
+$common-opacity: 0.7;
+
+.common-flex-justify-center {
+  display: flex;
+  justify-content: center;
+}
+.common-text {
+  font-weight: bold;
+  color: color.$color-terakoya-dark-brown;
+  letter-spacing: 0.1em;
+}
+
+.wallpaper {
+  background-color: color.$color-wallpaper;
+  min-height: 100vh;
+  padding: 5px;
+  .container {
+    @extend .common-flex-justify-center;
+    padding: $common-padding;
+    .content {
+      background-color: color.$color-white;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.6);
+      padding: $common-padding;
+      border-radius: $common-border-radius;
+      @include breakpoint.mq-tablet {
+        width: 100%;
+      }
+      .to-home {
+        font-weight: bold;
+        &:hover {
+          opacity: $common-opacity;
+        }
+      }
+      .main-caption {
+        @extend .common-flex-justify-center;
+        .main-caption-text {
+          color: color.$color-terakoya-dark-brown;
+          font-weight: bold;
+          letter-spacing: 0.1em;
+          text-align: center;
+          font-size: 32px;
+          line-height: 48px;
+          @include breakpoint.mq-tablet {
+            font-size: 24px;
+            line-height: 36px;
+            letter-spacing: -0.01em;
+          }
+        }
+      }
+      .form-container {
+        .form {
+          @extend .common-text;
+          .label {
+            display: flex;
+            flex-direction: column;
+            margin-top: $common-margin-top;
+            .label-item {
+              font-size: 20px;
+              letter-spacing: -0.001em;
+            }
+            .label-description {
+              font-size: 14px;
+            }
+            .simple-input {
+              outline: none;
+              border: none;
+              padding: $common-input-padding;
+              background-color: color.$color-gray;
+              border-radius: $common-border-radius;
+              color: color.$color-terakoya-dark-brown;
+              &:hover {
+                opacity: $common-opacity;
+              }
+              &:focus {
+                opacity: initial;
+              }
+            }
+            .select {
+              cursor: pointer;
+              outline: none;
+              border: none;
+              padding: $common-input-padding;
+              height: 40px;
+              background-color: color.$color-gray;
+              // border: 2px solid color.$color-terakoya-dark-brown;
+              border-radius: $common-border-radius;
+              color: color.$color-terakoya-dark-brown;
+              &:hover {
+                opacity: $common-opacity;
+              }
+              .option {
+              }
+            }
+            .group-input {
+              display: flex;
+              flex-direction: row-reverse;
+              align-items: center;
+              margin-right: auto;
+              cursor: pointer;
+              &:hover {
+                opacity: $common-opacity;
+              }
+              .group-input-label {
+                margin-left: $common-margin-left;
+              }
+              .group-input-radio {
+              }
+              .group-input-checkbox {
+              }
+            }
+            .textarea {
+              outline: none;
+              border: none;
+              padding: $common-input-padding;
+              background-color: color.$color-gray;
+              border-radius: $common-border-radius;
+              color: color.$color-terakoya-dark-brown;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.submit-place {
+  margin-top: $common-margin-top;
+  .submit {
+    cursor: pointer;
+    border: none;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+    background-color: color.$color-terakoya-light-brown;
+    border-radius: 5px;
+    color: color.$color-terakoya-dark-brown;
+    font-weight: bold;
+    width: 100px;
+    height: 40px;
+    &:hover {
+      opacity: $common-opacity;
+    }
+  }
+}
