@@ -69,3 +69,14 @@ export const getNextThreeDayList = (
       : forwardDate(today, getTargetDay) // 次の対象曜日を最初の開催日に設定
   );
 };
+
+export const __local__ = {
+  dayjs,
+  isBeforeDay,
+  isBeforeENDTime,
+  formatDate,
+  getThreeDayList,
+  getForwardDatePeriod,
+  forwardDate,
+  getNextThreeDayList,
+};

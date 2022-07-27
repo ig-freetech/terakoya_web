@@ -26,6 +26,8 @@ export type RequestBody = {
   howToKnowTerakoya: string;
   remarks: string;
 };
+
+// TODO: CORS設定を行う
 const BASE_URL = "https://r54d83j7hk.execute-api.us-east-1.amazonaws.com";
 
 const GRADE_LIST = ["中学生", "高校1年生", "高校2年生", "高校3年生", "その他"];
@@ -127,6 +129,12 @@ const simpleInputItemList: Array<SimpleInputItemData> = [
 ];
 const simpleSchoolNameData = simpleInputItemList[2];
 
+const IS_SIMPLE_INPUT_PROP_LIST: Array<InputPropNameTypes> = [
+  "name",
+  "email",
+  "schoolName",
+];
+
 type GroupInputTypes = "checkbox" | "radio";
 type GroupInputProps = {
   valueLabel: string;
@@ -184,6 +192,12 @@ const groupTerakoyaTypeData = groupInputItemDataList[0];
 const groupAttenadnceDateData = groupInputItemDataList[1];
 const groupTerakoyaExperienceData = groupInputItemDataList[2];
 
+const IS_GROUP_INPUT_PROP_LIST: Array<InputPropNameTypes> = [
+  "terakoyaType",
+  "attendanceDate",
+  "terakoyaExperience",
+];
+
 type Option = {
   // value: string;
   name: string;
@@ -205,9 +219,8 @@ const Select: React.FC<SelectProps> = (props) => {
   );
 };
 
-type SelectItemData = Pick<LabelInputItemProps, "label"> & {
-  inputPropName: InputPropNameTypes;
-};
+type SelectItemData = Pick<LabelInputItemProps, "label"> &
+  Pick<CommonInputProps<GroupInputTypes>, "inputPropName">;
 const selectItemDataList: Array<SelectItemData> = [
   {
     label: "学年",
@@ -241,6 +254,15 @@ const selectStudySubjectData = selectItemDataList[3];
 const selectStudyMethodData = selectItemDataList[4];
 const selectPrChannelData = selectItemDataList[5];
 
+const IS_SELECT_PROP_LIST: Array<InputPropNameTypes> = [
+  "grade",
+  "arriveTime",
+  "courseChoice",
+  "studySubject",
+  "studyMethod",
+  "howToKnowTerakoya",
+];
+
 const TextArea: React.FC<CommonProps> = (props) => {
   const { register, inputPropName } = props;
   return (
@@ -270,6 +292,20 @@ const textAreaItemDataList: Array<TextAreaItemData> = [
 ];
 const textAreaStudySubjectDetailData = textAreaItemDataList[0];
 const textAreaRemarksData = textAreaItemDataList[3];
+
+const IS_TEXT_AREA_PROP_LIST: Array<InputPropNameTypes> = [
+  "studySubjectDetail",
+  "futureFree",
+  "likeFree",
+  "remarks",
+];
+
+// TODO: 全Dataを単一の配列に格納しtsx内で展開してinputPropNameの値に応じてComponentを出し分ける設計にする
+// TODO: terakoyaTypeなどtsx内でないと取得できない値が必要なプロパティ値があるためカスタムフックで対応する
+type QuestionData = {
+  componentType: "";
+};
+const questionDataList = [];
 
 type FormProps = {
   terakoyaType: TerakoyaTypes;
