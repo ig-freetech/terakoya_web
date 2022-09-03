@@ -12,12 +12,12 @@ const {
 } = __local__;
 
 describe("utils/datetime.ts", () => {
-  test("formatDate - Success", () => {
+  test("formatDate - 2022-07-28", () => {
     const expected = formatDate(dayjs("2022-07-28"));
     expect(expected).toBe("07/28 (木)");
   });
-  test("formatDate - Failed", () => {
-    const expected = formatDate(dayjs("2022-05-8"));
+  test("formatDate - 20220508", () => {
+    const expected = formatDate(dayjs("20220508"));
     expect(expected).toBe("05/08 (日)");
   });
 });
