@@ -19,6 +19,8 @@ const GET_COUNT = 3; // 直近３日
 const EXCLUDE_DATE_LIST: Array<Dayjs> = [
   dayjs("2022-08-13"),
   dayjs("2022-08-16"),
+  dayjs("2022-09-24"),
+  dayjs("2022-10-22"),
 ];
 
 const isBeforeDay = (day: number, getTargetDay: number) => day < getTargetDay;
