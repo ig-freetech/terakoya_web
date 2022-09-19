@@ -49,6 +49,8 @@ const SUBJECT_LIST = [
   "推薦型入試対策（志望理由書・面接など）",
   "大学説明会",
   "キャリア説明会",
+  "英検",
+  "その他",
 ];
 const STUDY_METHOD_LIST = [
   "黙々と静かに勉強したい",
@@ -214,7 +216,7 @@ const selectItemDataList: Array<SelectItemData> = [
     inputPropName: "grade",
   },
   {
-    label: "何時頃来れそうですか？（活動時間17時〜20時）",
+    label: "来れそうな時間帯（活動時間17時〜20時）",
     inputPropName: "arriveTime",
   },
   {
@@ -252,7 +254,7 @@ type TextAreaItemData = Pick<LabelInputItemProps, "label"> &
   Omit<CommonProps, "register">;
 const textAreaItemDataList: Array<TextAreaItemData> = [
   {
-    label: "その科目の内容をできるだけ詳しく教えてください",
+    label: "その科目の内容",
     inputPropName: "studySubjectDetail",
   },
   {
@@ -491,6 +493,17 @@ export const Form: React.FC<FormProps> = (props) => {
                       />
                     </LabelInputItem>
                   ))}
+                  <LabelInputItem label={selectPrChannelData.label}>
+                    <Select
+                      register={register}
+                      inputPropName={selectPrChannelData.inputPropName}
+                      optionDataList={PR_CHANNEL_LIST.map((channel) => {
+                        return {
+                          name: channel,
+                        };
+                      })}
+                    />
+                  </LabelInputItem>
                 </>
               ) : terakoyaExperience ===
                 TERAKOYA_EXPERIENCE_QUESTION_LIST[1] ? (
@@ -521,17 +534,6 @@ export const Form: React.FC<FormProps> = (props) => {
                 <TextArea
                   register={register}
                   inputPropName={textAreaStudySubjectDetailData.inputPropName}
-                />
-              </LabelInputItem>
-              <LabelInputItem label={selectPrChannelData.label}>
-                <Select
-                  register={register}
-                  inputPropName={selectPrChannelData.inputPropName}
-                  optionDataList={PR_CHANNEL_LIST.map((channel) => {
-                    return {
-                      name: channel,
-                    };
-                  })}
                 />
               </LabelInputItem>
               <LabelInputItem label={textAreaRemarksData.label}>
