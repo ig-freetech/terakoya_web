@@ -20,6 +20,7 @@ const EXCLUDE_DATE_LIST: Array<Dayjs> = [
   dayjs("2022-08-13"),
   dayjs("2022-08-16"),
   dayjs("2022-09-24"),
+  dayjs("2022-10-15"),
   dayjs("2022-10-22"),
 ];
 
