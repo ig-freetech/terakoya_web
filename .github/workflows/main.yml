@@ -32,4 +32,4 @@ jobs:
           S3_URI: ${{ secrets.S3_URI }}
           AWS_DEFAULT_REGION: us-east-1
         run: |
-          aws s3 cp --recursive ./public $S3_URI
+          aws s3 cp --recursive ./app/public $S3_URI
