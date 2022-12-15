@@ -11,7 +11,13 @@ jobs:
         uses: actions/checkout@master
 
       - name: Move to working directory
-        run: cd ./app
+        run: |
+          echo $GITHUB_WORKSPACE
+          pwd
+          ls
+          cd ./app
+          pwd
+          ls
 
       - name: Install Dependencies
         run: npm install
