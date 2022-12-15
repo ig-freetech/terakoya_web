@@ -1,25 +1,31 @@
 name: Build and Deploy to S3
 on:
   push:
-      branches:
-        - develop
+    branches:
+      - develop
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@develop  # リポジトリをチェックアウト
-        
+        uses: actions/checkout@develop # リポジトリをチェックアウト
+
       - name: Move to working directory
-        run: cd ./app
+        run: |
+          echo $GITHUB_WORKSPACE
+          pwd
+          ls
+          cd ./app
+          pwd
+          ls
 
       - name: Install Dependencies
         run: npm install
 
       - name: Build
-        run: npm run build  # React ビルド
+        run: npm run build # React ビルド
 
-      - name: Deploy  # S3にデプロイ 
+      - name: Deploy # S3にデプロイ
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
