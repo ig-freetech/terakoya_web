@@ -10,15 +10,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      # - name: Move to working directory
-      #   run: |
-      #     echo $GITHUB_WORKSPACE
-      #     pwd
-      #     ls
-      #     cd ./app
-      #     pwd
-      #     ls
-
       - name: Install Dependencies and Build
         working-directory: ./app
         run: |
