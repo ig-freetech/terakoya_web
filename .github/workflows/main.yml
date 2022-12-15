@@ -1,0 +1,28 @@
+name: Build and Deploy to S3
+on:
+  push:
+      branches:
+        - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@develop  # リポジトリをチェックアウト
+        
+      - name: Move to working directory
+        run: cd ./app
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build  # React ビルド
+
+      - name: Deploy  # S3にデプロイ 
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          S3_URI: ${{ secrets.S3_URI }}
+        run: |
+          aws s3 cp --recursive ./public $S3_URI
