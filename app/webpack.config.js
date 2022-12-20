@@ -12,10 +12,7 @@ module.exports = {
     path: PUBLIC_DIR,
     filename: "index.js",
   },
-  devtool:
-    process.env.NODE_ENV == "production"
-      ? undefined
-      : "eval-cheap-module-source-map",
+  // devtool: "eval-cheap-module-source-map",
   module: {
     rules: [
       {
