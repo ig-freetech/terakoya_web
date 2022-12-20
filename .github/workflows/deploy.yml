@@ -18,11 +18,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Install Dependencies and Build
+      - name: Install Dependencies and Build for Development
         working-directory: ./app
+        if: contains(toJSON(github.ref), 'develop')
         run: |
           npm install
-          npm run build
+          npm run build-dev
+
+      - name: Install Dependencies and Build for Production
+        working-directory: ./app
+        if: contains(toJSON(github.ref), 'master')
+        run: |
+          npm install
+          npm run build-prod
 
       - name: Deploy to Dev
         if: contains(toJSON(github.ref), 'develop')
