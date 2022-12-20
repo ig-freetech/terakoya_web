@@ -12,9 +12,3 @@ jobs:
         run: |
           npm install
           npm run build
-
-      - name: Test
-        run: |
-          echo $GITHUB_REF
-          echo ${{ github.ref }}
-          echo ${{ toJSON(github.ref) }}
