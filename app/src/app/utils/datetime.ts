@@ -17,8 +17,15 @@ const GET_COUNT = 3; // 直近３日
 
 // 参加希望日に表示しない日程のリスト
 const EXCLUDE_DATE_LIST: Array<Dayjs> = [
-  dayjs("2022-08-13"),
-  dayjs("2022-08-16"),
+  // dayjs("2022-08-13"),
+  // dayjs("2022-08-16"),
+  // dayjs("2022-09-24"),
+  // dayjs("2022-10-15"),
+  // dayjs("2022-10-22"),
+  dayjs("2022-12-27"),
+  dayjs("2022-12-31"),
+  dayjs("2023-01-03"),
+  dayjs("2023-01-07"),
 ];
 
 const isBeforeDay = (day: number, getTargetDay: number) => day < getTargetDay;

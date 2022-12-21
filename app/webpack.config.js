@@ -12,7 +12,7 @@ module.exports = {
     path: PUBLIC_DIR,
     filename: "index.js",
   },
-  devtool: "eval-cheap-module-source-map",
+  // devtool: "eval-cheap-module-source-map",
   module: {
     rules: [
       {
