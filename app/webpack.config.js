@@ -5,7 +5,6 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const PUBLIC_DIR = path.resolve(__dirname, "public");
 const APP_DIR = path.resolve(__dirname, "src", "app");
 
-// test
 /**@type import('webpack').Configuration */
 module.exports = {
   entry: path.join(APP_DIR, "index.tsx"),
