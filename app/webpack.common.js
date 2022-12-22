@@ -12,7 +12,6 @@ module.exports = {
     path: PUBLIC_DIR,
     filename: "index.js",
   },
-  // devtool: "eval-cheap-module-source-map",
   module: {
     rules: [
       {
@@ -50,11 +49,4 @@ module.exports = {
     }),
     // new BomPlugin(true),
   ],
-  devServer: {
-    static: {
-      directory: PUBLIC_DIR,
-    },
-    port: 8000,
-    historyApiFallback: true,
-  },
 };
