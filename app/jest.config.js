@@ -8,6 +8,6 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
   moduleNameMapper: {
-    "^@utils/(.+)$": "<rootDir>/src/app/utils/$1",
+    "^@utils/(.+)$": "<rootDir>/src/utils/$1",
   },
 };

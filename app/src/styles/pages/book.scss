@@ -18,6 +18,13 @@ $common-opacity: 0.7;
   letter-spacing: 0.1em;
 }
 
+.only-sp-enabled {
+  display: none;
+  @include breakpoint.mq-tablet {
+    display: block;
+  }
+}
+
 .wallpaper {
   background-color: color.$color-wallpaper;
   min-height: 100vh;
