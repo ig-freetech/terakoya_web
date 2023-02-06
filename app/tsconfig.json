@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "ES2015",
+    "module": "CommonJS",
     "target": "ES2015",
     "sourceMap": true,
     "strict": true,
@@ -8,10 +8,11 @@
     "jsx": "react",
     "baseUrl": "./",
     "paths": {
-      "@pages/*": ["src/app/pages/*"],
-      "@styles/*": ["src/app/styles/*"],
-      "@apis/*": ["src/app/apis/*"],
-      "@utils/*": ["src/app/utils/*"]
+      "@apis/*": ["src/apis/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"]
     },
     "moduleResolution": "node",
     "esModuleInterop": true,
