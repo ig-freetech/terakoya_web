@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import { Form } from "@pages/book";
+import { Page } from "@pages/book";
 import "@styles/pages/index.scss";
 
 type ResultProps = {
@@ -44,7 +44,7 @@ const NOT_FOUND_TEXTS = [
 export const Home: React.FC = () => (
   <Router>
     <Routes>
-      <Route path="/" element={<Form />} />
+      <Route path="/" element={<Page />} />
       <Route path="/result" element={<Result texts={SUCCESS_RESULT_TEXTS} />} />
       <Route path="/error" element={<Result texts={ERROR_RESULT_TEXTS} />} />
       <Route path="/*" element={<Result texts={NOT_FOUND_TEXTS} />} />
