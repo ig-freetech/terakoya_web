@@ -35,9 +35,9 @@ jobs:
       - name: Deploy to Dev
         if: contains(toJSON(github.ref), 'develop')
         run: |
-          aws s3 cp --recursive ./app/public ${{ secrets.AWS_S3_BUCKET_DEV_URI }}
+          aws s3 cp --recursive ./app/public s3://${{ secrets.AWS_S3_BUCKET_NAME_DEV }}/
 
       - name: Deploy to Prod
         if: contains(toJSON(github.ref), 'master')
         run: |
-          aws s3 cp --recursive ./app/public ${{ secrets.AWS_S3_BUCKET_PROD_URI }}
+          aws s3 cp --recursive ./app/public s3://${{ secrets.AWS_S3_BUCKET_NAME_PROD }}/
