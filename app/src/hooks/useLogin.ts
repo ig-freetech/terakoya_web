@@ -18,7 +18,7 @@ export const useLogin = () => {
   const _onLogin = (body: RequestBody) =>
     login(body)
       .then((v) => {
-        if (v.data.resultType === 1) {
+        if (v.data.result_type === 1) {
           navigate("/manage");
           return;
         }

@@ -63,6 +63,10 @@ export const useBook = () => {
       return;
     }
     setIsLoading(true);
+    inputs.terakoya_type = Number(inputs.terakoya_type) as TERAKOYA_TYPE;
+    inputs.terakoya_experience = Number(
+      inputs.terakoya_experience
+    ) as TERAKOYA_EXPERIENCE;
     _onBook(inputs);
   });
 
@@ -81,18 +85,14 @@ export const useBook = () => {
   const [selectedTerakoyaExperience, setTerakoyaExperience] =
     useState<TERAKOYA_EXPERIENCE>(TERAKOYA_EXPERIENCE.NULL);
   const onChangeSelectedExperience = (value: string) => {
-    const v = Number(value) as TERAKOYA_EXPERIENCE;
-    setTerakoyaExperience(v);
-    setValue("terakoya_experience", v);
+    setTerakoyaExperience(Number(value) as TERAKOYA_EXPERIENCE);
   };
 
   const [selectedTerakoyaType, setTerakoyaType] = useState<TERAKOYA_TYPE>(
     TERAKOYA_TYPE.NULL
   );
   const onChangeSelectedTerakoyaType = (value: string) => {
-    const v = Number(value) as TERAKOYA_TYPE;
-    setTerakoyaType(v);
-    setValue("terakoya_type", v);
+    setTerakoyaType(Number(value) as TERAKOYA_TYPE);
     _reset();
   };
   const _reset = () => {

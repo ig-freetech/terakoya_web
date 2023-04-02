@@ -14,6 +14,7 @@ import {
   TERAKOYA_EXPERIENCE,
   TERAKOYA_TYPE,
 } from "@apis/book";
+import { ISO_FORMAT } from "@utils/datetime";
 
 import "@styles/pages/book.scss";
 
@@ -225,7 +226,7 @@ export default function Page() {
     <div className="wallpaper">
       <div className="container">
         <div className="content">
-          <Link to="/manage">
+          <Link to="/login">
             <span className="to-home">管理者の方はこちら</span>
           </Link>
           <div className="main-caption">
@@ -247,7 +248,7 @@ export default function Page() {
                     // registerRtn={register("terakoya_type", {
                     //   valueAsNumber: true,
                     // })}
-                    // registerRtn={register("terakoya_type")}
+                    registerRtn={register("terakoya_type")}
                     inputType="radio"
                     data={data}
                     isRequired={true}
@@ -287,7 +288,7 @@ export default function Page() {
                       inputType="checkbox"
                       data={{
                         text: dateDayjs.format("MM/DD (ddd)"),
-                        value: dateDayjs.format("YYYY-MM-DD"),
+                        value: dateDayjs.format(ISO_FORMAT),
                       }}
                       isRequired={false}
                       onChange={(e) => onChangeDateList(e.target.value)}
@@ -315,7 +316,7 @@ export default function Page() {
                 {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data, i) => (
                   <GroupInput
                     key={i}
-                    // registerRtn={register("terakoya_experience")}
+                    registerRtn={register("terakoya_experience")}
                     inputType="radio"
                     data={data}
                     isRequired={true}

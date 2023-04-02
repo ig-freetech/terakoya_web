@@ -46,9 +46,9 @@ const NOT_FOUND_TEXTS = [
 export const Home: React.FC = () => (
   <Router>
     <Routes>
-      {/* <Route path="/" element={<BookPage />} /> */}
-      {/* <Route path="/login" element={<LoginPage />} /> */}
-      <Route path="/" element={<LoginPage />} />
+      <Route path="/" element={<BookPage />} />
+      {/* <Route path="/" element={<ManagePage />} /> */}
+      <Route path="/login" element={<LoginPage />} />
       <Route path="/manage" element={<ManagePage />} />
       <Route path="/result" element={<Result texts={SUCCESS_RESULT_TEXTS} />} />
       <Route path="/error" element={<Result texts={ERROR_RESULT_TEXTS} />} />
