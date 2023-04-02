@@ -1,7 +1,9 @@
 import * as React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import { Page } from "@pages/book";
+import BookPage from "@pages/book";
+import LoginPage from "@pages/login";
+import ManagePage from "@pages/manage";
 import "@styles/pages/index.scss";
 
 type ResultProps = {
@@ -44,7 +46,10 @@ const NOT_FOUND_TEXTS = [
 export const Home: React.FC = () => (
   <Router>
     <Routes>
-      <Route path="/" element={<Page />} />
+      {/* <Route path="/" element={<BookPage />} /> */}
+      {/* <Route path="/login" element={<LoginPage />} /> */}
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/manage" element={<ManagePage />} />
       <Route path="/result" element={<Result texts={SUCCESS_RESULT_TEXTS} />} />
       <Route path="/error" element={<Result texts={ERROR_RESULT_TEXTS} />} />
       <Route path="/*" element={<Result texts={NOT_FOUND_TEXTS} />} />

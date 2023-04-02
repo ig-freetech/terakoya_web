@@ -207,7 +207,7 @@ export const TextArea: React.FC<CommonInputProps> = (props) => (
   <textarea className="textarea" {...props.registerRtn} rows={2} />
 );
 
-export const Page: React.FC = () => {
+export default function Page() {
   const {
     register,
     onSubmit,
@@ -225,8 +225,8 @@ export const Page: React.FC = () => {
     <div className="wallpaper">
       <div className="container">
         <div className="content">
-          <Link to="/">
-            <span className="to-home">ホームへ戻る</span>
+          <Link to="/manage">
+            <span className="to-home">管理者の方はこちら</span>
           </Link>
           <div className="main-caption">
             <span className="main-caption-text">
@@ -409,4 +409,4 @@ export const Page: React.FC = () => {
       </div>
     </div>
   );
-};
+}
