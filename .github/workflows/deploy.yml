@@ -18,6 +18,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
+      - name: Download .env
+        run: aws s3 cp s3://${{ secrets.S3_TERAKOYA_BUCKET_NAME }}/static/config/.env ./app/
+
       - name: Install Dependencies and Build for Development
         working-directory: ./app
         if: contains(toJSON(github.ref), 'develop')
