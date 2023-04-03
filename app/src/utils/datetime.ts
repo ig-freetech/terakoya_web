@@ -12,6 +12,8 @@ export const TODAY_JST = dayjs().tz("Asia/Tokyo");
 
 const ONE_WEEK_DAYS = 7;
 
+export const ISO_FORMAT = "YYYY-MM-DD";
+
 export const getNextSameDayDateList = (
   startingPointDate: Dayjs,
   count: number,

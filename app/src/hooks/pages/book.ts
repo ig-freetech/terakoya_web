@@ -52,18 +52,22 @@ export const useBook = () => {
     book(body)
       .then((_) => navigate("/result"))
       .catch((err: AxiosError) => {
-        console.log(`Error Happened. Error Message: ${err.message}`);
+        // console.log(`Error Happened. Error Message: ${err.message}`);
         navigate("/error");
       });
 
   const onSubmit = handleSubmit((inputs) => {
-    console.log(`Request Body:\n${JSON.stringify(inputs)}`);
+    // console.log(`Request Body:\n${JSON.stringify(inputs)}`);
     if (inputs.attendance_date_list.length === 0) {
       alert("参加希望日を1つ以上選択して下さい");
       return;
     }
-    // setIsLoading(true);
-    // _onBook(inputs);
+    setIsLoading(true);
+    inputs.terakoya_type = Number(inputs.terakoya_type) as TERAKOYA_TYPE;
+    inputs.terakoya_experience = Number(
+      inputs.terakoya_experience
+    ) as TERAKOYA_EXPERIENCE;
+    _onBook(inputs);
   });
 
   const onChangeDateList = (value: string) => {
@@ -80,8 +84,9 @@ export const useBook = () => {
 
   const [selectedTerakoyaExperience, setTerakoyaExperience] =
     useState<TERAKOYA_EXPERIENCE>(TERAKOYA_EXPERIENCE.NULL);
-  const onChangeSelectedExperience = (value: string) =>
+  const onChangeSelectedExperience = (value: string) => {
     setTerakoyaExperience(Number(value) as TERAKOYA_EXPERIENCE);
+  };
 
   const [selectedTerakoyaType, setTerakoyaType] = useState<TERAKOYA_TYPE>(
     TERAKOYA_TYPE.NULL

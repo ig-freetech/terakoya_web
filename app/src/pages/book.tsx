@@ -14,11 +14,12 @@ import {
   TERAKOYA_EXPERIENCE,
   TERAKOYA_TYPE,
 } from "@apis/book";
+import { ISO_FORMAT } from "@utils/datetime";
 
 import "@styles/pages/book.scss";
 
 type CommonInputProps = {
-  registerRtn: UseFormRegisterReturn;
+  registerRtn?: UseFormRegisterReturn;
 };
 
 /**
@@ -104,8 +105,8 @@ const ComboBox: React.FC<ComboBoxProps> = (props) => {
   const { registerRtn, optionList } = props;
   return (
     <select className="select" {...registerRtn} required>
-      {optionList.map((option) => (
-        <option className="option" value={option.value}>
+      {optionList.map((option, i) => (
+        <option key={i} className="option" value={option.value}>
           {option.name}
         </option>
       ))}
@@ -207,7 +208,7 @@ export const TextArea: React.FC<CommonInputProps> = (props) => (
   <textarea className="textarea" {...props.registerRtn} rows={2} />
 );
 
-export const Form: React.FC = () => {
+export default function Page() {
   const {
     register,
     onSubmit,
@@ -225,8 +226,8 @@ export const Form: React.FC = () => {
     <div className="wallpaper">
       <div className="container">
         <div className="content">
-          <Link to="/">
-            <span className="to-home">ホームへ戻る</span>
+          <Link to="/login">
+            <span className="to-home">管理者の方はこちら</span>
           </Link>
           <div className="main-caption">
             <span className="main-caption-text">
@@ -239,8 +240,14 @@ export const Form: React.FC = () => {
                 <span className="label-description">
                   ※下記の選択に応じて参加希望日で選択できる日程が切り替わります。
                 </span>
-                {TERAKOYA_TYPE_RADIO_DATA.map((data) => (
+                {TERAKOYA_TYPE_RADIO_DATA.map((data, i) => (
                   <GroupInput
+                    key={i}
+                    // valueAsオプションはradioボタンには使えない
+                    // https://zenn.dev/yodaka/articles/e490a79bccd5e2
+                    // registerRtn={register("terakoya_type", {
+                    //   valueAsNumber: true,
+                    // })}
                     registerRtn={register("terakoya_type")}
                     inputType="radio"
                     data={data}
@@ -266,20 +273,22 @@ export const Form: React.FC = () => {
                 />
               </Label>
               <Label text="学年">
+                {/* https://zenn.dev/koojy/articles/reacthookform-select-number */}
                 <ComboBox
-                  registerRtn={register("grade")}
+                  registerRtn={register("grade", { valueAsNumber: true })}
                   optionList={isMiddle ? MID_GRADE_LIST : HIGH_GRADE_LIST}
                 />
               </Label>
               {selectedTerakoyaType != TERAKOYA_TYPE.NULL ? (
                 <Label text="参加希望日">
-                  {attendanceDateList.map((dateDayjs) => (
+                  {attendanceDateList.map((dateDayjs, i) => (
                     <GroupInput
+                      key={i}
                       registerRtn={register("attendance_date_list")}
                       inputType="checkbox"
                       data={{
                         text: dateDayjs.format("MM/DD (ddd)"),
-                        value: dateDayjs.format("YYYY-MM-DD"),
+                        value: dateDayjs.format(ISO_FORMAT),
                       }}
                       isRequired={false}
                       onChange={(e) => onChangeDateList(e.target.value)}
@@ -297,13 +306,16 @@ export const Form: React.FC = () => {
                 }
               >
                 <ComboBox
-                  registerRtn={register("arrival_time")}
+                  registerRtn={register("arrival_time", {
+                    valueAsNumber: true,
+                  })}
                   optionList={ARRIVAL_TIME_OPTION_LIST}
                 />
               </Label>
               <Label text="テラコヤへのご参加は？">
-                {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data) => (
+                {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data, i) => (
                   <GroupInput
+                    key={i}
                     registerRtn={register("terakoya_experience")}
                     inputType="radio"
                     data={data}
@@ -331,7 +343,9 @@ export const Form: React.FC = () => {
                   {!isMiddle ? (
                     <Label text="文理選択">
                       <ComboBox
-                        registerRtn={register("course_choice")}
+                        registerRtn={register("course_choice", {
+                          valueAsNumber: true,
+                        })}
                         optionList={COURSE_CHOICE_OPTION_LIST}
                       />
                     </Label>
@@ -344,7 +358,9 @@ export const Form: React.FC = () => {
                   </Label>
                   <Label text="テラコヤを知ったキッカケ">
                     <ComboBox
-                      registerRtn={register("how_to_know_terakoya")}
+                      registerRtn={register("how_to_know_terakoya", {
+                        valueAsNumber: true,
+                      })}
                       optionList={HOW_TO_KNOW_TERAKOYA_OPTION_LIST}
                     />
                   </Label>
@@ -352,14 +368,18 @@ export const Form: React.FC = () => {
               ) : selectedTerakoyaExperience == TERAKOYA_EXPERIENCE.DONE ? (
                 <Label text="希望する勉強の仕方">
                   <ComboBox
-                    registerRtn={register("study_style")}
+                    registerRtn={register("study_style", {
+                      valueAsNumber: true,
+                    })}
                     optionList={STUDY_STYLE_OPTION_LIST}
                   />
                 </Label>
               ) : null}
               <Label text="勉強したい科目">
                 <ComboBox
-                  registerRtn={register("study_subject")}
+                  registerRtn={register("study_subject", {
+                    valueAsNumber: true,
+                  })}
                   optionList={STUDY_SUBJECT_HIGH_OPTION_LIST}
                   // optionList={
                   //   isMiddle
@@ -390,4 +410,4 @@ export const Form: React.FC = () => {
       </div>
     </div>
   );
-};
+}

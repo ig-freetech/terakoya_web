@@ -11,5 +11,9 @@ module.exports = merge(common, {
     },
     port: 8000,
     open: true,
+    // https://sushirice.pro/js-store/router_404_error/
+    historyApiFallback: {
+      rewrites: [{ from: /^\/*/, to: "/index.html" }],
+    },
   },
 });

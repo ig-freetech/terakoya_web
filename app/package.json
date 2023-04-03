@@ -7,8 +7,14 @@
     "ts-node": "./node_modules/.bin/ts-node --files -r tsconfig-paths/register"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/material": "^5.11.15",
+    "@mui/x-date-pickers": "^6.0.4",
     "axios": "^0.27.2",
     "dayjs": "^1.11.3",
+    "firebase": "^9.19.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.32.0",
