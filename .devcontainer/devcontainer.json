@@ -3,8 +3,20 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "node18",
   "workspaceFolder": "/app",
-  "settings": {
-    "editor.formatOnSave": true
-  },
-  "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true,
+        "files.exclude": {
+          "tmp": true
+        }
+      },
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "orta.vscode-jest",
+        "github.copilot"
+      ]
+    }
+  }
 }
