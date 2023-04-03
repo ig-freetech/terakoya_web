@@ -19,8 +19,9 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useManage } from "@hooks/pages/manage";
+import { useManage, TERAKOYA_TYPE } from "@hooks/pages/manage";
 import { ISO_FORMAT, TODAY_JST } from "@utils/datetime";
+import { BookingItem } from "@apis/bookList";
 
 /**到着予定時間帯 (arrival_time) */
 const ARRIVAL_TIME = {
@@ -29,16 +30,6 @@ const ARRIVAL_TIME = {
   2: "17:00~17:30",
   3: "17:30~18:00",
   4: "18:00以降",
-  999: "-",
-} as const;
-
-/**テラコヤ種別 (terakoya_type) */
-const TERAKOYA_TYPE = {
-  1: "カフェ塾テラコヤ(池袋)",
-  2: "オンラインテラコヤ(多摩)",
-  3: "テラコヤ中等部(池袋)",
-  4: "テラコヤ中等部(渋谷)",
-  0: "その他",
   999: "-",
 } as const;
 
@@ -98,8 +89,7 @@ const COURSE_CHOICE = {
 } as const;
 
 export default function Page() {
-  const { isLoading, bookingItemList, onGetBookingList } = useManage();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const { bookingItemList, onGetBookingList, onSelect } = useManage();
   return (
     <Box sx={{ p: 5 }}>
       <Paper sx={{ p: 5 }}>
@@ -136,95 +126,12 @@ export default function Page() {
                 <TableCell>学年</TableCell>
                 <TableCell>備考</TableCell>
                 <TableCell>拠点</TableCell>
+                <TableCell>リマインドメール送信済み</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {bookingItemList.map((item) => (
-                <>
-                  <TableRow sx={{ borderBottom: "unset" }}>
-                    <TableCell>
-                      <IconButton
-                        size="small"
-                        onClick={() => setIsOpen(!isOpen)}
-                      >
-                        {isOpen ? (
-                          <KeyboardArrowUpIcon />
-                        ) : (
-                          <KeyboardArrowDownIcon />
-                        )}
-                      </IconButton>
-                    </TableCell>
-                    <TableCell>{item.date}</TableCell>
-                    <TableCell>{item.name}</TableCell>
-                    <TableCell>{TERAKOYA_TYPE[item.terakoya_type]}</TableCell>
-                    <TableCell>{GRADE[item.grade]}</TableCell>
-                    <TableCell>{item.remarks}</TableCell>
-                    <TableCell>
-                      {/* https://mui.com/material-ui/react-select/ */}
-                      <Select value={item.place}>
-                        <MenuItem value={0}>未設定</MenuItem>
-                        <MenuItem value={1}>サンシャインシティ</MenuItem>
-                        <MenuItem value={2}>良品計画本社</MenuItem>
-                        <MenuItem value={3}>DIORAMA CAFE</MenuItem>
-                        <MenuItem value={4}>キャリア・マム</MenuItem>
-                        <MenuItem value={5}>キカガク</MenuItem>
-                      </Select>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    {/* https://v4.mui.com/ja/components/tables/ */}
-                    <TableCell
-                      colSpan={7}
-                      sx={{ paddingBottom: 0, paddingTop: 0 }}
-                    >
-                      <Collapse in={isOpen}>
-                        <Table size="small" sx={{ tableLayout: "fixed", m: 1 }}>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell>メールアドレス</TableCell>
-                              <TableCell>到着予定時間帯</TableCell>
-                              <TableCell>参加経験</TableCell>
-                              <TableCell>科目</TableCell>
-                              <TableCell>科目内容</TableCell>
-                              <TableCell>勉強の仕方</TableCell>
-                              <TableCell>在籍している学校</TableCell>
-                              <TableCell>文理選択</TableCell>
-                              <TableCell>将来の夢・志望大学</TableCell>
-                              <TableCell>好きなもの(こと)</TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            <TableRow>
-                              {/* https://github.com/mui/material-ui/issues/2076 */}
-                              <TableCell sx={{ wordWrap: "break-word" }}>
-                                {item.email}
-                              </TableCell>
-                              <TableCell>
-                                {ARRIVAL_TIME[item.arrival_time]}
-                              </TableCell>
-                              <TableCell>
-                                {TERAKOYA_EXPERIENCE[item.terakoya_experience]}
-                              </TableCell>
-                              <TableCell>
-                                {STUDY_SUBJECT[item.study_subject]}
-                              </TableCell>
-                              <TableCell>{item.study_subject_detail}</TableCell>
-                              <TableCell>
-                                {STUDY_STYLE[item.study_style]}
-                              </TableCell>
-                              <TableCell>{item.school_name}</TableCell>
-                              <TableCell>
-                                {COURSE_CHOICE[item.course_choice]}
-                              </TableCell>
-                              <TableCell>{item.future_free}</TableCell>
-                              <TableCell>{item.like_thing_free}</TableCell>
-                            </TableRow>
-                          </TableBody>
-                        </Table>
-                      </Collapse>
-                    </TableCell>
-                  </TableRow>
-                </>
+              {bookingItemList.map((item, i) => (
+                <AccordionTableRow key={i} item={item} onSelect={onSelect} />
               ))}
             </TableBody>
           </Table>
@@ -233,3 +140,86 @@ export default function Page() {
     </Box>
   );
 }
+
+type AccordionTableRowProps = {
+  item: BookingItem;
+  onSelect: (place: number, item: BookingItem) => void;
+};
+const AccordionTableRow = (props: AccordionTableRowProps) => {
+  const { item, onSelect } = props;
+  const [expanded, setExpanded] = React.useState(false);
+  return (
+    <>
+      <TableRow sx={{ borderBottom: "unset" }}>
+        <TableCell>
+          <IconButton size="small" onClick={() => setExpanded(!expanded)}>
+            {expanded ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell>{item.date}</TableCell>
+        <TableCell>{item.name}</TableCell>
+        <TableCell>{TERAKOYA_TYPE[item.terakoya_type]}</TableCell>
+        <TableCell>{GRADE[item.grade]}</TableCell>
+        <TableCell>{item.remarks}</TableCell>
+        <TableCell>
+          <Select
+            value={item.place}
+            onChange={(e) => onSelect(Number(e.target.value), item)}
+          >
+            <MenuItem value={0}>未設定</MenuItem>
+            <MenuItem value={1}>サンシャインシティ</MenuItem>
+            <MenuItem value={2}>良品計画本社</MenuItem>
+            <MenuItem value={3}>DIORAMA CAFE</MenuItem>
+            <MenuItem value={4}>キャリア・マム</MenuItem>
+            <MenuItem value={5}>キカガク</MenuItem>
+          </Select>
+        </TableCell>
+        <TableCell>
+          <Box textAlign="center">{item.is_reminded ? "済" : "未"}</Box>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        {/* https://v4.mui.com/ja/components/tables/ */}
+        <TableCell colSpan={8} sx={{ paddingBottom: 0, paddingTop: 0 }}>
+          <Collapse in={expanded}>
+            <Table size="small" sx={{ tableLayout: "fixed", m: 1 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>メールアドレス</TableCell>
+                  <TableCell>到着予定時間帯</TableCell>
+                  <TableCell>参加経験</TableCell>
+                  <TableCell>科目</TableCell>
+                  <TableCell>科目内容</TableCell>
+                  <TableCell>勉強の仕方</TableCell>
+                  <TableCell>在籍している学校</TableCell>
+                  <TableCell>文理選択</TableCell>
+                  <TableCell>将来の夢・志望大学</TableCell>
+                  <TableCell>好きなもの(こと)</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  {/* https://github.com/mui/material-ui/issues/2076 */}
+                  <TableCell sx={{ wordWrap: "break-word" }}>
+                    {item.email}
+                  </TableCell>
+                  <TableCell>{ARRIVAL_TIME[item.arrival_time]}</TableCell>
+                  <TableCell>
+                    {TERAKOYA_EXPERIENCE[item.terakoya_experience]}
+                  </TableCell>
+                  <TableCell>{STUDY_SUBJECT[item.study_subject]}</TableCell>
+                  <TableCell>{item.study_subject_detail}</TableCell>
+                  <TableCell>{STUDY_STYLE[item.study_style]}</TableCell>
+                  <TableCell>{item.school_name}</TableCell>
+                  <TableCell>{COURSE_CHOICE[item.course_choice]}</TableCell>
+                  <TableCell>{item.future_free}</TableCell>
+                  <TableCell>{item.like_thing_free}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+};
