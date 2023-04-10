@@ -114,7 +114,7 @@ export const useBook = () => {
    * Date list to not be shown in attendance date list
    * @description Add a date in the form of "YYYY-MM-DD"
    */
-  const EXCLUDE_DATE_LIST: Array<string> = [];
+  const EXCLUDE_DATE_LIST: Array<string> = ["2023-05-02"];
   const TUESUDAY = 2;
   const SATURDAY = 6;
   const TERAKOYA_START_TIME = 17;

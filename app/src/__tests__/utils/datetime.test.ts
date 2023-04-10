@@ -21,7 +21,7 @@ describe("datetime.ts", () => {
       const startingPointDate = dayjs("2023-02-04"); // Saturday
       expect(getNextSameDayDateList(startingPointDate, 5)).toEqual([
         dayjs("2023-02-04"),
-        dayjs("2023-02-11"),
+        // dayjs("2023-02-11"), // holiday
         dayjs("2023-02-18"),
         dayjs("2023-02-25"),
         dayjs("2023-03-04"),
@@ -33,6 +33,14 @@ describe("datetime.ts", () => {
       expect(
         getNextSameDayDateList(startingPointDate, 3, EXCLUDE_DATE_LIST)
       ).toEqual([dayjs("2023-01-31"), dayjs("2023-02-14")]);
+    });
+
+    describe("Exclude holidays", () => {
+      const startingPointDate = dayjs("2023-03-21"); // Tuesday of holiday
+      const EXCLUDE_DATE_LIST: Array<string> = [];
+      expect(
+        getNextSameDayDateList(startingPointDate, 3, EXCLUDE_DATE_LIST)
+      ).toEqual([dayjs("2023-03-28"), dayjs("2023-04-04")]);
     });
   });
 
