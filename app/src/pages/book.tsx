@@ -85,17 +85,24 @@ type GroupInputProps = {
 } & CommonInputProps;
 type GroupInputData = {
   text: string;
-  value: string | TERAKOYA_TYPE | TERAKOYA_EXPERIENCE;
+  // valueAsオプションはradioボタンには使えないのでFront側ではstringで管理してRequestBodyを生成する際に変換する
+  value: string;
 };
 const TERAKOYA_TYPE_RADIO_DATA: Array<GroupInputData> = [
-  { text: "カフェ塾テラコヤ(池袋)", value: TERAKOYA_TYPE.HIGH_IKE },
-  { text: "オンラインテラコヤ(多摩)", value: TERAKOYA_TYPE.ONLINE_TAMA },
-  { text: "テラコヤ中等部(池袋)", value: TERAKOYA_TYPE.MID_IKE },
-  { text: "テラコヤ中等部(渋谷)", value: TERAKOYA_TYPE.MID_SHIBU },
+  { text: "カフェ塾テラコヤ(池袋)", value: TERAKOYA_TYPE.HIGH_IKE.toString() },
+  {
+    text: "オンラインテラコヤ(多摩)",
+    value: TERAKOYA_TYPE.ONLINE_TAMA.toString(),
+  },
+  { text: "テラコヤ中等部(池袋)", value: TERAKOYA_TYPE.MID_IKE.toString() },
+  { text: "テラコヤ中等部(渋谷)", value: TERAKOYA_TYPE.MID_SHIBU.toString() },
 ];
 const TERAKOYA_EXPERIENCE_RADIO_DATA: Array<GroupInputData> = [
-  { text: "今回が初回", value: TERAKOYA_EXPERIENCE.FIRST_TIME },
-  { text: "過去に参加したことがある", value: TERAKOYA_EXPERIENCE.DONE },
+  { text: "今回が初回", value: TERAKOYA_EXPERIENCE.FIRST_TIME.toString() },
+  {
+    text: "過去に参加したことがある",
+    value: TERAKOYA_EXPERIENCE.DONE.toString(),
+  },
 ];
 
 /**
@@ -279,7 +286,7 @@ export default function Page() {
                   optionList={isMiddle ? MID_GRADE_LIST : HIGH_GRADE_LIST}
                 />
               </Label>
-              {selectedTerakoyaType != TERAKOYA_TYPE.NULL ? (
+              {selectedTerakoyaType != TERAKOYA_TYPE.NULL.toString() ? (
                 <Label text="参加希望日">
                   {attendanceDateList.map((dateDayjs, i) => (
                     <GroupInput
@@ -324,7 +331,8 @@ export default function Page() {
                   />
                 ))}
               </Label>
-              {selectedTerakoyaExperience == TERAKOYA_EXPERIENCE.FIRST_TIME ? (
+              {selectedTerakoyaExperience ==
+              TERAKOYA_EXPERIENCE.FIRST_TIME.toString() ? (
                 <>
                   <Label text="今在籍している学校名">
                     <TextBox
@@ -365,7 +373,8 @@ export default function Page() {
                     />
                   </Label>
                 </>
-              ) : selectedTerakoyaExperience == TERAKOYA_EXPERIENCE.DONE ? (
+              ) : selectedTerakoyaExperience ==
+                TERAKOYA_EXPERIENCE.DONE.toString() ? (
                 <Label text="希望する勉強の仕方">
                   <ComboBox
                     registerRtn={register("study_style", {
