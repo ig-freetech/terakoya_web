@@ -1,21 +1,29 @@
 {
-  "name": "terakoya-client-static-node18",
-  "dockerComposeFile": "../docker-compose.yml",
-  "service": "node18",
-  "workspaceFolder": "/app",
+  "name": "terakoya-client-static",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
   "customizations": {
     "vscode": {
       "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
         "editor.formatOnSave": true,
         "files.exclude": {
           "tmp": true
         }
       },
       "extensions": [
+        "formulahendry.auto-rename-tag",
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "orta.vscode-jest",
-        "github.copilot"
+        "github.copilot",
+        "eamodio.gitlens",
+        "github.vscode-pull-request-github",
+        "pkief.material-icon-theme",
+        "easycodeai.chatgpt-gpt4-gpt3-vscode",
+        "danielsanmedium.dscodegpt"
       ]
     }
   }

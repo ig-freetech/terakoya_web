@@ -1,8 +1,0 @@
-version: '3.8'
-
-services:
-  node18:
-    build: .
-    volumes:
-      - ./app:/app
-    command: /bin/sh -c "while sleep 1000; do :; done"
