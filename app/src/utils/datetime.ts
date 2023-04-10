@@ -2,6 +2,8 @@ import dayjs, { Dayjs } from "dayjs";
 import ja from "dayjs/locale/ja";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+// https://cpoint-lab.co.jp/article/202108/20763/
+import { isHoliday } from "japanese-holidays";
 
 dayjs.locale(ja);
 dayjs.extend(utc);
@@ -23,9 +25,11 @@ export const getNextSameDayDateList = (
   for (let i = 0; i < count; i++) {
     const nextWeekDate = startingPointDate.add(ONE_WEEK_DAYS * i, "day");
     if (
+      // Exclude the date if it is in the excludeDateList or it is a holiday
       excludeDateList.some(
         (exDate) => dayjs(exDate).diff(nextWeekDate, "day") == 0
-      )
+      ) ||
+      Boolean(isHoliday(nextWeekDate.toDate(), true))
     ) {
       continue;
     }
