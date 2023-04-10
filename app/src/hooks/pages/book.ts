@@ -25,28 +25,33 @@ export const useBook = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  const { register, handleSubmit, setValue, getValues, resetField } =
-    useForm<RequestBody>({
-      defaultValues: {
-        name: "",
-        email: "",
-        terakoya_type: TERAKOYA_TYPE.NULL,
-        attendance_date_list: [],
-        arrival_time: ARRIVAL_TIME.NULL,
-        grade: GRADE.NULL,
-        terakoya_experience: TERAKOYA_EXPERIENCE.NULL,
-        study_subject: STUDY_SUBJECT.NULL,
-        study_subject_detail: "",
-        study_style: STUDY_STYLE.NULL,
-        school_name: "",
-        first_choice_school: "",
-        course_choice: COURSE_CHOICE.NULL,
-        future_free: "",
-        like_thing_free: "",
-        how_to_know_terakoya: HOW_TO_KNOW_TERAKOYA.NULL,
-        remarks: "",
-      },
-    });
+  const { register, handleSubmit, setValue, getValues, resetField } = useForm<
+    // Safari では setValue で数値型の値をセットできないため、Front側の状態管理としては文字列型で管理する
+    Omit<RequestBody, "terakoya_type" | "terakoya_experience"> & {
+      terakoya_type: string;
+      terakoya_experience: string;
+    }
+  >({
+    defaultValues: {
+      name: "",
+      email: "",
+      terakoya_type: TERAKOYA_TYPE.NULL.toString(),
+      attendance_date_list: [],
+      arrival_time: ARRIVAL_TIME.NULL,
+      grade: GRADE.NULL,
+      terakoya_experience: TERAKOYA_EXPERIENCE.NULL.toString(),
+      study_subject: STUDY_SUBJECT.NULL,
+      study_subject_detail: "",
+      study_style: STUDY_STYLE.NULL,
+      school_name: "",
+      first_choice_school: "",
+      course_choice: COURSE_CHOICE.NULL,
+      future_free: "",
+      like_thing_free: "",
+      how_to_know_terakoya: HOW_TO_KNOW_TERAKOYA.NULL,
+      remarks: "",
+    },
+  });
 
   const _onBook = (body: RequestBody) =>
     book(body)
@@ -63,11 +68,14 @@ export const useBook = () => {
       return;
     }
     setIsLoading(true);
-    inputs.terakoya_type = Number(inputs.terakoya_type) as TERAKOYA_TYPE;
-    inputs.terakoya_experience = Number(
-      inputs.terakoya_experience
-    ) as TERAKOYA_EXPERIENCE;
-    _onBook(inputs);
+    const requestBody = {
+      ...inputs,
+      terakoya_type: Number(selectedTerakoyaType) as TERAKOYA_TYPE,
+      terakoya_experience: Number(
+        selectedTerakoyaExperience
+      ) as TERAKOYA_EXPERIENCE,
+    };
+    _onBook(requestBody);
   });
 
   const onChangeDateList = (value: string) => {
@@ -82,17 +90,18 @@ export const useBook = () => {
     setValue("attendance_date_list", [...selectedDateList, value]);
   };
 
-  const [selectedTerakoyaExperience, setTerakoyaExperience] =
-    useState<TERAKOYA_EXPERIENCE>(TERAKOYA_EXPERIENCE.NULL);
+  const [selectedTerakoyaExperience, setTerakoyaExperience] = useState<string>(
+    TERAKOYA_EXPERIENCE.NULL.toString()
+  );
   const onChangeSelectedExperience = (value: string) => {
-    setTerakoyaExperience(Number(value) as TERAKOYA_EXPERIENCE);
+    setTerakoyaExperience(value);
   };
 
-  const [selectedTerakoyaType, setTerakoyaType] = useState<TERAKOYA_TYPE>(
-    TERAKOYA_TYPE.NULL
+  const [selectedTerakoyaType, setTerakoyaType] = useState<string>(
+    TERAKOYA_TYPE.NULL.toString()
   );
   const onChangeSelectedTerakoyaType = (value: string) => {
-    setTerakoyaType(Number(value) as TERAKOYA_TYPE);
+    setTerakoyaType(value);
     _reset();
   };
   const _reset = () => {
@@ -127,10 +136,12 @@ export const useBook = () => {
     selectedTerakoyaType,
     onChangeSelectedTerakoyaType,
     isMiddle:
-      selectedTerakoyaType == TERAKOYA_TYPE.MID_IKE ||
-      selectedTerakoyaType == TERAKOYA_TYPE.MID_SHIBU,
+      selectedTerakoyaType == TERAKOYA_TYPE.MID_IKE.toString() ||
+      selectedTerakoyaType == TERAKOYA_TYPE.MID_SHIBU.toString(),
     attendanceDateList: _getNextThreeDateList(
-      selectedTerakoyaType == TERAKOYA_TYPE.MID_SHIBU ? SATURDAY : TUESUDAY
+      selectedTerakoyaType == TERAKOYA_TYPE.MID_SHIBU.toString()
+        ? SATURDAY
+        : TUESUDAY
     ),
   };
 };
