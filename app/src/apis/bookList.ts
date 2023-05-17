@@ -9,4 +9,4 @@ export type BookingItem = RequestBody & {
 };
 
 export const getBookingList = (target_date: string) =>
-  axios.get(BASE_URL + `/book/list?date=${target_date}`);
+  axios.get(BASE_URL + `/booking/list?date=${target_date}`);
