@@ -9,7 +9,12 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "bash",
+            "args": []
+          }
+        },
         "editor.formatOnSave": true,
         "files.exclude": {
           "tmp": true
@@ -20,11 +25,12 @@
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "orta.vscode-jest",
+        "pkief.material-icon-theme",
         "ms-azuretools.vscode-docker",
+        "github.vscode-github-actions",
         "github.copilot",
         "eamodio.gitlens",
         "github.vscode-pull-request-github",
-        "pkief.material-icon-theme",
         "easycodeai.chatgpt-gpt4-gpt3-vscode",
         "danielsanmedium.dscodegpt"
       ]
