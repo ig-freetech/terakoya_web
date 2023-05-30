@@ -10,8 +10,6 @@ export const TERAKOYA_TYPE = {
   MID_IKE: 3,
   /**テラコヤ中等部(渋谷) */
   MID_SHIBU: 4,
-  /**その他 */
-  OTHER: 0,
 } as const;
 /**テラコヤ種別 (terakoya_type) - required */
 export type TERAKOYA_TYPE = (typeof TERAKOYA_TYPE)[keyof typeof TERAKOYA_TYPE];
@@ -25,8 +23,6 @@ export const ARRIVAL_TIME = {
   FROM_1730_TO_1800: 3,
   /**18:00以降 */
   AFTER_1800: 4,
-  /**その他 */
-  OTHER: 0,
 } as const;
 /**到着予定時間帯 (arrival_time) - required */
 export type ARRIVAL_TIME = (typeof ARRIVAL_TIME)[keyof typeof ARRIVAL_TIME];
@@ -55,8 +51,6 @@ export const TERAKOYA_EXPERIENCE = {
   FIRST_TIME: 1,
   /**過去に参加したことがある */
   DONE: 2,
-  /**その他 */
-  OTHER: 0,
 } as const;
 /**テラコヤ参加経験 (terakoya_experience) - required */
 export type TERAKOYA_EXPERIENCE =
