@@ -10,12 +10,9 @@ export const TERAKOYA_TYPE = {
   MID_IKE: 3,
   /**テラコヤ中等部(渋谷) */
   MID_SHIBU: 4,
-  /**その他 */
-  OTHER: 0,
-  NULL: 999,
 } as const;
-/**テラコヤ種別 (terakoya_type) */
-export type TERAKOYA_TYPE = typeof TERAKOYA_TYPE[keyof typeof TERAKOYA_TYPE];
+/**テラコヤ種別 (terakoya_type) - required */
+export type TERAKOYA_TYPE = (typeof TERAKOYA_TYPE)[keyof typeof TERAKOYA_TYPE];
 
 export const ARRIVAL_TIME = {
   /**17:00前 */
@@ -26,12 +23,9 @@ export const ARRIVAL_TIME = {
   FROM_1730_TO_1800: 3,
   /**18:00以降 */
   AFTER_1800: 4,
-  /**その他 */
-  OTHER: 0,
-  NULL: 999,
 } as const;
-/**到着予定時間帯 (arrival_time) */
-export type ARRIVAL_TIME = typeof ARRIVAL_TIME[keyof typeof ARRIVAL_TIME];
+/**到着予定時間帯 (arrival_time) - required */
+export type ARRIVAL_TIME = (typeof ARRIVAL_TIME)[keyof typeof ARRIVAL_TIME];
 
 export const GRADE = {
   /**高校1年生 */
@@ -48,23 +42,19 @@ export const GRADE = {
   MID_3: 13,
   /**その他 */
   OTHER: 0,
-  NULL: 999,
 } as const;
-/**学年 (grade) */
-export type GRADE = typeof GRADE[keyof typeof GRADE];
+/**学年 (grade) - required */
+export type GRADE = (typeof GRADE)[keyof typeof GRADE];
 
 export const TERAKOYA_EXPERIENCE = {
   /**今回が初回 */
   FIRST_TIME: 1,
   /**過去に参加したことがある */
   DONE: 2,
-  /**その他 */
-  OTHER: 0,
-  NULL: 999,
 } as const;
-/**テラコヤ参加経験 (terakoya_experience) */
+/**テラコヤ参加経験 (terakoya_experience) - required */
 export type TERAKOYA_EXPERIENCE =
-  typeof TERAKOYA_EXPERIENCE[keyof typeof TERAKOYA_EXPERIENCE];
+  (typeof TERAKOYA_EXPERIENCE)[keyof typeof TERAKOYA_EXPERIENCE];
 
 export const STUDY_SUBJECT = {
   /**英語 */
@@ -87,10 +77,9 @@ export const STUDY_SUBJECT = {
   EIKEN: 9,
   /**その他 */
   OTHER: 0,
-  NULL: 999,
 } as const;
-/**勉強したい科目 (study_subject) */
-export type STUDY_SUBJECT = typeof STUDY_SUBJECT[keyof typeof STUDY_SUBJECT];
+/**勉強したい科目 (study_subject) - required */
+export type STUDY_SUBJECT = (typeof STUDY_SUBJECT)[keyof typeof STUDY_SUBJECT];
 
 export const STUDY_STYLE = {
   /**黙々と静かに勉強したい */
@@ -105,10 +94,11 @@ export const STUDY_STYLE = {
   CONSULT: 5,
   /**その他 */
   OTHER: 0,
-  NULL: 999,
+  /**未選択 (ex: TERAKOYA_TYPE と TERAKOYA_EXPERIENCE の選択によっては未選択状態のままの項目を含んだ予約情報がリクエストされる) */
+  NULL: -1,
 } as const;
 /**勉強スタイル (study_style) */
-export type STUDY_STYLE = typeof STUDY_STYLE[keyof typeof STUDY_STYLE];
+export type STUDY_STYLE = (typeof STUDY_STYLE)[keyof typeof STUDY_STYLE];
 
 export const COURSE_CHOICE = {
   /**まだ決めていない */
@@ -119,10 +109,11 @@ export const COURSE_CHOICE = {
   SCIENCE: 3,
   /**その他 */
   OTHER: 0,
-  NULL: 999,
+  /**未選択 (ex: TERAKOYA_TYPE と TERAKOYA_EXPERIENCE の選択によっては未選択状態のままの項目を含んだ予約情報がリクエストされる) */
+  NULL: -1,
 } as const;
 /**文理選択 (course_choice) */
-export type COURSE_CHOICE = typeof COURSE_CHOICE[keyof typeof COURSE_CHOICE];
+export type COURSE_CHOICE = (typeof COURSE_CHOICE)[keyof typeof COURSE_CHOICE];
 
 export const HOW_TO_KNOW_TERAKOYA = {
   /**HP */
@@ -139,11 +130,12 @@ export const HOW_TO_KNOW_TERAKOYA = {
   LEAFLET: 6,
   /**その他 */
   OTHER: 0,
-  NULL: 999,
+  /**未選択 (ex: TERAKOYA_TYPE と TERAKOYA_EXPERIENCE の選択によっては未選択状態のままの項目を含んだ予約情報がリクエストされる) */
+  NULL: -1,
 } as const;
 /**テラコヤを知ったきっかけ (how_to_know_terakoya) */
 export type HOW_TO_KNOW_TERAKOYA =
-  typeof HOW_TO_KNOW_TERAKOYA[keyof typeof HOW_TO_KNOW_TERAKOYA];
+  (typeof HOW_TO_KNOW_TERAKOYA)[keyof typeof HOW_TO_KNOW_TERAKOYA];
 
 export type RequestBody = {
   name: string;

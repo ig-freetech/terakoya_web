@@ -25,22 +25,20 @@ export const useBook = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
+  // https://legacy.react-hook-form.com/api/useform/
   const { register, handleSubmit, setValue, getValues, resetField } = useForm<
-    // Safari では setValue で数値型の値をセットできないため、Front側の状態管理としては文字列型で管理する
+    // Control the value of the form fields as string in useForm because setValue() does not work for number type in Safari
     Omit<RequestBody, "terakoya_type" | "terakoya_experience"> & {
       terakoya_type: string;
       terakoya_experience: string;
     }
   >({
+    // Should avoid providing undefined as a default value as long as possible
+    // https://www.react-hook-form.com/api/useform/#defaultValues
     defaultValues: {
       name: "",
       email: "",
-      terakoya_type: TERAKOYA_TYPE.NULL.toString(),
       attendance_date_list: [],
-      arrival_time: ARRIVAL_TIME.NULL,
-      grade: GRADE.NULL,
-      terakoya_experience: TERAKOYA_EXPERIENCE.NULL.toString(),
-      study_subject: STUDY_SUBJECT.NULL,
       study_subject_detail: "",
       study_style: STUDY_STYLE.NULL,
       school_name: "",
@@ -90,16 +88,13 @@ export const useBook = () => {
     setValue("attendance_date_list", [...selectedDateList, value]);
   };
 
-  const [selectedTerakoyaExperience, setTerakoyaExperience] = useState<string>(
-    TERAKOYA_EXPERIENCE.NULL.toString()
-  );
+  const [selectedTerakoyaExperience, setTerakoyaExperience] =
+    useState<string>();
   const onChangeSelectedExperience = (value: string) => {
     setTerakoyaExperience(value);
   };
 
-  const [selectedTerakoyaType, setTerakoyaType] = useState<string>(
-    TERAKOYA_TYPE.NULL.toString()
-  );
+  const [selectedTerakoyaType, setTerakoyaType] = useState<string>();
   const onChangeSelectedTerakoyaType = (value: string) => {
     setTerakoyaType(value);
     _reset();

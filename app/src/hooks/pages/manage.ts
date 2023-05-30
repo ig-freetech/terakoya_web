@@ -8,12 +8,12 @@ import { TODAY_JST, ISO_FORMAT } from "@utils/datetime";
 
 /**テラコヤ種別 (terakoya_type) */
 export const TERAKOYA_TYPE = {
+  "-1": "-",
   1: "カフェ塾テラコヤ(池袋)",
   2: "オンラインテラコヤ(多摩)",
   3: "テラコヤ中等部(池袋)",
   4: "テラコヤ中等部(渋谷)",
   0: "その他",
-  999: "-",
 } as const;
 
 export const useManage = () => {
