@@ -29,6 +29,7 @@ export const useSettingExcludedDates = () => {
     setValue,
   } = useForm<UpdateExcludedDatesRequestBody>({
     resolver: yupResolver(validationSchema),
+    // https://codesandbox.io/s/react-hook-form-usefieldarray-ssugn
     defaultValues: { dates: [] },
   });
 
