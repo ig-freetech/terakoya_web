@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
@@ -6,15 +6,13 @@ import { AxiosError } from "axios";
 import {
   book,
   RequestBody,
-  GRADE,
-  ARRIVAL_TIME,
   COURSE_CHOICE,
-  STUDY_SUBJECT,
   STUDY_STYLE,
   HOW_TO_KNOW_TERAKOYA,
   TERAKOYA_TYPE,
   TERAKOYA_EXPERIENCE,
 } from "@apis/book";
+import { fetchExcludedDates } from "@apis/excluded-dates";
 import {
   TODAY_JST,
   getNextSameDayDateList,
@@ -109,7 +107,7 @@ export const useBook = () => {
    * Date list to not be shown in attendance date list
    * @description Add a date in the form of "YYYY-MM-DD"
    */
-  const EXCLUDE_DATE_LIST: Array<string> = ["2023-05-02"];
+  const [excludedDates, setExcludedDates] = useState<Array<string>>([]);
   const TUESUDAY = 2;
   const SATURDAY = 6;
   const TERAKOYA_START_TIME = 17;
@@ -118,8 +116,23 @@ export const useBook = () => {
     getNextSameDayDateList(
       getNextTargetDayDate(TODAY_JST, day, TERAKOYA_START_TIME),
       SHOW_DATES_MAX_COUNT,
-      EXCLUDE_DATE_LIST
+      excludedDates
     );
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchExcludedDates()
+      .then((res) => {
+        setExcludedDates(res.data.dates);
+      })
+      .catch((_) => {
+        alert("参加可能日の取得中にエラーが発生しました。");
+        navigate("/error");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   return {
     register,
