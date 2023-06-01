@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { fetchExcludedDates, updateExcludedDates } from "@apis/excluded-dates";
+import {
+  fetchExcludedDates,
+  updateExcludedDates,
+  UpdateExcludedDatesRequestBody,
+} from "@apis/excluded-dates";
 
 const validationSchema = yup.object().shape({
   dates: yup.array().of(
@@ -23,7 +27,7 @@ export const useSettingExcludedDates = () => {
     control,
     formState: { errors },
     setValue,
-  } = useForm({
+  } = useForm<UpdateExcludedDatesRequestBody>({
     resolver: yupResolver(validationSchema),
     defaultValues: { dates: [] },
   });
