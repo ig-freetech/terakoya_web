@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import BookPage from "@pages/book";
 import LoginPage from "@pages/login";
 import ManagePage from "@pages/manage";
+import SettingExcludedDates from "@pages/setting-excluded-dates";
 import "@styles/pages/index.scss";
 
 type ResultProps = {
@@ -50,6 +51,10 @@ export const Home: React.FC = () => (
       {/* <Route path="/" element={<ManagePage />} /> */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/manage" element={<ManagePage />} />
+      <Route
+        path="/setting-excluded-dates"
+        element={<SettingExcludedDates />}
+      />
       <Route path="/result" element={<Result texts={SUCCESS_RESULT_TEXTS} />} />
       <Route path="/error" element={<Result texts={ERROR_RESULT_TEXTS} />} />
       <Route path="/*" element={<Result texts={NOT_FOUND_TEXTS} />} />
