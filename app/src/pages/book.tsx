@@ -301,6 +301,9 @@ export default function Page() {
                       onChange={(e) => onChangeDateList(e.target.value)}
                     />
                   ))}
+                  {attendanceDateList.length === 0 ? (
+                    <div>現在参加可能日がありません</div>
+                  ) : null}
                 </Label>
               ) : null}
               <Label
