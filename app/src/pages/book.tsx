@@ -111,6 +111,8 @@ const TERAKOYA_EXPERIENCE_RADIO_DATA: Array<GroupInputData> = [
 const ComboBox: React.FC<ComboBoxProps> = (props) => {
   const { registerRtn, optionList } = props;
   return (
+    // <select> in HTML is set to the first option as default value when selected attribute is not specified in any <option> element
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#selected
     <select className="select" {...registerRtn} required>
       {optionList.map((option, i) => (
         <option key={i} className="option" value={option.value}>
@@ -131,27 +133,33 @@ type Option = {
     | STUDY_STYLE
     | COURSE_CHOICE
     | HOW_TO_KNOW_TERAKOYA
-    | STUDY_SUBJECT;
+    | STUDY_SUBJECT
+    | string;
 };
 const MID_GRADE_LIST: Array<Option> = [
+  // react-hook-form show a validation error when the value is undefined, null or empty string
+  { name: "", value: "" },
   { name: "中学1年生", value: GRADE.MID_1 },
   { name: "中学2年生", value: GRADE.MID_2 },
   { name: "中学3年生", value: GRADE.MID_3 },
   { name: "その他", value: GRADE.OTHER },
 ];
 const HIGH_GRADE_LIST: Array<Option> = [
+  { name: "", value: "" },
   { name: "高校1年生", value: GRADE.HIGH_1 },
   { name: "高校2年生", value: GRADE.HIGH_2 },
   { name: "高校3年生", value: GRADE.HIGH_3 },
   { name: "その他", value: GRADE.OTHER },
 ];
 const ARRIVAL_TIME_OPTION_LIST: Array<Option> = [
+  { name: "", value: "" },
   { name: "17:00前", value: ARRIVAL_TIME.BEFORE_1700 },
   { name: "17:00~17:30", value: ARRIVAL_TIME.FROM_1700_TO_1730 },
   { name: "17:30~18:00", value: ARRIVAL_TIME.FROM_1730_TO_1800 },
   { name: "18:00以降", value: ARRIVAL_TIME.AFTER_1800 },
 ];
 const STUDY_STYLE_OPTION_LIST: Array<Option> = [
+  { name: "", value: "" },
   { name: "黙々と静かに勉強したい", value: STUDY_STYLE.SILENT },
   {
     name: "分からない点があったらスタッフに質問したい",
@@ -183,16 +191,8 @@ const HOW_TO_KNOW_TERAKOYA_OPTION_LIST: Array<Option> = [
   { name: "ポスター、ビラ", value: HOW_TO_KNOW_TERAKOYA.LEAFLET },
   { name: "その他", value: HOW_TO_KNOW_TERAKOYA.OTHER },
 ];
-// const STUDY_SUBJECT_MID_OPTION_LIST: Array<Option> = [
-//   { name: "英語", value: STUDY_SUBJECT.ENG },
-//   { name: "国語", value: STUDY_SUBJECT.JPN },
-//   { name: "数学", value: STUDY_SUBJECT.MAT },
-//   { name: "社会", value: STUDY_SUBJECT.SOC },
-//   { name: "理科", value: STUDY_SUBJECT.SCI },
-//   { name: "英検", value: STUDY_SUBJECT.EIKEN },
-//   { name: "その他", value: STUDY_SUBJECT.OTHER },
-// ];
 const STUDY_SUBJECT_HIGH_OPTION_LIST: Array<Option> = [
+  { name: "", value: "" },
   { name: "英語", value: STUDY_SUBJECT.ENG },
   { name: "国語", value: STUDY_SUBJECT.JPN },
   { name: "数学", value: STUDY_SUBJECT.MAT },
@@ -250,7 +250,7 @@ export default function Page() {
                 {TERAKOYA_TYPE_RADIO_DATA.map((data, i) => (
                   <GroupInput
                     key={i}
-                    // valueAsオプションはradioボタンには使えない
+                    // valueAs option cannot be used with `radio` input
                     // https://zenn.dev/yodaka/articles/e490a79bccd5e2
                     // registerRtn={register("terakoya_type", {
                     //   valueAsNumber: true,
@@ -286,7 +286,7 @@ export default function Page() {
                   optionList={isMiddle ? MID_GRADE_LIST : HIGH_GRADE_LIST}
                 />
               </Label>
-              {selectedTerakoyaType != TERAKOYA_TYPE.NULL.toString() ? (
+              {selectedTerakoyaType != undefined ? (
                 <Label text="参加希望日">
                   {attendanceDateList.map((dateDayjs, i) => (
                     <GroupInput
@@ -301,6 +301,9 @@ export default function Page() {
                       onChange={(e) => onChangeDateList(e.target.value)}
                     />
                   ))}
+                  {attendanceDateList.length === 0 ? (
+                    <div>現在参加可能日がありません</div>
+                  ) : null}
                 </Label>
               ) : null}
               <Label
@@ -390,11 +393,6 @@ export default function Page() {
                     valueAsNumber: true,
                   })}
                   optionList={STUDY_SUBJECT_HIGH_OPTION_LIST}
-                  // optionList={
-                  //   isMiddle
-                  //     ? STUDY_SUBJECT_MID_OPTION_LIST
-                  //     : STUDY_SUBJECT_HIGH_OPTION_LIST
-                  // }
                 />
               </Label>
               <Label text="その科目の内容（自由記述）">

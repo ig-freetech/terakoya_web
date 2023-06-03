@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
@@ -6,15 +6,13 @@ import { AxiosError } from "axios";
 import {
   book,
   RequestBody,
-  GRADE,
-  ARRIVAL_TIME,
   COURSE_CHOICE,
-  STUDY_SUBJECT,
   STUDY_STYLE,
   HOW_TO_KNOW_TERAKOYA,
   TERAKOYA_TYPE,
   TERAKOYA_EXPERIENCE,
 } from "@apis/book";
+import { fetchExcludedDates } from "@apis/excluded-dates";
 import {
   TODAY_JST,
   getNextSameDayDateList,
@@ -25,22 +23,20 @@ export const useBook = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
+  // https://legacy.react-hook-form.com/api/useform/
   const { register, handleSubmit, setValue, getValues, resetField } = useForm<
-    // Safari では setValue で数値型の値をセットできないため、Front側の状態管理としては文字列型で管理する
+    // Control the value of the form fields as string in useForm because setValue() does not work for number type in Safari
     Omit<RequestBody, "terakoya_type" | "terakoya_experience"> & {
       terakoya_type: string;
       terakoya_experience: string;
     }
   >({
+    // Should avoid providing undefined as a default value as long as possible
+    // https://www.react-hook-form.com/api/useform/#defaultValues
     defaultValues: {
       name: "",
       email: "",
-      terakoya_type: TERAKOYA_TYPE.NULL.toString(),
       attendance_date_list: [],
-      arrival_time: ARRIVAL_TIME.NULL,
-      grade: GRADE.NULL,
-      terakoya_experience: TERAKOYA_EXPERIENCE.NULL.toString(),
-      study_subject: STUDY_SUBJECT.NULL,
       study_subject_detail: "",
       study_style: STUDY_STYLE.NULL,
       school_name: "",
@@ -90,16 +86,13 @@ export const useBook = () => {
     setValue("attendance_date_list", [...selectedDateList, value]);
   };
 
-  const [selectedTerakoyaExperience, setTerakoyaExperience] = useState<string>(
-    TERAKOYA_EXPERIENCE.NULL.toString()
-  );
+  const [selectedTerakoyaExperience, setTerakoyaExperience] =
+    useState<string>();
   const onChangeSelectedExperience = (value: string) => {
     setTerakoyaExperience(value);
   };
 
-  const [selectedTerakoyaType, setTerakoyaType] = useState<string>(
-    TERAKOYA_TYPE.NULL.toString()
-  );
+  const [selectedTerakoyaType, setTerakoyaType] = useState<string>();
   const onChangeSelectedTerakoyaType = (value: string) => {
     setTerakoyaType(value);
     _reset();
@@ -114,7 +107,7 @@ export const useBook = () => {
    * Date list to not be shown in attendance date list
    * @description Add a date in the form of "YYYY-MM-DD"
    */
-  const EXCLUDE_DATE_LIST: Array<string> = ["2023-05-02"];
+  const [excludedDates, setExcludedDates] = useState<Array<string>>([]);
   const TUESUDAY = 2;
   const SATURDAY = 6;
   const TERAKOYA_START_TIME = 17;
@@ -123,8 +116,23 @@ export const useBook = () => {
     getNextSameDayDateList(
       getNextTargetDayDate(TODAY_JST, day, TERAKOYA_START_TIME),
       SHOW_DATES_MAX_COUNT,
-      EXCLUDE_DATE_LIST
+      excludedDates
     );
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchExcludedDates()
+      .then((res) => {
+        setExcludedDates(res.data.dates);
+      })
+      .catch((_) => {
+        alert("参加可能日の取得中にエラーが発生しました。");
+        navigate("/error");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   return {
     register,

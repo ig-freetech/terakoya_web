@@ -23,17 +23,16 @@ import { useManage, TERAKOYA_TYPE } from "@hooks/pages/manage";
 import { ISO_FORMAT, TODAY_JST } from "@utils/datetime";
 import { BookingItem } from "@apis/bookList";
 
-/**到着予定時間帯 (arrival_time) */
+/**到着予定時間帯 (arrival_time) - required */
 const ARRIVAL_TIME = {
   0: "その他",
   1: "17:00前",
   2: "17:00~17:30",
   3: "17:30~18:00",
   4: "18:00以降",
-  999: "-",
-} as const;
+};
 
-/**学年 (grade) */
+/**学年 (grade) - required */
 const GRADE = {
   1: "高校1年生",
   2: "高校2年生",
@@ -42,18 +41,16 @@ const GRADE = {
   12: "中学2年生",
   13: "中学3年生",
   0: "その他",
-  999: "-",
-} as const;
+};
 
-/**テラコヤ参加経験 (terakoya_experience) */
+/**テラコヤ参加経験 (terakoya_experience) - required */
 const TERAKOYA_EXPERIENCE = {
   1: "今回が初回",
   2: "過去に参加したことがある",
   0: "その他",
-  999: "-",
-} as const;
+};
 
-/**勉強したい科目 (study_subject) */
+/**勉強したい科目 (study_subject) - required */
 export const STUDY_SUBJECT = {
   1: "英語",
   2: "国語",
@@ -65,31 +62,31 @@ export const STUDY_SUBJECT = {
   8: "キャリア説明会",
   9: "英検",
   0: "その他",
-  999: "-",
-} as const;
+};
 
 /**勉強スタイル (study_style) */
 const STUDY_STYLE = {
+  "-1": "-",
   1: "黙々と静かに勉強したい",
   2: "分からない点があったらスタッフに質問したい",
   3: "友達と話しながら楽しく勉強したい",
   4: "1人では難しいのでスタッフ付きっ切りで勉強を教えて欲しい",
   5: "勉強も教えて欲しいけどスタッフの話を聞いたり、相談したい。",
   0: "その他",
-  999: "-",
-} as const;
+};
 
 /**文理選択 (course_choice) */
 const COURSE_CHOICE = {
+  "-1": "-",
   1: "まだ決めていない",
   2: "文系",
   3: "理系",
   0: "その他",
-  999: "-",
-} as const;
+};
 
 export default function Page() {
   const { bookingItemList, onGetBookingList, onSelect } = useManage();
+
   return (
     <Box sx={{ p: 5 }}>
       <Paper sx={{ p: 5 }}>

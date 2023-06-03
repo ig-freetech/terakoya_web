@@ -4,8 +4,8 @@
     "dockerfile": "Dockerfile",
     "context": ".."
   },
-  // Change working directory to /workspaces/terakoya_client_static/app after opening the container
-  "postCreateCommand": "echo 'cd /workspaces/terakoya_client_static/app' >> ~/.bashrc",
+  // Change working directory to /path/to/app after opening the container
+  "postCreateCommand": "echo 'cd /workspaces/terakoya_web/app' >> ~/.bashrc",
   "customizations": {
     "vscode": {
       "settings": {
