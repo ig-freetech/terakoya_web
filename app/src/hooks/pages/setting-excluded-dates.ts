@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { useForm, useFieldArray } from "react-hook-form";
 // yupResolver is required for resolving validationSchema created with yup.
 // https://www.npmjs.com/package/@hookform/resolvers
@@ -30,7 +30,7 @@ const validationSchema = yup.object().shape({
 });
 
 export const useSettingExcludedDates = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -78,7 +78,7 @@ export const useSettingExcludedDates = () => {
         setValue("dates", res.data.dates);
       })
       .catch((_) => {
-        navigate("/error");
+        router.push("/error");
       });
 
   useEffect(() => {

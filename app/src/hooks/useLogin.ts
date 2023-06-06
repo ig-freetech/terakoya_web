@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 
 import { RequestBody, login } from "@apis/login";
 import { AxiosError } from "axios";
 
 export const useLogin = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm<RequestBody>({
     defaultValues: {
@@ -19,14 +19,14 @@ export const useLogin = () => {
     login(body)
       .then((v) => {
         if (v.data.result_type === 1) {
-          navigate("/manage");
+          router.push("/manage");
           return;
         }
         alert("メールアドレスまたはパスワードが間違っています");
         setIsLoading(false);
       })
       .catch((err: AxiosError) => {
-        navigate("/error");
+        router.push("/error");
       });
 
   const onSubmit = handleSubmit((inputs) => {

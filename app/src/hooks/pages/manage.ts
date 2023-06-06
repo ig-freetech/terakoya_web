@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { AxiosError } from "axios";
 
 import { BookingItem, getBookingList } from "@apis/bookList";
@@ -17,7 +17,7 @@ export const TERAKOYA_TYPE = {
 } as const;
 
 export const useManage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [bookingItemList, setBookingItemList] = useState<Array<BookingItem>>(
     []
   );
@@ -30,7 +30,7 @@ export const useManage = () => {
     getBookingList(targetDate)
       .then((v) => setBookingItemList(v.data.item_list))
       .catch((err: AxiosError) => {
-        navigate("/error");
+        router.push("/error");
       });
 
   const _onUpdatePlace = (item: BookingItem) =>
@@ -44,7 +44,7 @@ export const useManage = () => {
         // `);
       })
       .catch((err: AxiosError) => {
-        navigate("/error");
+        router.push("/error");
       });
 
   const onSelect = (place: number, item: BookingItem) => {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+// https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#userouter-hook
+import { useRouter } from "next/router";
 import { AxiosError } from "axios";
 
 import {
@@ -20,7 +21,7 @@ import {
 } from "@utils/datetime";
 
 export const useBook = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   // https://legacy.react-hook-form.com/api/useform/
@@ -51,10 +52,10 @@ export const useBook = () => {
 
   const _onBook = (body: RequestBody) =>
     book(body)
-      .then((_) => navigate("/result"))
+      .then((_) => router.push("/result"))
       .catch((err: AxiosError) => {
         // console.log(`Error Happened. Error Message: ${err.message}`);
-        navigate("/error");
+        router.push("/error");
       });
 
   const onSubmit = handleSubmit((inputs) => {
@@ -127,7 +128,7 @@ export const useBook = () => {
       })
       .catch((_) => {
         alert("参加可能日の取得中にエラーが発生しました。");
-        navigate("/error");
+        router.push("/error");
       })
       .finally(() => {
         setIsLoading(false);
