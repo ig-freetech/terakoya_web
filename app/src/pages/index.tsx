@@ -17,7 +17,7 @@ import {
 } from "@apis/book";
 import { ISO_FORMAT } from "@utils/datetime";
 
-// import "@styles/pages/book.scss";
+import styles from "@styles/index.module.scss";
 
 type CommonInputProps = {
   registerRtn?: UseFormRegisterReturn;
@@ -30,7 +30,7 @@ const TextBox: React.FC<TextBoxProps> = (props) => {
   const { registerRtn, inputType, isRequired } = props;
   return (
     <input
-      className="simple-input"
+      className={styles["simple-input"]}
       {...registerRtn}
       type={inputType}
       required={isRequired}
@@ -48,8 +48,8 @@ type TextBoxProps = {
 const Label: React.FC<LabelProps> = (props) => {
   const { text, children } = props;
   return (
-    <label className="label">
-      <span className="label-item">{text}</span>
+    <label className={styles["label"]}>
+      <span className={styles["label-item"]}>{text}</span>
       {children}
     </label>
   );
@@ -65,13 +65,13 @@ type LabelProps = {
 const GroupInput: React.FC<GroupInputProps> = (props) => {
   const { registerRtn, inputType, data, isRequired, onChange } = props;
   return (
-    <label className="group-input">
-      <span className="group-input-label">{data.text}</span>
+    <label className={styles["group-input"]}>
+      <span className={styles["group-input-label"]}>{data.text}</span>
       <input
         {...registerRtn}
         type={inputType}
         value={data.value}
-        className={"group-input-" + inputType}
+        className={styles["group-input-" + inputType]}
         required={isRequired}
         onChange={onChange}
       />
@@ -114,9 +114,9 @@ const ComboBox: React.FC<ComboBoxProps> = (props) => {
   return (
     // <select> in HTML is set to the first option as default value when selected attribute is not specified in any <option> element
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#selected
-    <select className="select" {...registerRtn} required>
+    <select className={styles["select"]} {...registerRtn} required>
       {optionList.map((option, i) => (
-        <option key={i} className="option" value={option.value}>
+        <option key={i} className={styles["option"]} value={option.value}>
           {option.name}
         </option>
       ))}
@@ -213,7 +213,7 @@ const STUDY_SUBJECT_HIGH_OPTION_LIST: Array<Option> = [
  * TextArea
  */
 export const TextArea: React.FC<CommonInputProps> = (props) => (
-  <textarea className="textarea" {...props.registerRtn} rows={2} />
+  <textarea className={styles["textarea"]} {...props.registerRtn} rows={2} />
 );
 
 export default function Page() {
@@ -231,21 +231,21 @@ export default function Page() {
   } = useBook();
 
   return (
-    <div className="wallpaper">
-      <div className="container">
-        <div className="content">
+    <div className={styles["wallpaper"]}>
+      <div className={styles["container"]}>
+        <div className={styles["content"]}>
           <Link href="/login">
-            <span className="to-home">管理者の方はこちら</span>
+            <span className={styles["to-home"]}>管理者の方はこちら</span>
           </Link>
-          <div className="main-caption">
-            <span className="main-caption-text">
+          <div className={styles["main-caption"]}>
+            <span className={styles["main-caption-text"]}>
               カフェ塾テラコヤ参加予約フォーム
             </span>
           </div>
-          <div className="form-container">
-            <form className="form" onSubmit={onSubmit}>
+          <div className={styles["form-container"]}>
+            <form className={styles["form"]} onSubmit={onSubmit}>
               <Label text="参加希望">
-                <span className="label-description">
+                <span className={styles["label-description"]}>
                   ※下記の選択に応じて参加希望日で選択できる日程が切り替わります。
                 </span>
                 {TERAKOYA_TYPE_RADIO_DATA.map((data, i) => (
@@ -311,7 +311,7 @@ export default function Page() {
                 text={
                   <>
                     来れそうな時間帯
-                    <br className="only-sp-enabled" />
+                    <br className={styles["only-sp-enabled"]} />
                     （活動時間17時〜20時）
                   </>
                 }
@@ -402,14 +402,14 @@ export default function Page() {
               <Label text="備考（自由記述）">
                 <TextArea registerRtn={register("remarks")} />
               </Label>
-              <div className="submit-place">
+              <div className={styles["submit-place"]}>
                 {isLoading ? (
                   <>
                     <ReactLoading type="spin" color="#866440" />
                     <span>予約処理中...</span>
                   </>
                 ) : (
-                  <input className="submit" type="submit" />
+                  <input className={styles["submit"]} type="submit" />
                 )}
               </div>
             </form>

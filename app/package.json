@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "next dev",
+    "dev analyze": "next dev ANALYZE=true",
     "build": "next build",
     "start": "next start",
     "test": "jest"
@@ -16,6 +17,7 @@
     "@types/japanese-holidays": "^1.0.1",
     "axios": "^0.27.2",
     "dayjs": "^1.11.3",
+    "dotenv": "^16.1.4",
     "japanese-holidays": "^1.0.10",
     "next": "^13.4.4",
     "react": "^18.1.0",
@@ -25,6 +27,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.4.4",
     "@types/jest": "^28.1.6",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",

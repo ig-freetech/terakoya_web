@@ -1,4 +1,5 @@
 import Link from "next/link";
+import styles from "@styles/result.module.scss";
 
 const SUCCESS_RESULT_TEXTS = [
   "【予約完了】",
@@ -15,12 +16,12 @@ type ResultProps = {
 const Result: React.FC<ResultProps> = (props) => {
   const { texts } = props;
   return (
-    <div className="result">
-      <div className="content">
+    <div className={styles.result}>
+      <div className={styles.content}>
         {SUCCESS_RESULT_TEXTS.map((text) => (
           <p>{text}</p>
         ))}
-        <Link className="link" href="/">
+        <Link className={styles.link} href="/">
           ホームへ
         </Link>
       </div>

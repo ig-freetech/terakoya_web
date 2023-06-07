@@ -1,6 +1,6 @@
 import React from "react";
 import { Paper, Box, TextField, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useLogin } from "@hooks/useLogin";
 import ReactLoading from "react-loading";
 
@@ -17,7 +17,7 @@ export default function Page() {
         }}
       >
         <Box flexDirection="column">
-          <Link to="/">
+          <Link href="/">
             {/* https://mui.com/material-ui/react-typography/ */}
             <Typography variant="subtitle1">Back to Home</Typography>
           </Link>

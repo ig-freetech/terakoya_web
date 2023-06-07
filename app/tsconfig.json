@@ -14,17 +14,13 @@
     // Specify built-in libraries to be used in the application.
     // Add "dom" and "dom.iterable" to support DOM manipulation by React.
     // Add "esnext" to support latest ECMAScript features.
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     // Specify whether .js and .jsx files are allowed to be compiled together with .ts and .tsx files.
     "allowJs": true,
     // Skip type checking of all declaration files (*.d.ts) to reduce the compilation time.
     // But it is not recommended to use this option in the production environment because it may miss type errors.
     // https://t-yng.jp/post/skiplibcheck
-    // "skipLibCheck": true,
+    "skipLibCheck": true,
     // Enable strict type checking, so that TypeScript can detect more errors.
     // Build fails if there are any type errors.
     "strict": true,
@@ -69,32 +65,20 @@
     // Define path aliases based on baseUrl.
     "paths": {
       // It's necessary to append "/*" to the end of the path of both alias and path.
-      "@apis/*": [
-        "src/apis/*"
-      ],
-      "@hooks/*": [
-        "src/hooks/*"
-      ],
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@styles/*": [
-        "src/styles/*"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ]
-    },
-    "skipLibCheck": true
+      "@apis/*": ["src/apis/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"]
+    }
   },
   // Specify files to be included in the compilation.
   "include": [
     "next-env.d.ts",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "typed-scss-modules.config.ts"
   ],
   // Specify files to be excluded from the compilation.
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

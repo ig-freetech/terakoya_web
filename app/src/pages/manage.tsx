@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
   Box,
   Collapse,
@@ -91,7 +91,7 @@ export default function Page() {
     <Box sx={{ p: 5 }}>
       <Paper sx={{ p: 5 }}>
         <Box display="flex" flexDirection="row" justifyContent="space-between">
-          <Link to="/">
+          <Link href="/">
             {/* https://mui.com/material-ui/react-typography/ */}
             <Typography variant="subtitle1">ホームへ戻る</Typography>
           </Link>
