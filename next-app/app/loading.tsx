@@ -1,4 +1,4 @@
-// app/loading.tsx is shown while the next page is loading by SSR.
+// app/loading.tsx is shown in all pages while the next page is loading by SSR.
 // https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming#instant-loading-states
 
 // app/loading.tsx must be client component.

@@ -49,6 +49,10 @@ export default function RootLayout({
          * <link rel="icon" href="/favicon.ico" sizes="any" />
          */}
       </head>
+      {/**
+       * children is the active page or loading component.
+       * https://zenn.dev/anneau/articles/5b0856bbf72c0c#layout.tsx
+       */}
       <body>{children}</body>
     </html>
   );

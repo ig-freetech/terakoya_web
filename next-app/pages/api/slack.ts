@@ -1,4 +1,6 @@
-// https://deecode.net/?p=1811
+// API Route must be defined under pages/api/*.
+// https://nextjs-ja-translation-docs.vercel.app/docs/api-routes/introduction
+
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
@@ -24,6 +26,8 @@ import axios from "axios";
 
 export type RequestBody = { msg: string };
 
+// handler is a function that has two parameters, req and res.
+// https://deecode.net/?p=1811
 // https://nextjs.org/docs/pages/building-your-application/routing/api-routes
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { msg } = req.body as RequestBody;
