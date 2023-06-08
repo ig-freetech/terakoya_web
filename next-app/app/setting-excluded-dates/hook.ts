@@ -75,7 +75,6 @@ export const useSettingExcludedDates = () => {
 
   const _fetch = () =>
     fetchExcludedDates().then((body) => {
-      console.log(body);
       setValue("dates", body.dates);
     });
 

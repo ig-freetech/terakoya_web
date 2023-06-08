@@ -9,8 +9,8 @@ const Result: React.FC<ResultProps> = (props) => {
   return (
     <div className={styles.result}>
       <div className={styles.content}>
-        {texts.map((text) => (
-          <p>{text}</p>
+        {texts.map((text, index) => (
+          <p key={index}>{text}</p>
         ))}
         <Link className={styles.link} href="/">
           ホームへ

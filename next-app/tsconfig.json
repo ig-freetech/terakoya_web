@@ -14,11 +14,7 @@
     // Specify built-in libraries to be used in the application.
     // Add "dom" and "dom.iterable" to support DOM manipulation by React.
     // Add "esnext" to support latest ECMAScript features.
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     // Specify whether .js and .jsx files are allowed to be compiled together with .ts and .tsx files.
     "allowJs": true,
     // Skip type checking of all declaration files (*.d.ts) to reduce the compilation time.
@@ -69,18 +65,11 @@
     // Define path aliases based on baseUrl.
     "paths": {
       // It's necessary to append "/*" to the end of the path of both alias and path.
-      "@apis/*": [
-        "./apis/*"
-      ],
-      "@hooks/*": [
-        "./hooks/*"
-      ],
-      "@styles/*": [
-        "./styles/*"
-      ],
-      "@utils/*": [
-        "./utils/*"
-      ]
+      "@apis/*": ["./apis/*"],
+      "@app/*": ["./app/*"],
+      "@pages/*": ["./pages/*"],
+      "@styles/*": ["./styles/*"],
+      "@utils/*": ["./utils/*"]
     },
     "plugins": [
       {
@@ -89,13 +78,7 @@
     ]
   },
   // Specify files to be included in the compilation.
-  "include": [
-    "./**/*.ts",
-    "./**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["./**/*.ts", "./**/*.tsx", ".next/types/**/*.ts"],
   // Specify files to be excluded from the compilation.
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-import Result from "../result";
+import Result from "@app/(result)/result";
 
 const SUCCESS_RESULT_TEXTS = [
   "【予約完了】",

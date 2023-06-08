@@ -53,9 +53,8 @@ export const useBook = () => {
   const _onBook = (body: RequestBody) =>
     book(body)
       .then((_) => router.push("/success"))
-      .catch((err: AxiosError) => {
-        // console.log(`Error Happened. Error Message: ${err.message}`);
-        throw new Error("Failed to fetch excluded dates");
+      .catch((_) => {
+        router.push("/error");
       });
 
   const onSubmit = handleSubmit((inputs) => {
@@ -123,12 +122,11 @@ export const useBook = () => {
   useEffect(() => {
     setIsLoading(true);
     fetchExcludedDates()
-      .then((res) => {
-        setExcludedDates(res.data.dates);
+      .then((body) => {
+        setExcludedDates(body.dates);
       })
       .catch((_) => {
-        alert("参加可能日の取得中にエラーが発生しました。");
-        throw new Error("Failed to fetch excluded dates");
+        router.push("/error");
       })
       .finally(() => {
         setIsLoading(false);

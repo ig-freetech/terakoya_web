@@ -34,7 +34,6 @@ export const useLogin = () => {
   };
 
   const onSubmit = handleSubmit((inputs) => {
-    console.log(`Request Body:\n${JSON.stringify(inputs)}`);
     if (!inputs.email || !inputs.password) {
       alert("メールアドレスまたはパスワードの書式が不正です");
       return;

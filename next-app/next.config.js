@@ -16,4 +16,30 @@ module.exports = withBundleAnalyzer({
     AWS_PROD_GATEWAY_ID: process.env.AWS_PROD_GATEWAY_ID,
     AWS_DEFAULT_REGION: process.env.AWS_DEFAULT_REGION,
   },
+  // Define common headers settings for all API routes in pages/api/*
+  // https://nextjs.org/docs/pages/api-reference/next-config-js/headers
+  // async headers() {
+  //   return [
+  //     {
+  //       // source is a glob pattern used for matching the incoming request path.
+  //       // "/api/:path*" means that /api/* and /api/**/* are matched.
+  //       // https://nextjs-ja-translation-docs.vercel.app/docs/api-reference/next.config.js/headers#%E3%83%AF%E3%82%A4%E3%83%AB%E3%83%89%E3%82%AB%E3%83%BC%E3%83%89%E3%82%92%E7%94%A8%E3%81%84%E3%81%9F%E3%83%91%E3%82%B9%E3%81%AE%E3%83%9E%E3%83%83%E3%83%81%E3%83%B3%E3%82%B0
+  //       source: "/api/:path*",
+  //       headers: [
+  //         {
+  //           key: "Access-Control-Allow-Origin",
+  //           value: "*",
+  //         },
+  //         {
+  //           key: "Access-Control-Allow-Methods",
+  //           value: "*",
+  //         },
+  //         {
+  //           key: "Access-Control-Allow-Headers",
+  //           value: "*",
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
 });
