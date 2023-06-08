@@ -2,8 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import ReactLoading from "react-loading";
-import { Paper, Box, TextField, Typography, Button } from "@mui/material";
+import {
+  Paper,
+  Box,
+  TextField,
+  Typography,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 
 import { useLogin } from "./hook";
 
@@ -49,7 +55,7 @@ export default function Page() {
             />
             {isLoading ? (
               <>
-                <ReactLoading type="spin" color="#866440" />
+                <CircularProgress />
                 <Typography>Processing login...</Typography>
               </>
             ) : (

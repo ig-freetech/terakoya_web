@@ -32,7 +32,6 @@ const validationSchema = yup.object().shape({
 });
 
 export const useSettingExcludedDates = () => {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -75,13 +74,10 @@ export const useSettingExcludedDates = () => {
   const onDeleteDateTextBox = (index: number) => remove(index);
 
   const _fetch = () =>
-    fetchExcludedDates()
-      .then((res) => {
-        setValue("dates", res.data.dates);
-      })
-      .catch((_) => {
-        throw new Error("Failed to fetch excluded dates");
-      });
+    fetchExcludedDates().then((body) => {
+      console.log(body);
+      setValue("dates", body.dates);
+    });
 
   useEffect(() => {
     setIsLoading(true);
@@ -94,11 +90,7 @@ export const useSettingExcludedDates = () => {
     setIsLoading(true);
     updateExcludedDates({ dates: dates })
       .then((_) => {
-        alert("更新しました");
         _fetch();
-      })
-      .catch((_) => {
-        alert("更新に失敗しました");
       })
       .finally(() => {
         setIsLoading(false);

@@ -4,7 +4,8 @@ import * as React from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 // https://nextjs-ja-translation-docs.vercel.app/docs/api-reference/next/link
 import Link from "next/link";
-import ReactLoading from "react-loading";
+
+import { CircularProgress } from "@mui/material";
 
 import {
   ARRIVAL_TIME,
@@ -407,7 +408,7 @@ export default function Page() {
               <div className={styles["submit-place"]}>
                 {isLoading ? (
                   <>
-                    <ReactLoading type="spin" color="#866440" />
+                    <CircularProgress />
                     <span>予約処理中...</span>
                   </>
                 ) : (

@@ -18,12 +18,14 @@
     "axios": "^0.27.2",
     "dayjs": "^1.11.3",
     "dotenv": "^16.1.4",
+    "fp-ts": "^2.16.0",
+    "io-ts": "^2.2.20",
+    "io-ts-reporters": "^2.0.1",
     "japanese-holidays": "^1.0.10",
     "next": "^13.4.4",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.32.0",
-    "react-loading": "^2.0.3",
     "yup": "^1.2.0"
   },
   "devDependencies": {

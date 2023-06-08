@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Controller } from "react-hook-form";
-import ReactLoading from "react-loading";
 
 import {
   Box,
@@ -140,7 +139,7 @@ export default function Page() {
                 </Box>
                 {isLoading ? (
                   <>
-                    <ReactLoading type="spin" color="#866440" />
+                    {/* <BounceLoader color="#866440" size={60} /> */}
                     <Typography>Processing...</Typography>
                   </>
                 ) : (
