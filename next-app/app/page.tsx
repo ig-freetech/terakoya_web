@@ -41,11 +41,13 @@
 // Suspense is to wait for the data(await) of the child component(async function) to be loaded (until resolving Promise) and then render it.
 // https://zenn.dev/tfutada/articles/36ad71ab598019
 
-// TODO: fetch
+// TODO: use/fetch
 // https://zenn.dev/1031take/articles/e9234890d0c6d3
-
-// TODO: use
 // https://zenn.dev/uhyo/articles/react-use-rfc
+// https://zenn.dev/sora_kumo/articles/46a87f1bde207c
+
+// TODO: useTransition
+// https://qiita.com/Yuki_Oshima/items/b6ec2fb9f5b5d53381ad
 
 // TODO: Server Actions
 // https://nextjs.org/blog/next-13-4#server-actions-alpha
@@ -53,7 +55,7 @@
 // TODO: next/image
 // https://www.zenryoku-kun.com/post/nextjs13-image
 
-import BookPage from "./book/page";
+import BookPage from "@app/book/page";
 
 export default function Page() {
   return <BookPage />;
