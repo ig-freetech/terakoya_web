@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 // https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#userouter-hook
 import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
 
 import {
   book,
@@ -60,7 +60,7 @@ export const useBook = () => {
   const onSubmit = handleSubmit((inputs) => {
     // console.log(`Request Body:\n${JSON.stringify(inputs)}`);
     if (inputs.attendance_date_list.length === 0) {
-      alert("参加希望日を1つ以上選択して下さい");
+      toast.error("参加希望日を1つ以上選択して下さい");
       return;
     }
     setIsLoading(true);

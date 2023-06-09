@@ -18,6 +18,8 @@
 // _document.tsx doesn't affect the performance of the app because it's only rendered on the server side.
 // https://nextjs.org/docs/pages/building-your-application/routing/custom-document
 
+import { Toaster } from "react-hot-toast";
+
 // global.scss is imported here so that it can be used across all pages.
 // css or scss files can be imported only in _app.tsx not in _document.tsx.
 import "@styles/global.scss";
@@ -53,7 +55,14 @@ export default function RootLayout({
        * children is the active page or loading component.
        * https://zenn.dev/anneau/articles/5b0856bbf72c0c#layout.tsx
        */}
-      <body>{children}</body>
+      <body>
+        {/**
+         * Put <Toaster /> in layout.tsx to display toast notifications across all pages.
+         * https://react-hot-toast.com/
+         * */}
+        <Toaster />
+        {children}
+      </body>
     </html>
   );
 }

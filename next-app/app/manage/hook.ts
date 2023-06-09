@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 
 import { BookingItem, getBookingList } from "@apis/bookList";
 import { editBookingPlace } from "@apis/bookEditPlace";
 import { TODAY_JST, ISO_FORMAT } from "@utils/datetime";
+import { toast } from "react-hot-toast";
 
 /**テラコヤ種別 (terakoya_type) */
 export const TERAKOYA_TYPE = {
@@ -27,24 +27,31 @@ export const useManage = () => {
 
   const onGetBookingList = (targetDate: string) =>
     getBookingList(targetDate)
-      .then((v) => setBookingItemList(v.data.item_list))
-      .catch((_: AxiosError) => {
-        throw new Error("Failed to get booking list");
+      .then((v) => {
+        toast.success(`予約情報を取得しました (${v.data.item_list.length}件)`);
+        setBookingItemList(v.data.item_list);
+      })
+      .catch((err: AxiosError) => {
+        toast.error(`予約情報の取得に失敗しました\n\n${err.message}`);
       });
 
   const _onUpdatePlace = (item: BookingItem) =>
     editBookingPlace(item)
-      .then((v) => {
-        // alert(`
-        // 下記の予約情報の拠点を更新しました。
-        // 予約日: ${item.date}
-        // 生徒: ${item.name}
-        // 参加希望: ${TERAKOYA_TYPE[item.terakoya_type]}
-        // `);
+      .then((_) => {
+        // Multi Line + Emoji Toast
+        // https://react-hot-toast.com/
+        toast(
+          `
+        下記の予約情報の拠点を更新しました。\n
+        予約日: ${item.date}\n
+        生徒: ${item.name}\n
+        参加希望: ${TERAKOYA_TYPE[item.terakoya_type]}
+        `,
+          { icon: "✅" }
+        );
       })
       .catch((err: AxiosError) => {
-        alert(`拠点の更新に失敗しました: ${err.message}`);
-        throw new Error("Failed to update place");
+        toast.error(`拠点の更新に失敗しました: ${err.message}`);
       });
 
   const onSelect = (place: number, item: BookingItem) => {

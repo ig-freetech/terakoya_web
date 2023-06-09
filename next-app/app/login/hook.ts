@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 import { RequestBody, login } from "@apis/login";
-import { AxiosError } from "axios";
 
 export const useLogin = () => {
   const router = useRouter();
@@ -25,8 +26,8 @@ export const useLogin = () => {
         }
       })
       .catch((_: AxiosError) => {
-        alert("メールアドレスまたはパスワードが間違っています");
-        throw new Error("Mailaddress or Password is wrong");
+        toast.error("メールアドレスまたはパスワードが間違っています");
+        router.push("/error");
       })
       .finally(() => {
         setIsLoading(false);
@@ -35,7 +36,7 @@ export const useLogin = () => {
 
   const onSubmit = handleSubmit((inputs) => {
     if (!inputs.email || !inputs.password) {
-      alert("メールアドレスまたはパスワードの書式が不正です");
+      toast.error("メールアドレスまたはパスワードの書式が不正です");
       return;
     }
     _onLogin(inputs);
