@@ -22,7 +22,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import { BookingItem } from "@apis/bookList";
+import { BookingItem } from "@apis/(booking)/types";
 import { ISO_FORMAT, TODAY_JST } from "@utils/datetime";
 
 import { useManage, TERAKOYA_TYPE } from "./hook";

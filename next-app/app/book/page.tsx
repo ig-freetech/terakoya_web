@@ -16,7 +16,7 @@ import {
   STUDY_SUBJECT,
   TERAKOYA_EXPERIENCE,
   TERAKOYA_TYPE,
-} from "@apis/book";
+} from "@apis/(booking)/book";
 import { ISO_FORMAT } from "@utils/datetime";
 
 import { useBook } from "./hook";

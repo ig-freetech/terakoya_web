@@ -26,7 +26,9 @@ export const BasicResponseData = t.type({
  */
 // Mixed (interface) in io-ts is a type that can be anything like `unknown` in TypeScript.
 // https://www.jsdocs.io/package/io-ts#Mixed
-const convertWithAdditonalProps = <T extends t.Mixed>(additionalProps: T) => {
+const convertWithAdditonalProps = <T extends t.Type<object>>(
+  additionalProps: T
+) => {
   const validator = t.intersection([BasicResponseData, additionalProps]);
   return (data: unknown) => {
     // decode() returns Either<Errors, t.Type> in fp-ts.
@@ -44,47 +46,32 @@ const convertWithAdditonalProps = <T extends t.Mixed>(additionalProps: T) => {
 
 const convert = convertWithAdditonalProps(t.type({}));
 
-const handleError = (err: AxiosError, onError?: (err: unknown) => void) => {
-  if (onError) onError(err);
+const handleError = (err: AxiosError) => {
   notifyErrorMsg(err.message);
   throw new Error(COMMON_ERROR_MSG);
 };
 
-export const get = <T extends t.Mixed>(
-  url: string,
-  additionalProps: T,
-  onError?: (err: unknown) => void,
-  onSuccess?: (data: t.TypeOf<typeof BasicResponseData & T>) => void
-) => {
+export const get = <T extends t.Mixed>(url: string, additionalProps: T) => {
   return axios
     .get(url)
     .then((res) => {
       const convertToResponseBody = convertWithAdditonalProps(additionalProps);
       const responseBody = convertToResponseBody(res.data);
-      if (onSuccess) onSuccess(responseBody);
       return responseBody;
     })
     .catch((err: AxiosError) => {
-      throw handleError(err, onError);
+      throw handleError(err);
     });
 };
 
-export const put = <T>(
-  url: string,
-  requestBody: T,
-  onError?: (err: unknown) => void
-) => {
+export const put = <T>(url: string, requestBody: T) => {
   return axios.put(url, requestBody).catch((err) => {
-    throw handleError(err, onError);
+    throw handleError(err);
   });
 };
 
-export const post = <T>(
-  url: string,
-  requestBody: T,
-  onError?: (err: unknown) => void
-) => {
+export const post = <T>(url: string, requestBody: T) => {
   return axios.post(url, requestBody).catch((err) => {
-    throw handleError(err, onError);
+    throw handleError(err);
   });
 };

@@ -12,7 +12,7 @@ import {
   fetchExcludedDates,
   updateExcludedDates,
   UpdateExcludedDatesRequestBody,
-} from "@apis/excluded-dates";
+} from "@apis/(booking)/excluded-dates";
 
 // When yup.object().shape({}) is used, the schema will accept only the fields specified. The presence of additional fields not defined in the schema will result in a validation error.
 // On the other hand, when yup.object({}) is used, the schema will accept any fields not defined in the schema.

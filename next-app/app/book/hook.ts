@@ -12,8 +12,8 @@ import {
   HOW_TO_KNOW_TERAKOYA,
   TERAKOYA_TYPE,
   TERAKOYA_EXPERIENCE,
-} from "@apis/book";
-import { fetchExcludedDates } from "@apis/excluded-dates";
+} from "@apis/(booking)/book";
+import { fetchExcludedDates } from "@apis/(booking)/excluded-dates";
 import {
   TODAY_JST,
   getNextSameDayDateList,

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 
-import { BookingItem, getBookingList } from "@apis/bookList";
-import { editBookingPlace } from "@apis/bookEditPlace";
+import { BookingItem } from "@apis/(booking)/types";
+import { getBookingList } from "@apis/(booking)/bookList";
+import { editBookingPlace } from "@apis/(booking)/bookEditPlace";
 import { TODAY_JST, ISO_FORMAT } from "@utils/datetime";
 import { toast } from "react-hot-toast";
+import { PLACE } from "@apis/(booking)/types";
 
 /**テラコヤ種別 (terakoya_type) */
 export const TERAKOYA_TYPE = {
@@ -27,9 +29,9 @@ export const useManage = () => {
 
   const onGetBookingList = (targetDate: string) =>
     getBookingList(targetDate)
-      .then((v) => {
-        toast.success(`予約情報を取得しました (${v.data.item_list.length}件)`);
-        setBookingItemList(v.data.item_list);
+      .then((body) => {
+        toast.success(`予約情報を取得しました (${body.item_list.length}件)`);
+        setBookingItemList(body.item_list);
       })
       .catch((err: AxiosError) => {
         toast.error(`予約情報の取得に失敗しました\n\n${err.message}`);
@@ -55,13 +57,13 @@ export const useManage = () => {
       });
 
   const onSelect = (place: number, item: BookingItem) => {
-    _onUpdatePlace({ ...item, place });
+    _onUpdatePlace({ ...item, place: place as PLACE });
     setBookingItemList(
       bookingItemList.map((v) =>
         v.date === item.date &&
         v.email == item.email &&
         v.terakoya_type == item.terakoya_type
-          ? { ...v, place }
+          ? { ...v, place: place as PLACE }
           : v
       )
     );
