@@ -5,10 +5,9 @@ import { isLeft } from "fp-ts/Either";
 // https://github.com/gillchristian/io-ts-reporters
 import reporter from "io-ts-reporters";
 import axios, { AxiosError } from "axios";
+import { UseQueryOptions } from "react-query";
 
 import { notifyErrorMsg } from "@apis/slack";
-
-const COMMON_ERROR_MSG = "Error happened!";
 
 // Validation fails when fields is missing but passes when there are extra fields.
 // https://qiita.com/fukky21/items/421f41baf3ebc4016d3c
@@ -46,10 +45,7 @@ const convertWithAdditonalProps = <T extends t.Type<object>>(
 
 const convert = convertWithAdditonalProps(t.type({}));
 
-const handleError = (err: AxiosError) => {
-  notifyErrorMsg(err.message);
-  throw new Error(COMMON_ERROR_MSG);
-};
+const handleError = (err: AxiosError) => notifyErrorMsg(err.message);
 
 export const get = <T extends t.Mixed>(url: string, additionalProps: T) => {
   return axios
@@ -75,3 +71,7 @@ export const post = <T>(url: string, requestBody: T) => {
     throw handleError(err);
   });
 };
+
+// Pick<Type, Key1 | Key2 | ...> returns a type that has only the specified fields.
+// https://typescriptbook.jp/reference/type-reuse/utility-types/pick
+export type UseQueryProps = Pick<UseQueryOptions, "onError" | "onSuccess">;

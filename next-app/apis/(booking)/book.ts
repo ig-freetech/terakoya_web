@@ -1,4 +1,9 @@
-import axios from "axios";
+import { useMutation } from "react-query";
+import { toast } from "react-hot-toast";
+// https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#userouter-hook
+import { useRouter } from "next/navigation";
+
+import { post } from "@apis/common";
 import { API_BASE_URL } from "@utils/config";
 
 export const TERAKOYA_TYPE = {
@@ -157,5 +162,22 @@ export type RequestBody = {
   remarks: string;
 };
 
-export const book = (body: RequestBody) =>
-  axios.post(API_BASE_URL + "/book", body);
+const book = (body: RequestBody) => post(API_BASE_URL + "/book", body);
+
+export const usePostBooking = () => {
+  const router = useRouter();
+  const { mutate, isLoading } = useMutation(book, {
+    onSuccess: () => {
+      toast.success("予約が完了しました");
+      router.push("/success");
+    },
+    onError: () => {
+      toast.error("予約に失敗しました");
+      router.push("/error");
+    },
+  });
+  return {
+    book: mutate,
+    isLoading,
+  };
+};

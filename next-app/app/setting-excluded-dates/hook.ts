@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // Import useRouter from "next/navigation" instead of "next/router" in Next.js v13.
 // https://zenn.dev/masaya0521/articles/5bb95c5ac593b9
-import { useRouter } from "next/navigation";
 import { useForm, useFieldArray } from "react-hook-form";
+import { toast } from "react-hot-toast";
+
+import * as yup from "yup";
 // yupResolver is required for resolving validationSchema created with yup.
 // https://www.npmjs.com/package/@hookform/resolvers
 // https://github.com/react-hook-form/resolvers#yup
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+
 import {
-  fetchExcludedDates,
-  updateExcludedDates,
+  useFetchExcludedDates,
+  useUpdateExcludedDates,
   UpdateExcludedDatesRequestBody,
 } from "@apis/(booking)/excluded-dates";
 
@@ -32,8 +34,6 @@ const validationSchema = yup.object().shape({
 });
 
 export const useSettingExcludedDates = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const {
     handleSubmit,
     // control is an object that contains methods for registering components, validation, and accessing form values.
@@ -73,31 +73,25 @@ export const useSettingExcludedDates = () => {
   // remove(index) is a function to remove the field at the specified index from the fields array.
   const onDeleteDateTextBox = (index: number) => remove(index);
 
-  const _fetch = () =>
-    fetchExcludedDates().then((body) => {
-      setValue("dates", body.dates);
-    });
-
+  const { dates, isLoadingFetchDates } = useFetchExcludedDates({
+    onError: () => {
+      toast.error("Failed to fetch excluded dates.");
+    },
+  });
   useEffect(() => {
-    setIsLoading(true);
-    _fetch().finally(() => {
-      setIsLoading(false);
-    });
-  }, []);
+    if (dates != undefined) {
+      setValue("dates", dates);
+    }
+  }, [dates]);
 
-  const _updateDates = (dates: Array<string>) => {
-    setIsLoading(true);
-    updateExcludedDates({ dates: dates })
-      .then((_) => {
-        _fetch();
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+  const { updateDates, isLoadingUpdateDates } = useUpdateExcludedDates({
+    onError: () => {
+      toast.error("Failed to update excluded dates.");
+    },
+  });
 
   const onUpdate = handleSubmit((inputs) => {
-    _updateDates(inputs.dates);
+    updateDates({ dates: inputs.dates });
   });
 
   const helperText = (index: number) =>
@@ -108,7 +102,8 @@ export const useSettingExcludedDates = () => {
     Boolean(errors.dates && errors.dates[index]);
 
   return {
-    isLoading,
+    isLoadingFetchDates,
+    isLoadingUpdateDates,
     onUpdate,
     onAddDateTextBox,
     onDeleteDateTextBox,

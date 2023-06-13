@@ -5,8 +5,6 @@ import { UseFormRegisterReturn } from "react-hook-form";
 // https://nextjs-ja-translation-docs.vercel.app/docs/api-reference/next/link
 import Link from "next/link";
 
-import { CircularProgress } from "@mui/material";
-
 import {
   ARRIVAL_TIME,
   COURSE_CHOICE,
@@ -17,6 +15,7 @@ import {
   TERAKOYA_EXPERIENCE,
   TERAKOYA_TYPE,
 } from "@apis/(booking)/book";
+import { Loading } from "@components/elements/loading";
 import { ISO_FORMAT } from "@utils/datetime";
 
 import { useBook } from "./hook";
@@ -407,10 +406,7 @@ export default function Page() {
               </Label>
               <div className={styles["submit-place"]}>
                 {isLoading ? (
-                  <>
-                    <CircularProgress />
-                    <span>予約処理中...</span>
-                  </>
+                  <Loading text="予約処理中..." />
                 ) : (
                   <input className={styles["submit"]} type="submit" />
                 )}

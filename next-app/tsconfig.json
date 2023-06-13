@@ -67,6 +67,7 @@
       // It's necessary to append "/*" to the end of the path of both alias and path.
       "@apis/*": ["./apis/*"],
       "@app/*": ["./app/*"],
+      "@components/*": ["./components/*"],
       "@pages/*": ["./pages/*"],
       "@styles/*": ["./styles/*"],
       "@utils/*": ["./utils/*"]

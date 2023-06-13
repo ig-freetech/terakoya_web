@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-// https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#userouter-hook
-import { useRouter } from "next/navigation";
 
 import {
-  book,
+  usePostBooking,
   RequestBody,
   COURSE_CHOICE,
   STUDY_STYLE,
@@ -13,7 +11,7 @@ import {
   TERAKOYA_TYPE,
   TERAKOYA_EXPERIENCE,
 } from "@apis/(booking)/book";
-import { fetchExcludedDates } from "@apis/(booking)/excluded-dates";
+import { useFetchExcludedDates } from "@apis/(booking)/excluded-dates";
 import {
   TODAY_JST,
   getNextSameDayDateList,
@@ -21,9 +19,6 @@ import {
 } from "@utils/datetime";
 
 export const useBook = () => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
   // https://legacy.react-hook-form.com/api/useform/
   const { register, handleSubmit, setValue, getValues, resetField } = useForm<
     // Control the value of the form fields as string in useForm because setValue() does not work for number type in Safari
@@ -50,12 +45,7 @@ export const useBook = () => {
     },
   });
 
-  const _onBook = (body: RequestBody) =>
-    book(body)
-      .then((_) => router.push("/success"))
-      .catch((_) => {
-        router.push("/error");
-      });
+  const { book, isLoading } = usePostBooking();
 
   const onSubmit = handleSubmit((inputs) => {
     // console.log(`Request Body:\n${JSON.stringify(inputs)}`);
@@ -63,7 +53,6 @@ export const useBook = () => {
       toast.error("参加希望日を1つ以上選択して下さい");
       return;
     }
-    setIsLoading(true);
     const requestBody = {
       ...inputs,
       terakoya_type: Number(selectedTerakoyaType) as TERAKOYA_TYPE,
@@ -71,7 +60,7 @@ export const useBook = () => {
         selectedTerakoyaExperience
       ) as TERAKOYA_EXPERIENCE,
     };
-    _onBook(requestBody);
+    book(requestBody);
   });
 
   const onChangeDateList = (value: string) => {
@@ -103,11 +92,9 @@ export const useBook = () => {
     // resetField("study_subject");
   };
 
-  /**
-   * Date list to not be shown in attendance date list
-   * @description Add a date in the form of "YYYY-MM-DD"
-   */
-  const [excludedDates, setExcludedDates] = useState<Array<string>>([]);
+  const { dates } = useFetchExcludedDates({
+    onError: () => toast.error("非開催日の取得に失敗しました"),
+  });
   const TUESUDAY = 2;
   const SATURDAY = 6;
   const TERAKOYA_START_TIME = 17;
@@ -116,22 +103,8 @@ export const useBook = () => {
     getNextSameDayDateList(
       getNextTargetDayDate(TODAY_JST, day, TERAKOYA_START_TIME),
       SHOW_DATES_MAX_COUNT,
-      excludedDates
+      dates
     );
-
-  useEffect(() => {
-    setIsLoading(true);
-    fetchExcludedDates()
-      .then((body) => {
-        setExcludedDates(body.dates);
-      })
-      .catch((_) => {
-        router.push("/error");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
 
   return {
     register,

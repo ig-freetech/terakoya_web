@@ -2,14 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import {
-  Paper,
-  Box,
-  TextField,
-  Typography,
-  Button,
-  CircularProgress,
-} from "@mui/material";
+import { Paper, Box, TextField, Typography, Button } from "@mui/material";
+
+import { Loading } from "@components/elements/loading";
 
 import { useLogin } from "./hook";
 
@@ -54,10 +49,7 @@ export default function Page() {
               sx={{ marginTop: 2 }}
             />
             {isLoading ? (
-              <>
-                <CircularProgress />
-                <Typography>Processing login...</Typography>
-              </>
+              <Loading text="Processing login..." />
             ) : (
               <Button
                 type="submit"
