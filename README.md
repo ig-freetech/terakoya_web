@@ -5,7 +5,7 @@
 
 ## TODO
 
-- [SWR](https://www.npmjs.com/package/swr)
 - [lodash](https://qiita.com/sosomuse/items/a08e28def541c28458a0)
+  - https://blog.isystk.com/system_develop/frontend/javascript/1555/
 - [react-icons](https://react-icons.github.io/react-icons/)
   - https://zenn.dev/taichifukumoto/articles/how-to-use-react-icons

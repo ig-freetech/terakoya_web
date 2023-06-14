@@ -30,9 +30,7 @@
         "github.vscode-github-actions",
         "github.copilot",
         "eamodio.gitlens",
-        "github.vscode-pull-request-github",
-        "easycodeai.chatgpt-gpt4-gpt3-vscode",
-        "danielsanmedium.dscodegpt"
+        "github.vscode-pull-request-github"
       ]
     }
   }

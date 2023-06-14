@@ -89,7 +89,7 @@ const COURSE_CHOICE = {
 };
 
 export default function Page() {
-  const { bookingItemList, onGetBookingList, onSelect } = useManage();
+  const { bookingItemList, setTargetDate, onSelect } = useManage();
 
   return (
     <Box sx={{ p: 5 }}>
@@ -109,7 +109,7 @@ export default function Page() {
               defaultValue={TODAY_JST}
               onChange={(date) => {
                 if (date != null) {
-                  onGetBookingList(date.format(ISO_FORMAT));
+                  setTargetDate(date.format(ISO_FORMAT));
                 }
               }}
             />
@@ -131,7 +131,7 @@ export default function Page() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {bookingItemList.map((item, i) => (
+              {bookingItemList?.map((item, i) => (
                 <AccordionTableRow key={i} item={item} onSelect={onSelect} />
               ))}
             </TableBody>

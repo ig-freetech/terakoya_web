@@ -223,6 +223,7 @@ export default function Page() {
     register,
     onSubmit,
     isLoading,
+    isLoadingExDates,
     onChangeDateList,
     selectedTerakoyaExperience,
     onChangeSelectedExperience,
@@ -291,22 +292,25 @@ export default function Page() {
               </Label>
               {selectedTerakoyaType != undefined ? (
                 <Label text="参加希望日">
-                  {attendanceDateList.map((dateDayjs, i) => (
-                    <GroupInput
-                      key={i}
-                      registerRtn={register("attendance_date_list")}
-                      inputType="checkbox"
-                      data={{
-                        text: dateDayjs.format("MM/DD (ddd)"),
-                        value: dateDayjs.format(ISO_FORMAT),
-                      }}
-                      isRequired={false}
-                      onChange={(e) => onChangeDateList(e.target.value)}
-                    />
-                  ))}
-                  {attendanceDateList.length === 0 ? (
+                  {isLoadingExDates ? (
+                    <Loading />
+                  ) : attendanceDateList.length === 0 ? (
                     <div>現在参加可能日がありません</div>
-                  ) : null}
+                  ) : (
+                    attendanceDateList.map((dateDayjs, i) => (
+                      <GroupInput
+                        key={i}
+                        registerRtn={register("attendance_date_list")}
+                        inputType="checkbox"
+                        data={{
+                          text: dateDayjs.format("MM/DD (ddd)"),
+                          value: dateDayjs.format(ISO_FORMAT),
+                        }}
+                        isRequired={false}
+                        onChange={(e) => onChangeDateList(e.target.value)}
+                      />
+                    ))
+                  )}
                 </Label>
               ) : null}
               <Label

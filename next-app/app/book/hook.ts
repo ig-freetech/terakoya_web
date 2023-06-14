@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+// https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#userouter-hook
+import { useRouter } from "next/navigation";
 
 import {
   usePostBooking,
@@ -45,7 +47,8 @@ export const useBook = () => {
     },
   });
 
-  const { book, isLoading } = usePostBooking();
+  const router = useRouter();
+  const { mutate: book, isLoading } = usePostBooking();
 
   const onSubmit = handleSubmit((inputs) => {
     // console.log(`Request Body:\n${JSON.stringify(inputs)}`);
@@ -60,7 +63,18 @@ export const useBook = () => {
         selectedTerakoyaExperience
       ) as TERAKOYA_EXPERIENCE,
     };
-    book(requestBody);
+
+    // options (ex: onSuccess, onError) in mutate() will be fired every time mutate() is called and before the same options in useMutation() are fired.
+    // On the other hand, onSuccess, onError in useMutation() are fired by default only when options in mutate() are not defined.
+    // https://tanstack.com/query/v4/docs/react/guides/mutations#consecutive-mutations
+    book(requestBody, {
+      onSuccess: () => {
+        router.push("/success");
+      },
+      onError: () => {
+        router.push("/error");
+      },
+    });
   });
 
   const onChangeDateList = (value: string) => {
@@ -92,8 +106,8 @@ export const useBook = () => {
     // resetField("study_subject");
   };
 
-  const { dates } = useFetchExcludedDates({
-    onError: () => toast.error("非開催日の取得に失敗しました"),
+  const { data, isLoading: isLoadingExDates } = useFetchExcludedDates({
+    onError: (_) => toast.error("予約不能日の取得に失敗しました"),
   });
   const TUESUDAY = 2;
   const SATURDAY = 6;
@@ -103,13 +117,14 @@ export const useBook = () => {
     getNextSameDayDateList(
       getNextTargetDayDate(TODAY_JST, day, TERAKOYA_START_TIME),
       SHOW_DATES_MAX_COUNT,
-      dates
+      data?.dates
     );
 
   return {
     register,
     onSubmit,
     isLoading,
+    isLoadingExDates,
     onChangeDateList,
     selectedTerakoyaExperience,
     onChangeSelectedExperience,

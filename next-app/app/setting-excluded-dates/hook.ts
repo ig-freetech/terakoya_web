@@ -13,7 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   useFetchExcludedDates,
   useUpdateExcludedDates,
-  UpdateExcludedDatesRequestBody,
+  UpdateRequestBody,
 } from "@apis/(booking)/excluded-dates";
 
 // When yup.object().shape({}) is used, the schema will accept only the fields specified. The presence of additional fields not defined in the schema will result in a validation error.
@@ -43,7 +43,7 @@ export const useSettingExcludedDates = () => {
     // formState.errors is an object that comprehensively contains the validation result of the properties and error messages.
     formState: { errors },
     setValue,
-  } = useForm<UpdateExcludedDatesRequestBody>({
+  } = useForm<UpdateRequestBody>({
     // react-hook-form performs validation internally based on the schema created with yup or zod.
     // resolver works as a bridge between external validation schema such as yup and react-hook-form to validate data.
     // https://www.react-hook-form.com/api/useform/#resolver
@@ -73,25 +73,30 @@ export const useSettingExcludedDates = () => {
   // remove(index) is a function to remove the field at the specified index from the fields array.
   const onDeleteDateTextBox = (index: number) => remove(index);
 
-  const { dates, isLoadingFetchDates } = useFetchExcludedDates({
+  const { isLoading: isLoadingFetchDates } = useFetchExcludedDates({
     onError: () => {
       toast.error("Failed to fetch excluded dates.");
     },
-  });
-  useEffect(() => {
-    if (dates != undefined) {
-      setValue("dates", dates);
-    }
-  }, [dates]);
-
-  const { updateDates, isLoadingUpdateDates } = useUpdateExcludedDates({
-    onError: () => {
-      toast.error("Failed to update excluded dates.");
+    onSuccess: (data) => {
+      setValue("dates", data.dates);
     },
   });
 
+  const { mutate: updateDates, isLoading: isLoadingUpdateDates } =
+    useUpdateExcludedDates();
+
   const onUpdate = handleSubmit((inputs) => {
-    updateDates({ dates: inputs.dates });
+    updateDates(
+      { dates: inputs.dates },
+      {
+        onError: () => {
+          toast.error("Failed to update excluded dates.");
+        },
+        onSuccess: () => {
+          toast.success("Successfully updated excluded dates.");
+        },
+      }
+    );
   });
 
   const helperText = (index: number) =>
