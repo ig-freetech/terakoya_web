@@ -107,7 +107,7 @@ export const useBook = () => {
   };
 
   const { data, isLoading: isLoadingExDates } = useFetchExcludedDates({
-    onError: (_) => toast.error("予約不能日の取得に失敗しました"),
+    onError: () => toast.error("予約不能日の取得に失敗しました"),
   });
   const TUESUDAY = 2;
   const SATURDAY = 6;

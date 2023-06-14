@@ -3,6 +3,9 @@
 # Run command "next lint" with .eslintrc.json and dev packageses to run linting.
 # https://nextjs.org/docs/pages/building-your-application/configuring/eslint#eslint-plugin
 
+# It's ok to use .eslintrc.yml instead of .eslintrc.json.
+# https://zenn.dev/januswel/articles/402774d76424e71ac906
+
 # root is a property that allows you to specify the root directory of the project to be linted.
 # https://maku.blog/p/j6iu7it/#root-true
 root: true
