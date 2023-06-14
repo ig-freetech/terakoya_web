@@ -1,8 +1,8 @@
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 // https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#userouter-hook
-import { useRouter } from "next/navigation";
 
 import {
   usePostBooking,

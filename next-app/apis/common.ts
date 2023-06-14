@@ -1,13 +1,13 @@
 // npm i io-ts fp-ts becaise fp-ts is a peer dependency of io-ts
 // https://github.com/gcanti/io-ts#installation
-import * as t from "io-ts";
+import axios, { AxiosError } from "axios";
 import { isLeft } from "fp-ts/Either";
+import * as t from "io-ts";
 // https://github.com/gillchristian/io-ts-reporters
 import reporter from "io-ts-reporters";
-import axios, { AxiosError } from "axios";
+import { UseQueryOptions } from "react-query";
 
 import { notifyErrorMsg } from "@apis/slack";
-import { UseQueryOptions } from "react-query";
 
 // Validation fails when fields is missing but passes when there are extra fields.
 // https://qiita.com/fukky21/items/421f41baf3ebc4016d3c

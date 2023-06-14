@@ -1,9 +1,9 @@
 import * as t from "io-ts";
 import { useQuery } from "react-query";
 
-import { get, createValidator, CustomQueryOptions } from "@apis/common";
-import { BookingItem } from "@apis/(booking)/types";
 import { BOOKING_LIST_QUERY_KEY } from "@apis/(booking)/queryKeys";
+import { BookingItem } from "@apis/(booking)/types";
+import { get, createValidator, CustomQueryOptions } from "@apis/common";
 import { API_BASE_URL } from "@utils/config";
 
 const fetchBookingListValidator = createValidator(

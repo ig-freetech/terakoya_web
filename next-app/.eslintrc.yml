@@ -1,0 +1,59 @@
+# Run command "next lint" without .eslintrc.json and dev packageses (eslint, lint-config-next) installed to get started with default config of Next.js and automatically install dev packageses and create .eslintrc.json.
+# https://nextjs.org/docs/pages/building-your-application/configuring/eslint#eslint-config
+# Run command "next lint" with .eslintrc.json and dev packageses to run linting.
+# https://nextjs.org/docs/pages/building-your-application/configuring/eslint#eslint-plugin
+
+# root is a property that allows you to specify the root directory of the project to be linted.
+# https://maku.blog/p/j6iu7it/#root-true
+root: true
+# extends is a property that allows you to inherit rules from other configurations specified in the property.
+# https://www.sunapro.com/eslint-settings/#index_id1
+extends:
+  # next/core-web-vitals is a built-in ESLint rule that will automatically check for common web vitals metrics in addition to the default Next.js ESLint rules (= "extends": "next").
+  # https://nextjs.org/docs/basic-features/eslint#core-web-vitals
+  # Core Web Vitals (CWV) is a measure of three web performance factors that affect where a website appears in search engine results: maximum content draw (LCP), first operation delay (FID), and cumulative layout shift (CLS).
+  # https://www.cloudflare.com/ja-jp/learning/performance/what-are-core-web-vitals/
+  - next/core-web-vitals
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/warnings
+  - plugin:import/errors
+plugins:
+  # Automatically　sort imports based on the rule of import/order.
+  - import
+  # Automatically delete unused imports.
+  - unused-imports
+  # ESLint can lint TypeScript files with the help of the @typescript-eslint parser.
+  # https://zenn.dev/resistance_gowy/articles/91b4f62b9f48ec#typescript-eslint
+  - "@typescript-eslint"
+# @typescript-eslint/parser is a parser that allows ESLint to lint TypeScript code.
+parser: "@typescript-eslint/parser"
+# parserOptions is a property that allows you to use parser options during linting.
+# https://eslint.org/docs/latest/use/configure/configuration-files#using-configuration-files
+parserOptions:
+  # project is a property that allows you to specify the path to tsconfig.json to be used for linting.
+  # http://www.code-magagine.com/?p=14054
+  project:
+    - ./tsconfig.json
+rules:
+  # Rule of import/order
+  # https://zenn.dev/rena_h/scraps/fd330154d02f76
+  import/order:
+    # Set the rule to warning.
+    - warn
+    # Sort imports by the following order.
+    - groups:
+        - builtin # ex: import fs from 'fs' (Not used in the project)
+        - external # ex: import react from 'react'
+        - internal # ex: import Loading from '@components/elements/loading'
+        - parent # ex: import Header from '../header'
+        - sibling # ex: import { useSomething } from './hook'
+        - index # ex: import { something } from './'
+      # Leave a blank line between each import group.
+      newlines-between: always
+      # Sort imports alphabetically (a-z) and ignore case.
+      # https://qiita.com/yukiji/items/5ba9e065ac6ed57d05a4#alphabetize
+      alphabetize:
+        order: asc
+        caseInsensitive: true
+  # ESLint output an error when unused imports are found.
+  unused-imports/no-unused-imports: error

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-import { BookingItem } from "@apis/(booking)/types";
-import { useFetchBookingList } from "@apis/(booking)/bookingList";
 import { useEditBookingPlace } from "@apis/(booking)/bookingEditPlace";
+import { useFetchBookingList } from "@apis/(booking)/bookingList";
+import { BookingItem, PLACE } from "@apis/(booking)/types";
 import { TODAY_JST, ISO_FORMAT } from "@utils/datetime";
-import { PLACE } from "@apis/(booking)/types";
 
 /**テラコヤ種別 (terakoya_type) */
 export const TERAKOYA_TYPE = {
@@ -23,7 +22,7 @@ export const useManage = () => {
   );
 
   const { data } = useFetchBookingList(targetDate, {
-    onError: (_) => {
+    onError: () => {
       toast.error("予約情報の取得に失敗しました");
     },
   });

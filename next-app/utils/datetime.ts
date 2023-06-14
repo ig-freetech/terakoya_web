@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import ja from "dayjs/locale/ja";
-import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 // https://cpoint-lab.co.jp/article/202108/20763/
 import { isHoliday } from "japanese-holidays";
 

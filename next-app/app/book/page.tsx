@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import * as React from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 // https://nextjs-ja-translation-docs.vercel.app/docs/api-reference/next/link
-import Link from "next/link";
 
 import {
   ARRIVAL_TIME,

@@ -16,6 +16,26 @@
           }
         },
         "editor.formatOnSave": true,
+        // Target files for ESLint are formatted with it when files saved.
+        // https://qiita.com/fukasawah/items/03fa205353ac03b06b7e#vscode%E3%81%AE%E8%A8%AD%E5%AE%9A
+        "editor.codeActionsOnSave": {
+          // Fix all ESLint auto-fixable problems when files saved.
+          // https://zenn.dev/resistance_gowy/articles/91b4f62b9f48ec#prettier
+          "source.fixAll.eslint": true
+        },
+        // Specify the target language for ESLint.
+        "eslint.validate": [
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact"
+        ],
+        // Specify the root directory of the ESLint configuration file.
+        // https://zukucode.com/2020/10/eslint-vscode-subdirectory.html
+        // https://zenn.dev/taichifukumoto/scraps/45be5ffdfa8457
+        "eslint.workingDirectories": ["./next-app"],
+        // Show ESLint status on the bottom bar.
+        "eslint.alwaysShowStatus": true,
         "files.exclude": {
           "tmp": true
         }

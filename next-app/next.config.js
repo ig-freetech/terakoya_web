@@ -16,6 +16,11 @@ module.exports = withBundleAnalyzer({
     AWS_PROD_GATEWAY_ID: process.env.AWS_PROD_GATEWAY_ID,
     AWS_DEFAULT_REGION: process.env.AWS_DEFAULT_REGION,
   },
+  eslint: {
+    // Explicitly define the directories to be linted
+    // https://nextjs.org/docs/pages/building-your-application/configuring/eslint#linting-custom-directories-and-files
+    dirs: ["apis", "app", "components", "pages", "styles", "utils"],
+  },
   // Define common headers settings for all API routes in pages/api/*
   // https://nextjs.org/docs/pages/api-reference/next-config-js/headers
   // async headers() {

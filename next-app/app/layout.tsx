@@ -19,6 +19,7 @@
 // https://nextjs.org/docs/pages/building-your-application/routing/custom-document
 
 import { Toaster } from "react-hot-toast";
+
 import ClientWrapper from "@app/_app";
 
 // global.scss is imported here so that it can be used across all pages.
@@ -62,7 +63,7 @@ export default function RootLayout({
          * https://react-hot-toast.com/
          * */}
         <Toaster />
-        <ClientWrapper children={children} />
+        <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
   );

@@ -1,8 +1,8 @@
 // API Route must be defined under pages/api/*.
 // https://nextjs-ja-translation-docs.vercel.app/docs/api-routes/introduction
 
-import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
+import { NextApiRequest, NextApiResponse } from "next";
 
 // Define a middleware wrapper for the handler to allow CORS.
 // https://commte.net/nextjs-cors

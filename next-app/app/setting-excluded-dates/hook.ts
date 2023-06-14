@@ -1,14 +1,12 @@
-import { useEffect } from "react";
 // Import useRouter from "next/navigation" instead of "next/router" in Next.js v13.
 // https://zenn.dev/masaya0521/articles/5bb95c5ac593b9
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, useFieldArray } from "react-hook-form";
 import { toast } from "react-hot-toast";
-
 import * as yup from "yup";
 // yupResolver is required for resolving validationSchema created with yup.
 // https://www.npmjs.com/package/@hookform/resolvers
 // https://github.com/react-hook-form/resolvers#yup
-import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
   useFetchExcludedDates,

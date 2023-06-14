@@ -1,0 +1,23 @@
+# ESLint looks for .eslintrc.json and .eslintignore in the current working directory.
+# https://runebook.dev/ja/docs/eslint/user-guide/configuring/ignoring-code
+
+# dot-files, dot-folders (ex: .next), and node_modules are automatically ignored by ESLint unless explicitly specified in .eslintignore.
+# https://eslint.org/docs/latest/use/configure/ignore#the-eslintignore-file
+
+# "next lint" ignores directories other than pages, components, lib, and src by default.
+# But vscode-eslint doesn't ignore them, so you need to explicitly ignore them in .eslintignore.
+# https://www.mizdra.net/entry/2023/01/13/013855
+# https://nextjs.org/docs/pages/api-reference/next-cli#lint
+
+__tests__
+.next
+analyze
+node_modules
+public
+
+# config
+# https://zenn.dev/resistance_gowy/articles/91b4f62b9f48ec#%E8%A3%9C%E8%B6%B3
+jest.config.js
+next-env.d.ts
+next.config.js
+tsconfig.json

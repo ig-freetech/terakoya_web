@@ -1,8 +1,8 @@
 import * as t from "io-ts";
 import { useQuery, useMutation } from "react-query";
 
-import { createValidator, get, put, CustomQueryOptions } from "@apis/common";
 import { BOOKING_EXCLUDED_DATES_QUERY_KEY } from "@apis/(booking)/queryKeys";
+import { createValidator, get, put, CustomQueryOptions } from "@apis/common";
 import { API_BASE_URL } from "@utils/config";
 
 const API_ROUTE_URL = `${API_BASE_URL}/booking/excluded-dates`;
