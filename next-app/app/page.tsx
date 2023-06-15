@@ -39,9 +39,10 @@
 // For example, it's used with React.lazy() to load the child component asynchronously.
 // https://zenn.dev/uhyo/books/react-concurrent-handson/viewer/what-is-suspense
 // Suspense is to wait for the data(await) of the child component(async function) to be loaded (until resolving Promise) and then render it.
+// Suspense is for use with React.lazy() for now.
 // https://zenn.dev/tfutada/articles/36ad71ab598019
 
-// TODO: use/fetch
+// TODO: use/fetch/cache
 // https://zenn.dev/1031take/articles/e9234890d0c6d3
 // https://zenn.dev/uhyo/articles/react-use-rfc
 // https://zenn.dev/sora_kumo/articles/46a87f1bde207c
