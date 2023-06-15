@@ -1,11 +1,18 @@
-## Memo
+## Environments
+
+- [Production](https://terakoyaweb.com/)
+- [Development](https://dev.terakoyaweb.com/)
+
+## Next.js
 
 - [Next.js Project Structure](https://nextjs.org/docs/getting-started/project-structure)
 - [Commands in Next.js](https://qiita.com/st2222/items/827407bc146ef9886f06)
 
-## Deploy
+## Deployment on Vercel
 
 - [Getting Started with Vercel](https://typescriptbook.jp/tutorials/vercel-deploy)
+
+- [Vercel automatically deploys the app when a commit is pushed to the target branch (master or develop)](https://zenn.dev/nekoshita/articles/f8a737f38a5fb4). So you don't need to run any commands on Github Actions to deploy the app on Vercel.
 
 ##### DNS Settings
 
