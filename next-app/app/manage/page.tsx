@@ -27,6 +27,8 @@ import { ISO_FORMAT, TODAY_JST } from "@utils/datetime";
 
 import { useManage, TERAKOYA_TYPE } from "./hook";
 
+// Next.js can't export anything other than Page Component. So, object like ARRIVAL_TIME cant't be exported.
+
 /**到着予定時間帯 (arrival_time) - required */
 const ARRIVAL_TIME = {
   0: "その他",
@@ -55,7 +57,7 @@ const TERAKOYA_EXPERIENCE = {
 };
 
 /**勉強したい科目 (study_subject) - required */
-export const STUDY_SUBJECT = {
+const STUDY_SUBJECT = {
   1: "英語",
   2: "国語",
   3: "数学",
