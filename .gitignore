@@ -1,6 +1,17 @@
 node_modules
-.DS_Store
+
+# .next directory is generated at build time and contains the production build output.
+# https://nextjs.org/docs/pages/api-reference/next-config-js/output
+.next/
 public/
+analyze/
+
 .env
+.env.local
+.env.development
+.env.production
+
+.DS_Store
 tmp/
+
 MEMO.md

@@ -1,0 +1,85 @@
+// Next.js + TypeScript
+// https://zenn.dev/t_keshi/scraps/9ddb388bc6975d
+// https://zenn.dev/kazto/articles/f94fe7172cdfcf066544
+// https://nextjs.org/learn/excel/typescript/create-tsconfig
+{
+  "compilerOptions": {
+    // Compile to ES2015 for better tree shaking and compatibility with modern browsers.
+    // https://caniuse.com/?search=es6
+    // https://www.w3schools.com/js/js_versions.asp
+    // Tree shaking is to remove unused code from the bundle to reduce the bundle size by import { <necessary1>, <necessary2> } from 'module' syntax from ES2015.
+    // https://www.seleqt.net/programming/tree-shaking/
+    // https://webpack.js.org/guides/tree-shaking/
+    "target": "ES2015",
+    // Specify built-in libraries to be used in the application.
+    // Add "dom" and "dom.iterable" to support DOM manipulation by React.
+    // Add "esnext" to support latest ECMAScript features.
+    "lib": ["dom", "dom.iterable", "esnext"],
+    // Specify whether .js and .jsx files are allowed to be compiled together with .ts and .tsx files.
+    "allowJs": true,
+    // Skip type checking of all declaration files (*.d.ts) to reduce the compilation time.
+    // But it is not recommended to use this option in the production environment because it may miss type errors.
+    // https://t-yng.jp/post/skiplibcheck
+    "skipLibCheck": true,
+    // Enable strict type checking, so that TypeScript can detect more errors.
+    // Build fails if there are any type errors.
+    "strict": true,
+    // Distinguish between upper and lower case letters　in import statements.
+    // https://qiita.com/ryokkkke/items/390647a7c26933940470#forceconsistentcasinginfilenames
+    "forceConsistentCasingInFileNames": true,
+    // Do not emit output the result of the compilation.
+    // https://qiita.com/ryokkkke/items/390647a7c26933940470#noemit
+    // https://zenn.dev/link/comments/3cc37817af8076
+    "noEmit": true,
+    // Enable incremental compilation to reduce the compilation time because it only compiles files that have changed since the last compilation.
+    // https://ryokkkke.com/typescript/tsconfig-json/compiler-options/incremental
+    "incremental": true,
+    // Enable import x from 'module' syntax in addition to import * as x from 'module' and import { x } from 'module' syntax that are allowed by default.
+    "esModuleInterop": true,
+    // Specify ECMAScript version of the output code to be used as a module.
+    "module": "esnext",
+    // Specify how to transpile the code to ECMAScript version specified by the target option.
+    // HACK: "NodeNext" may be better?
+    // https://blog.s2n.tech/articles/dont-use-moduleresolution-node#node16--nodenext
+    "moduleResolution": "node",
+    // Allow import JSON file as a module. (ex: import * as data from './data.json')
+    // https://zenn.dev/poyomitech/articles/d6b8ffb42e3cd4
+    "resolveJsonModule": true,
+    // Compile all files as a separate module discarding relationships between files.
+    // So all files must have their own export statements.
+    // https://qiita.com/ryokkkke/items/390647a7c26933940470#isolatedmodules
+    // https://zenn.dev/link/comments/08c9eb9ead0c4d
+    "isolatedModules": true,
+    // Enable import React from 'react' syntax in addition to import * as React from 'react' syntax that are allowed by default.
+    // https://qiita.com/rhirayamaaan/items/cf3d859678577ec90d7b
+    "allowSyntheticDefaultImports": true,
+    // Specify whether to convert jsx to js.
+    // "preserve": Do not convert jsx to js.
+    // "react": Convert jsx to js in less than React 17.
+    // "react-jsx": Convert jsx to js in React 17 or later.
+    // https://zenn.dev/t_keshi/scraps/9ddb388bc6975d#comment-896ce146df5cd9
+    "jsx": "preserve",
+    // Specify context path(url) for module resolution when import statement with alias is used or relative path is used.
+    // https://www.typescriptlang.org/tsconfig#baseUrl
+    "baseUrl": "./",
+    // Define path aliases based on baseUrl.
+    "paths": {
+      // It's necessary to append "/*" to the end of the path of both alias and path.
+      "@apis/*": ["./apis/*"],
+      "@app/*": ["./app/*"],
+      "@components/*": ["./components/*"],
+      "@pages/*": ["./pages/*"],
+      "@styles/*": ["./styles/*"],
+      "@utils/*": ["./utils/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  // Specify files to be included in the compilation.
+  "include": ["./**/*.ts", "./**/*.tsx", ".next/types/**/*.ts"],
+  // Specify files to be excluded from the compilation.
+  "exclude": ["node_modules"]
+}
