@@ -4,6 +4,8 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
+import { IS_PROD } from "@utils/config";
+
 // Define a middleware wrapper for the handler to allow CORS.
 // https://commte.net/nextjs-cors
 // const allowCors =
@@ -45,7 +47,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         type: "header",
         text: {
           type: "plain_text",
-          text: `⚠️Error happend! (Web) [${process.env.NODE_ENV}]`,
+          text: `⚠️Error happend! (Web) [${process.env.STAGE}]`,
           emoji: true,
         },
       },
@@ -59,7 +61,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     ],
   };
 
-  if (process.env.NODE_ENV === "production") {
+  if (IS_PROD) {
     payload.blocks.unshift({
       type: "section",
       text: {
