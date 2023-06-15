@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -25,7 +24,7 @@ export const useLogin = () => {
           return;
         }
       })
-      .catch((_: AxiosError) => {
+      .catch(() => {
         toast.error("メールアドレスまたはパスワードが間違っています");
         router.push("/error");
       })
