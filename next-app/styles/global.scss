@@ -1,0 +1,8 @@
+// npm install --save-dev sass
+// https://nextjs.org/docs/pages/building-your-application/styling/sass
+
+* {
+  margin: 0; // デフォルトで body に設定されている margin をリセット
+  padding: 0;
+  font-size: 16px;
+}
