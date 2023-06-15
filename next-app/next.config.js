@@ -15,6 +15,7 @@ module.exports = withBundleAnalyzer({
     AWS_DEV_GATEWAY_ID: process.env.AWS_DEV_GATEWAY_ID,
     AWS_PROD_GATEWAY_ID: process.env.AWS_PROD_GATEWAY_ID,
     AWS_DEFAULT_REGION: process.env.AWS_DEFAULT_REGION,
+    STAGE: process.env.STAGE,
   },
   eslint: {
     // Explicitly define the directories to be linted

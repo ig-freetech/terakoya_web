@@ -47,6 +47,9 @@
         "orta.vscode-jest",
         "pkief.material-icon-theme",
         "ms-azuretools.vscode-docker",
+        // Terraform intellisense
+        // https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform
+        "hashicorp.terraform",
         "github.vscode-github-actions",
         "github.copilot",
         "eamodio.gitlens",

@@ -11,6 +11,12 @@ analyze/
 .env.development
 .env.production
 
+.terraform
+.terraform.d
+terraform.tfvars
+*.tfstate
+*.tfstate.*
+
 .DS_Store
 tmp/
 

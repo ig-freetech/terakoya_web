@@ -172,7 +172,9 @@ export const BookingItem = t.type({
   remarks: t.string,
   is_reminded: IS_REMINDED,
   timestamp: t.number,
-  timestamp_iso: t.string,
+  // There's records that timestamp_iso is undefined in dynamodb.
+  // https://snyk.io/advisor/npm-package/io-ts/functions/io-ts.undefined
+  timestamp_iso: t.union([t.string, t.undefined]),
   date_unix_time: t.number,
   uid: t.string,
 });
