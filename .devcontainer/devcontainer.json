@@ -53,7 +53,9 @@
         "github.vscode-github-actions",
         "github.copilot",
         "eamodio.gitlens",
-        "github.vscode-pull-request-github"
+        "github.vscode-pull-request-github",
+        // https://qiita.com/take_me/items/ae0772646dd59630a8b5
+        "aaron-bond.better-comments"
       ]
     }
   }
