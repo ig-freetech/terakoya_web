@@ -237,7 +237,7 @@ export default function Page() {
     <div className={styles["wallpaper"]}>
       <div className={styles["container"]}>
         <div className={styles["content"]}>
-          <Link href="/login">
+          <Link href="/signin">
             <span className={styles["to-home"]}>管理者の方はこちら</span>
           </Link>
           <div className={styles["main-caption"]}>

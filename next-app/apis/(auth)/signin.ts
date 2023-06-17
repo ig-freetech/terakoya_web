@@ -7,5 +7,5 @@ export type RequestBody = {
   password: string;
 };
 
-export const login = (body: RequestBody) =>
-  axios.post(API_BASE_URL + "/login", body);
+export const signIn = (body: RequestBody) =>
+  axios.post(API_BASE_URL + "/signin", body);

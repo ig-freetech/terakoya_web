@@ -6,10 +6,10 @@ import React from "react";
 
 import { Loading } from "@components/elements/loading";
 
-import { useLogin } from "./hook";
+import { useSignIn } from "./hook";
 
 export default function Page() {
-  const { register, isLoading, onSubmit } = useLogin();
+  const { register, isLoading, onSubmit } = useSignIn();
 
   return (
     // https://mui.com/system/flexbox/
@@ -49,7 +49,7 @@ export default function Page() {
               sx={{ marginTop: 2 }}
             />
             {isLoading ? (
-              <Loading text="Processing login..." />
+              <Loading text="Processing sign in..." />
             ) : (
               <Button
                 type="submit"
@@ -57,7 +57,7 @@ export default function Page() {
                 sx={{ width: "200px", marginTop: 3 }}
                 onClick={onSubmit}
               >
-                Login
+                Sign in
               </Button>
             )}
           </Box>

@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
-import { RequestBody, login } from "@apis/login";
+import { RequestBody, signIn } from "@apis/(auth)/signin";
 
-export const useLogin = () => {
+export const useSignIn = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm<RequestBody>({
@@ -15,9 +15,9 @@ export const useLogin = () => {
     },
   });
 
-  const _onLogin = (body: RequestBody) => {
+  const _onSignIn = (body: RequestBody) => {
     setIsLoading(true);
-    login(body)
+    signIn(body)
       .then((v) => {
         if (v.data.result_type === 1) {
           router.push("/manage");
@@ -38,7 +38,7 @@ export const useLogin = () => {
       toast.error("メールアドレスまたはパスワードの書式が不正です");
       return;
     }
-    _onLogin(inputs);
+    _onSignIn(inputs);
   });
 
   return {
