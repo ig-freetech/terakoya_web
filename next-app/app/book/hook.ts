@@ -48,7 +48,8 @@ export const useBook = () => {
   });
 
   const router = useRouter();
-  const { mutate: book, isLoading } = usePostBooking();
+  const { mutate: book } = usePostBooking();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = handleSubmit((inputs) => {
     // console.log(`Request Body:\n${JSON.stringify(inputs)}`);
@@ -63,6 +64,9 @@ export const useBook = () => {
         selectedTerakoyaExperience
       ) as TERAKOYA_EXPERIENCE,
     };
+
+    // TODO: Replace isLoading with the one of React Query if app/loading.tsx is enabled
+    setIsLoading(true);
 
     // options (ex: onSuccess, onError) in mutate() will be fired every time mutate() is called and before the same options in useMutation() are fired.
     // On the other hand, onSuccess, onError in useMutation() are fired by default only when options in mutate() are not defined.
