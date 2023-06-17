@@ -3,19 +3,20 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
-import { RequestBody, signIn } from "@apis/(auth)/signin";
+import { signIn } from "@apis/(auth)/signin";
+import { AccountRequestBody } from "@apis/(auth)/types";
 
 export const useSignIn = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit } = useForm<RequestBody>({
+  const { register, handleSubmit } = useForm<AccountRequestBody>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const _onSignIn = (body: RequestBody) => {
+  const _onSignIn = (body: AccountRequestBody) => {
     setIsLoading(true);
     signIn(body)
       .then((v) => {

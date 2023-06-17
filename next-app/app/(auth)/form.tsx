@@ -2,14 +2,23 @@
 
 import { Paper, Box, TextField, Typography, Button } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { BaseSyntheticEvent } from "react";
+import { UseFormRegister } from "react-hook-form";
 
+import { AccountRequestBody } from "@apis/(auth)/types";
 import { Loading } from "@components/elements/loading";
 
-import { useSignIn } from "./hook";
+type FormProps = {
+  register: UseFormRegister<AccountRequestBody>;
+  isLoading: boolean;
+  onSubmit: (
+    e?: BaseSyntheticEvent<object, unknown, unknown> | undefined
+  ) => Promise<void>;
+  text: "Sign in" | "Sign up";
+};
 
-export default function Page() {
-  const { register, isLoading, onSubmit } = useSignIn();
+export default function Page(props: FormProps) {
+  const { register, isLoading, onSubmit, text } = props;
 
   return (
     // https://mui.com/system/flexbox/
@@ -27,7 +36,7 @@ export default function Page() {
           </Link>
           <Box display="flex" flexDirection="column" alignItems="center">
             <Typography variant="h4" sx={{ marginTop: 1 }}>
-              Management Console
+              {text}
             </Typography>
             {/* https://mui.com/material-ui/react-text-field/ */}
             <TextField
@@ -43,13 +52,17 @@ export default function Page() {
               {...register("password")}
               fullWidth
               required={true}
+              // Hide input text by using type="password"
+              // https://blog.hiros-dot.net/?p=11689#toc4
+              // TODO: Create a password input UI with a show/hide icon and put it in components/elements
+              // https://mui.com/material-ui/react-text-field/#input-adornments
               type="password"
               label="Password"
               variant="filled"
               sx={{ marginTop: 2 }}
             />
             {isLoading ? (
-              <Loading text="Processing sign in..." />
+              <Loading text={`Processing ${text}...`} />
             ) : (
               <Button
                 type="submit"
@@ -57,7 +70,7 @@ export default function Page() {
                 sx={{ width: "200px", marginTop: 3 }}
                 onClick={onSubmit}
               >
-                Sign in
+                {text}
               </Button>
             )}
           </Box>
