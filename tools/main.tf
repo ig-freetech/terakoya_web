@@ -45,4 +45,3 @@ resource "aws_route53_record" "dev_cname_record" {
   ttl     = "300"
   records = ["cname.vercel-dns.com."]
 }
-
