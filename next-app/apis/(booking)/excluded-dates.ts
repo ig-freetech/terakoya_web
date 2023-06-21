@@ -3,9 +3,8 @@ import { useQuery, useMutation } from "react-query";
 
 import { BOOKING_EXCLUDED_DATES_QUERY_KEY } from "@apis/(booking)/queryKeys";
 import { createValidator, get, put, CustomQueryOptions } from "@apis/common";
-import { API_BASE_URL } from "@utils/config";
 
-const API_ROUTE_URL = `${API_BASE_URL}/booking/excluded-dates`;
+const API_ROUTE_URL = "/booking/excluded-dates";
 
 const fetchExcludedDatesValidator = createValidator(
   t.type({

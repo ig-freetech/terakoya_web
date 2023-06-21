@@ -5,11 +5,11 @@ import Link from "next/link";
 import React, { BaseSyntheticEvent } from "react";
 import { UseFormRegister } from "react-hook-form";
 
-import { AccountRequestBody } from "@apis/(auth)/types";
+import { AuthAccountRequestBody } from "@apis/(auth)/types";
 import { Loading } from "@components/elements/loading";
 
 type FormProps = {
-  register: UseFormRegister<AccountRequestBody>;
+  register: UseFormRegister<AuthAccountRequestBody>;
   isLoading: boolean;
   onSubmit: (
     e?: BaseSyntheticEvent<object, unknown, unknown> | undefined
