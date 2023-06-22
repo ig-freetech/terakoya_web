@@ -56,8 +56,18 @@
 // TODO: next/image
 // https://www.zenryoku-kun.com/post/nextjs13-image
 
-import BookPage from "@app/book/page";
+"use client";
+
+import { FlexColBox } from "@components/elements/box";
+import { BasicPaper } from "@components/elements/paper";
 
 export default function Page() {
-  return <BookPage />;
+  return (
+    <BasicPaper>
+      <FlexColBox>
+        <div>Home画面準備中</div>
+        <div>左上のメニューから選択してください</div>
+      </FlexColBox>
+    </BasicPaper>
+  );
 }

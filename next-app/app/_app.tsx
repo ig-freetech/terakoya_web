@@ -2,7 +2,15 @@
 // For example, QueryClientProvider uses useContext internally.
 "use client";
 
+// <Global> component must be imported in client component because it uses emotion using hooks.
+import { Global } from "@emotion/react";
+import { useState } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
+
+import Footer from "@components/layouts/footer";
+import Header from "@components/layouts/header";
+import Sidebar from "@components/layouts/sidebar";
+import { globalStyles } from "@styles/global";
 
 // QueryClient is a React context that holds all of the cache data, so create a instance only once here and export it to reuse it across the app.
 // QueryClient instance can be used in any component by using useQueryClient hook.
@@ -32,9 +40,31 @@ export default function ClientWrapper({
 }: {
   children: React.ReactNode;
 }) {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const handleHamburgerMenuClick = () => {
+    setDrawerOpen(!drawerOpen);
+  };
   return (
     // Sandwitch children with <QueryClientProvider> in layout.tsx to use react-query across all pages.
     // https://tanstack.com/query/v3/docs/react/quick-start
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      {/**
+       * <Global /> is used to inject global styles into the app. Global styles remains unless <Global /> is unmounted.
+       * https://chocolat5.com/ja/tips/nextjs-emotion-global-styles/
+       * https://emotion.sh/docs/globals
+       * Using <Global /> in layout.tsx, all pages must be Client Component because <Global /> uses emotion using hooks.
+       */}
+      <Global styles={globalStyles} />
+      <Sidebar
+        drawerOpen={drawerOpen}
+        handleHamburgerIconClick={handleHamburgerMenuClick}
+      />
+      <Header
+        handleHamburgerIconClick={handleHamburgerMenuClick}
+        title={"Title"}
+      />
+      {children}
+      <Footer />
+    </QueryClientProvider>
   );
 }

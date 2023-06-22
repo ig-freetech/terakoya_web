@@ -77,6 +77,9 @@
         "name": "next"
       }
     ]
+    // "css" prop can be used in jsx(tsx) by setting "jsxImportSource": "@emotion/react" in Next.js v12.2 or later.
+    // https://zenn.dev/tatsuyasusukida/articles/easy-to-use-emotion-from-nextjs-12-2#tsconfig.json%E3%81%AE%E8%A8%AD%E5%AE%9A
+    // "jsxImportSource": "@emotion/react"
   },
   // Specify files to be included in the compilation.
   "include": ["./**/*.ts", "./**/*.tsx", ".next/types/**/*.ts"],

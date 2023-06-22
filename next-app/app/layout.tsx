@@ -24,7 +24,7 @@ import ClientWrapper from "@app/_app";
 
 // global.scss is imported here so that it can be used across all pages.
 // css or scss files can be imported only in _app.tsx not in _document.tsx.
-import "@styles/global.scss";
+// import "@styles/scss/global.scss";
 
 // Define meta data to be included in the head tag of the html template.
 // https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#modifying-head

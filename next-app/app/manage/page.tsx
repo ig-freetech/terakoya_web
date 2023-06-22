@@ -7,7 +7,6 @@ import {
   Collapse,
   IconButton,
   MenuItem,
-  Paper,
   Select,
   Table,
   TableBody,
@@ -23,6 +22,7 @@ import Link from "next/link";
 import React from "react";
 
 import { BookingItem } from "@apis/(booking)/types";
+import { BasicPaper } from "@components/elements/paper";
 import { ISO_FORMAT, TODAY_JST } from "@utils/datetime";
 
 import { useManage, TERAKOYA_TYPE } from "./hook";
@@ -94,53 +94,51 @@ export default function Page() {
   const { bookingItemList, setTargetDate, onSelect } = useManage();
 
   return (
-    <Box sx={{ p: 5 }}>
-      <Paper sx={{ p: 5 }}>
-        <Box display="flex" flexDirection="row" justifyContent="space-between">
-          <Link href="/">
-            {/* https://mui.com/material-ui/react-typography/ */}
-            <Typography variant="subtitle1">ホームへ戻る</Typography>
-          </Link>
-          <Typography variant="h5" color="GrayText">
-            予約情報一覧
-          </Typography>
-          {/* https://mui.com/x/react-date-pickers/getting-started/ */}
-          {/* https://mui.com/x/react-date-pickers/date-picker/ */}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              defaultValue={TODAY_JST}
-              onChange={(date) => {
-                if (date != null) {
-                  setTargetDate(date.format(ISO_FORMAT));
-                }
-              }}
-            />
-          </LocalizationProvider>
-        </Box>
-        <Box>
-          {/* https://mui.com/material-ui/react-table/#sticky-header */}
-          <Table stickyHeader sx={{ tableLayout: "fixed" }}>
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                <TableCell>参加日</TableCell>
-                <TableCell>名前</TableCell>
-                <TableCell>参加希望</TableCell>
-                <TableCell>学年</TableCell>
-                <TableCell>備考</TableCell>
-                <TableCell>拠点</TableCell>
-                <TableCell>リマインドメール送信済み</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {bookingItemList?.map((item, i) => (
-                <AccordionTableRow key={i} item={item} onSelect={onSelect} />
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      </Paper>
-    </Box>
+    <BasicPaper>
+      <Box display="flex" flexDirection="row" justifyContent="space-between">
+        <Link href="/">
+          {/* https://mui.com/material-ui/react-typography/ */}
+          <Typography variant="subtitle1">ホームへ戻る</Typography>
+        </Link>
+        <Typography variant="h5" color="GrayText">
+          予約情報一覧
+        </Typography>
+        {/* https://mui.com/x/react-date-pickers/getting-started/ */}
+        {/* https://mui.com/x/react-date-pickers/date-picker/ */}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            defaultValue={TODAY_JST}
+            onChange={(date) => {
+              if (date != null) {
+                setTargetDate(date.format(ISO_FORMAT));
+              }
+            }}
+          />
+        </LocalizationProvider>
+      </Box>
+      <Box>
+        {/* https://mui.com/material-ui/react-table/#sticky-header */}
+        <Table stickyHeader sx={{ tableLayout: "fixed" }}>
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell>参加日</TableCell>
+              <TableCell>名前</TableCell>
+              <TableCell>参加希望</TableCell>
+              <TableCell>学年</TableCell>
+              <TableCell>備考</TableCell>
+              <TableCell>拠点</TableCell>
+              <TableCell>リマインドメール送信済み</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {bookingItemList?.map((item, i) => (
+              <AccordionTableRow key={i} item={item} onSelect={onSelect} />
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
+    </BasicPaper>
   );
 }
 

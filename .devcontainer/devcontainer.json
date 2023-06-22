@@ -46,6 +46,9 @@
         "dbaeumer.vscode-eslint",
         "orta.vscode-jest",
         "pkief.material-icon-theme",
+        // Enable intellisense for emotion.
+        // https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components
+        "styled-components.vscode-styled-components",
         "ms-azuretools.vscode-docker",
         // Terraform intellisense
         // https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform

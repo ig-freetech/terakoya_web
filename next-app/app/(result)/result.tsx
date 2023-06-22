@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import styles from "@styles/result.module.scss";
+import styles from "@app/(result)/result.module.scss";
 
 type ResultProps = {
   texts: Array<string>;
