@@ -148,6 +148,16 @@ export const useBook = () => {
       data?.dates
     );
 
+  const [step, setStep] = useState(1);
+  const onNextStep = () => {
+    setStep(step + 1);
+  };
+  const onPrevStep = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
+
   return {
     register,
     onSubmit,
@@ -166,5 +176,8 @@ export const useBook = () => {
         ? SATURDAY
         : TUESUDAY
     ),
+    step,
+    onNextStep,
+    onPrevStep,
   };
 };

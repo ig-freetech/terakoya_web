@@ -14,6 +14,7 @@ import {
   TERAKOYA_EXPERIENCE,
   TERAKOYA_TYPE,
 } from "@apis/(booking)/book";
+import { DarkBrownButton } from "@components/elements/button";
 import { Loading } from "@components/elements/loading";
 import { ISO_FORMAT } from "@utils/datetime";
 
@@ -235,6 +236,9 @@ export default function Page() {
     onChangeSelectedTerakoyaType,
     isMiddle,
     attendanceDateList,
+    step,
+    onNextStep,
+    onPrevStep,
   } = useBook();
 
   return (
@@ -248,174 +252,190 @@ export default function Page() {
           </div>
           <div className={styles["form-container"]}>
             <form className={styles["form"]} onSubmit={onSubmit}>
-              <Label text="参加希望">
-                <span className={styles["label-description"]}>
-                  ※下記の選択に応じて参加希望日で選択できる日程が切り替わります。
-                </span>
-                {TERAKOYA_TYPE_RADIO_DATA.map((data, i) => (
-                  <GroupInput
-                    key={i}
-                    // valueAs option cannot be used with `radio` input
-                    // https://zenn.dev/yodaka/articles/e490a79bccd5e2
-                    // registerRtn={register("terakoya_type", {
-                    //   valueAsNumber: true,
-                    // })}
-                    registerRtn={register("terakoya_type")}
-                    inputType="radio"
-                    data={data}
-                    isRequired={true}
-                    onChange={(e) =>
-                      onChangeSelectedTerakoyaType(e.target.value)
-                    }
-                  />
-                ))}
-              </Label>
-              <Label text="名前">
-                <TextBox
-                  registerRtn={register("name")}
-                  inputType="text"
-                  isRequired={true}
-                />
-              </Label>
-              <Label text="メールアドレス">
-                <TextBox
-                  registerRtn={register("email")}
-                  inputType="email"
-                  isRequired={true}
-                />
-              </Label>
-              <Label text="学年">
-                {/* https://zenn.dev/koojy/articles/reacthookform-select-number */}
-                <ComboBox
-                  registerRtn={register("grade", { valueAsNumber: true })}
-                  optionList={isMiddle ? MID_GRADE_LIST : HIGH_GRADE_LIST}
-                />
-              </Label>
-              {selectedTerakoyaType != undefined ? (
-                <Label text="参加希望日">
-                  {isLoadingExDates ? (
-                    <Loading />
-                  ) : attendanceDateList.length === 0 ? (
-                    <span>現在参加可能日がありません</span>
-                  ) : (
-                    attendanceDateList.map((dateDayjs, i) => (
+              {step === 1 ? (
+                <>
+                  <Label text="参加希望">
+                    <span className={styles["label-description"]}>
+                      ※下記の選択に応じて参加希望日で選択できる日程が切り替わります。
+                    </span>
+                    {TERAKOYA_TYPE_RADIO_DATA.map((data, i) => (
                       <GroupInput
                         key={i}
-                        registerRtn={register("attendance_date_list")}
-                        inputType="checkbox"
-                        data={{
-                          text: dateDayjs.format("MM/DD (ddd)"),
-                          value: dateDayjs.format(ISO_FORMAT),
-                        }}
-                        isRequired={false}
-                        onChange={(e) => onChangeDateList(e.target.value)}
+                        // valueAs option cannot be used with `radio` input
+                        // https://zenn.dev/yodaka/articles/e490a79bccd5e2
+                        // registerRtn={register("terakoya_type", {
+                        //   valueAsNumber: true,
+                        // })}
+                        registerRtn={register("terakoya_type")}
+                        inputType="radio"
+                        data={data}
+                        isRequired={true}
+                        onChange={(e) =>
+                          onChangeSelectedTerakoyaType(e.target.value)
+                        }
                       />
-                    ))
-                  )}
-                </Label>
+                    ))}
+                  </Label>
+                  <DarkBrownButton onClick={onNextStep}>次へ</DarkBrownButton>
+                </>
               ) : null}
-              <Label
-                text={
-                  <>
-                    来れそうな時間帯
-                    <br className={styles["only-sp-enabled"]} />
-                    （活動時間17時〜20時）
-                  </>
-                }
-              >
-                <ComboBox
-                  registerRtn={register("arrival_time", {
-                    valueAsNumber: true,
-                  })}
-                  optionList={ARRIVAL_TIME_OPTION_LIST}
-                />
-              </Label>
-              <Label text="テラコヤへのご参加は？">
-                {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data, i) => (
-                  <GroupInput
-                    key={i}
-                    registerRtn={register("terakoya_experience")}
-                    inputType="radio"
-                    data={data}
-                    isRequired={true}
-                    onChange={(e) => onChangeSelectedExperience(e.target.value)}
-                  />
-                ))}
-              </Label>
-              {selectedTerakoyaExperience ==
-              TERAKOYA_EXPERIENCE.FIRST_TIME.toString() ? (
+              {step === 2 ? (
                 <>
-                  <Label text="今在籍している学校名">
+                  <Label text="テラコヤへのご参加は？">
+                    {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data, i) => (
+                      <GroupInput
+                        key={i}
+                        registerRtn={register("terakoya_experience")}
+                        inputType="radio"
+                        data={data}
+                        isRequired={true}
+                        onChange={(e) =>
+                          onChangeSelectedExperience(e.target.value)
+                        }
+                      />
+                    ))}
+                  </Label>
+                  <DarkBrownButton onClick={onNextStep}>次へ</DarkBrownButton>
+                </>
+              ) : null}
+              {step === 3 ? (
+                <>
+                  <Label text="名前">
                     <TextBox
-                      registerRtn={register("school_name")}
+                      registerRtn={register("name")}
                       inputType="text"
                       isRequired={true}
                     />
                   </Label>
-                  <Label text="志望校">
+                  <Label text="メールアドレス">
                     <TextBox
-                      registerRtn={register("first_choice_school")}
-                      inputType="text"
-                      isRequired={false}
+                      registerRtn={register("email")}
+                      inputType="email"
+                      isRequired={true}
                     />
                   </Label>
-                  {!isMiddle ? (
-                    <Label text="文理選択">
+                  <Label text="学年">
+                    {/* https://zenn.dev/koojy/articles/reacthookform-select-number */}
+                    <ComboBox
+                      registerRtn={register("grade", { valueAsNumber: true })}
+                      optionList={isMiddle ? MID_GRADE_LIST : HIGH_GRADE_LIST}
+                    />
+                  </Label>
+                  {selectedTerakoyaType != undefined ? (
+                    <Label text="参加希望日">
+                      {isLoadingExDates ? (
+                        <Loading />
+                      ) : attendanceDateList.length === 0 ? (
+                        <span>現在参加可能日がありません</span>
+                      ) : (
+                        attendanceDateList.map((dateDayjs, i) => (
+                          <GroupInput
+                            key={i}
+                            registerRtn={register("attendance_date_list")}
+                            inputType="checkbox"
+                            data={{
+                              text: dateDayjs.format("MM/DD (ddd)"),
+                              value: dateDayjs.format(ISO_FORMAT),
+                            }}
+                            isRequired={false}
+                            onChange={(e) => onChangeDateList(e.target.value)}
+                          />
+                        ))
+                      )}
+                    </Label>
+                  ) : null}
+                  <Label
+                    text={
+                      <>
+                        来れそうな時間帯
+                        <br className={styles["only-sp-enabled"]} />
+                        （活動時間17時〜20時）
+                      </>
+                    }
+                  >
+                    <ComboBox
+                      registerRtn={register("arrival_time", {
+                        valueAsNumber: true,
+                      })}
+                      optionList={ARRIVAL_TIME_OPTION_LIST}
+                    />
+                  </Label>
+                  {selectedTerakoyaExperience ==
+                  TERAKOYA_EXPERIENCE.FIRST_TIME.toString() ? (
+                    <>
+                      <Label text="今在籍している学校名">
+                        <TextBox
+                          registerRtn={register("school_name")}
+                          inputType="text"
+                          isRequired={true}
+                        />
+                      </Label>
+                      <Label text="志望校">
+                        <TextBox
+                          registerRtn={register("first_choice_school")}
+                          inputType="text"
+                          isRequired={false}
+                        />
+                      </Label>
+                      {!isMiddle ? (
+                        <Label text="文理選択">
+                          <ComboBox
+                            registerRtn={register("course_choice", {
+                              valueAsNumber: true,
+                            })}
+                            optionList={COURSE_CHOICE_OPTION_LIST}
+                          />
+                        </Label>
+                      ) : null}
+                      <Label text="将来の夢など（自由記述）">
+                        <TextArea registerRtn={register("future_free")} />
+                      </Label>
+                      <Label text="好きなもの(こと)（自由記述）">
+                        <TextArea registerRtn={register("like_thing_free")} />
+                      </Label>
+                      <Label text="テラコヤを知ったキッカケ">
+                        <ComboBox
+                          registerRtn={register("how_to_know_terakoya", {
+                            valueAsNumber: true,
+                          })}
+                          optionList={HOW_TO_KNOW_TERAKOYA_OPTION_LIST}
+                        />
+                      </Label>
+                    </>
+                  ) : selectedTerakoyaExperience ==
+                    TERAKOYA_EXPERIENCE.DONE.toString() ? (
+                    <Label text="希望する勉強の仕方">
                       <ComboBox
-                        registerRtn={register("course_choice", {
+                        registerRtn={register("study_style", {
                           valueAsNumber: true,
                         })}
-                        optionList={COURSE_CHOICE_OPTION_LIST}
+                        optionList={STUDY_STYLE_OPTION_LIST}
                       />
                     </Label>
                   ) : null}
-                  <Label text="将来の夢など（自由記述）">
-                    <TextArea registerRtn={register("future_free")} />
-                  </Label>
-                  <Label text="好きなもの(こと)（自由記述）">
-                    <TextArea registerRtn={register("like_thing_free")} />
-                  </Label>
-                  <Label text="テラコヤを知ったキッカケ">
+                  <Label text="勉強したい科目">
                     <ComboBox
-                      registerRtn={register("how_to_know_terakoya", {
+                      registerRtn={register("study_subject", {
                         valueAsNumber: true,
                       })}
-                      optionList={HOW_TO_KNOW_TERAKOYA_OPTION_LIST}
+                      optionList={STUDY_SUBJECT_HIGH_OPTION_LIST}
                     />
                   </Label>
+                  <Label text="その科目の内容（自由記述）">
+                    <TextArea registerRtn={register("study_subject_detail")} />
+                  </Label>
+                  <Label text="備考（自由記述）">
+                    <TextArea registerRtn={register("remarks")} />
+                  </Label>
+                  <div className={styles["submit-place"]}>
+                    {isLoading ? (
+                      <Loading text="予約処理中..." />
+                    ) : (
+                      <input className={styles["submit"]} type="submit" />
+                    )}
+                  </div>
                 </>
-              ) : selectedTerakoyaExperience ==
-                TERAKOYA_EXPERIENCE.DONE.toString() ? (
-                <Label text="希望する勉強の仕方">
-                  <ComboBox
-                    registerRtn={register("study_style", {
-                      valueAsNumber: true,
-                    })}
-                    optionList={STUDY_STYLE_OPTION_LIST}
-                  />
-                </Label>
               ) : null}
-              <Label text="勉強したい科目">
-                <ComboBox
-                  registerRtn={register("study_subject", {
-                    valueAsNumber: true,
-                  })}
-                  optionList={STUDY_SUBJECT_HIGH_OPTION_LIST}
-                />
-              </Label>
-              <Label text="その科目の内容（自由記述）">
-                <TextArea registerRtn={register("study_subject_detail")} />
-              </Label>
-              <Label text="備考（自由記述）">
-                <TextArea registerRtn={register("remarks")} />
-              </Label>
-              <div className={styles["submit-place"]}>
-                {isLoading ? (
-                  <Loading text="予約処理中..." />
-                ) : (
-                  <input className={styles["submit"]} type="submit" />
-                )}
-              </div>
             </form>
           </div>
         </div>
