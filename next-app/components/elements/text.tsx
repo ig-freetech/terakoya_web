@@ -24,6 +24,9 @@ export const BoldTextLightBrown = styled(BoldText)`
 export const BoldTextWhite = styled(BoldText)`
   color: ${colors.white};
 `;
+export const BoldTextIndigo = styled(BoldText)`
+  color: ${colors.indigo};
+`;
 export const CaptionDarkBrown = styled(BoldTextDarkBrown)`
   font-size: 24px;
   ${MEDIA_QUERIES.upTo600} {

@@ -47,6 +47,10 @@ export const basicButton = css`
   padding: 10px;
   border: none;
   border-radius: 5px;
+  &:disabled {
+    background-color: ${colors.gray};
+    cursor: not-allowed;
+  }
 `;
 
 /**Absolute Position */

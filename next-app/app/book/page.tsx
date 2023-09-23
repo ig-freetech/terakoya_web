@@ -14,7 +14,15 @@ import {
   TERAKOYA_EXPERIENCE,
   TERAKOYA_TYPE,
 } from "@apis/(booking)/book";
-import { DarkBrownButton } from "@components/elements/button";
+import {
+  FlexColStartLeft,
+  FlexHorCenteredBox,
+  MarginBox,
+} from "@components/elements/box";
+import {
+  DarkBrownButton,
+  IndigoSecondaryButton,
+} from "@components/elements/button";
 import { Loading } from "@components/elements/loading";
 import { ISO_FORMAT } from "@utils/datetime";
 
@@ -238,6 +246,7 @@ export default function Page() {
     attendanceDateList,
     step,
     onNextStep,
+    isDisabledOnNextStep,
     onPrevStep,
   } = useBook();
 
@@ -253,11 +262,13 @@ export default function Page() {
           <div className={styles["form-container"]}>
             <form className={styles["form"]} onSubmit={onSubmit}>
               {step === 1 ? (
-                <>
+                <FlexColStartLeft>
                   <Label text="参加希望">
+                    <MarginBox marginTopPx={20} />
                     <span className={styles["label-description"]}>
                       ※下記の選択に応じて参加希望日で選択できる日程が切り替わります。
                     </span>
+                    <MarginBox marginTopPx={20} />
                     {TERAKOYA_TYPE_RADIO_DATA.map((data, i) => (
                       <GroupInput
                         key={i}
@@ -276,12 +287,19 @@ export default function Page() {
                       />
                     ))}
                   </Label>
-                  <DarkBrownButton onClick={onNextStep}>次へ</DarkBrownButton>
-                </>
+                  <MarginBox marginTopPx={40} />
+                  <DarkBrownButton
+                    onClick={onNextStep}
+                    disabled={isDisabledOnNextStep}
+                  >
+                    次へ
+                  </DarkBrownButton>
+                </FlexColStartLeft>
               ) : null}
               {step === 2 ? (
-                <>
+                <FlexColStartLeft>
                   <Label text="テラコヤへのご参加は？">
+                    <MarginBox marginTopPx={20} />
                     {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data, i) => (
                       <GroupInput
                         key={i}
@@ -295,8 +313,20 @@ export default function Page() {
                       />
                     ))}
                   </Label>
-                  <DarkBrownButton onClick={onNextStep}>次へ</DarkBrownButton>
-                </>
+                  <MarginBox marginTopPx={40} />
+                  <FlexHorCenteredBox>
+                    <DarkBrownButton
+                      onClick={onNextStep}
+                      disabled={isDisabledOnNextStep}
+                    >
+                      次へ
+                    </DarkBrownButton>
+                    <MarginBox marginLeftPx={10} />
+                    <IndigoSecondaryButton onClick={onPrevStep}>
+                      戻る
+                    </IndigoSecondaryButton>
+                  </FlexHorCenteredBox>
+                </FlexColStartLeft>
               ) : null}
               {step === 3 ? (
                 <>
@@ -431,7 +461,13 @@ export default function Page() {
                     {isLoading ? (
                       <Loading text="予約処理中..." />
                     ) : (
-                      <input className={styles["submit"]} type="submit" />
+                      <FlexHorCenteredBox>
+                        <DarkBrownButton type="submit">送信</DarkBrownButton>
+                        <MarginBox marginLeftPx={10} />
+                        <IndigoSecondaryButton onClick={onPrevStep}>
+                          戻る
+                        </IndigoSecondaryButton>
+                      </FlexHorCenteredBox>
                     )}
                   </div>
                 </>
