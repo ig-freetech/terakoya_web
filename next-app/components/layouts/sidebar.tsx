@@ -62,16 +62,10 @@ export default function Sidebar(props: SidebarProps) {
   const { mutate: signOut, isLoading } = useSignOut();
   const { disposeUser, isLoggedIn } = useUserStore();
   const handleSignOut = () => {
-    const dummyRequestBody = undefined;
-    signOut(dummyRequestBody, {
-      onSuccess: () => {
-        disposeUser();
-        toast.success("ログアウトしました。");
-      },
-      onError: (error) => {
-        toast.error(`エラーが発生しました。\n${error}`);
-      },
-    });
+    signOut();
+    disposeUser();
+    router.push(ROUTER.SIGN_IN);
+    toast.success("ログアウトしました。");
   };
   const handleSignIn = () => {
     router.push(ROUTER.SIGN_IN);
@@ -96,9 +90,20 @@ export default function Sidebar(props: SidebarProps) {
         <MarginBox marginTopPx={20} />
         <Divider />
         <MarginBox marginTopPx={20} />
-        {isLoading ? (
-          <Loading />
-        ) : isLoggedIn ? (
+        {isLoggedIn ? (
+          isLoading ? (
+            <Loading />
+          ) : (
+            <BoldDangerText
+              css={css`
+                ${clickable}
+              `}
+              onClick={handleSignOut}
+            >
+              サインアウト
+            </BoldDangerText>
+          )
+        ) : (
           <BoldSuccessText
             css={css`
               ${clickable}
@@ -107,15 +112,6 @@ export default function Sidebar(props: SidebarProps) {
           >
             サインイン
           </BoldSuccessText>
-        ) : (
-          <BoldDangerText
-            css={css`
-              ${clickable}
-            `}
-            onClick={handleSignOut}
-          >
-            サインアウト
-          </BoldDangerText>
         )}
       </StyledSidebarContent>
     </SwipeableDrawer>

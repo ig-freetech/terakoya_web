@@ -17,8 +17,7 @@ export const useSignIn = () =>
     postWithResponse("/signin", User, reqBody)
   );
 
-export const useSignOut = () =>
-  useMutation((dummy: undefined) => post("/signout", dummy));
+export const useSignOut = () => useMutation(() => post("/signout"));
 
 export type DeleteAccountRequestBody = {
   uuid: string;
