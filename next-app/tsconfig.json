@@ -1,8 +1,8 @@
-// Next.js + TypeScript
-// https://zenn.dev/t_keshi/scraps/9ddb388bc6975d
-// https://zenn.dev/kazto/articles/f94fe7172cdfcf066544
-// https://nextjs.org/learn/excel/typescript/create-tsconfig
 {
+  // Next.js + TypeScript
+  // https://zenn.dev/t_keshi/scraps/9ddb388bc6975d
+  // https://zenn.dev/kazto/articles/f94fe7172cdfcf066544
+  // https://nextjs.org/learn/excel/typescript/create-tsconfig
   "compilerOptions": {
     // Compile to ES2015 for better tree shaking and compatibility with modern browsers.
     // https://caniuse.com/?search=es6
@@ -68,7 +68,9 @@
       "@apis/*": ["./apis/*"],
       "@app/*": ["./app/*"],
       "@components/*": ["./components/*"],
+      "@hooks/*": ["./hooks/*"],
       "@pages/*": ["./pages/*"],
+      "@stores/*": ["./stores/*"],
       "@styles/*": ["./styles/*"],
       "@utils/*": ["./utils/*"]
     },

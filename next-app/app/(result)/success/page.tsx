@@ -1,7 +1,6 @@
 import Result from "@app/(result)/result";
 
 const SUCCESS_RESULT_TEXTS = [
-  "【予約完了】",
   "予約処理が完了しました。",
   "ご登録頂いたメールアドレス宛てに予約完了メールも送信しましたのでご確認下さい。",
   "メールが届かない場合は",
@@ -10,5 +9,5 @@ const SUCCESS_RESULT_TEXTS = [
 ];
 
 export default function Page() {
-  return <Result texts={SUCCESS_RESULT_TEXTS} />;
+  return <Result caption="【予約完了】" texts={SUCCESS_RESULT_TEXTS} />;
 }

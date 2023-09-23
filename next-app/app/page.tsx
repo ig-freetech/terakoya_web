@@ -58,16 +58,15 @@
 
 "use client";
 
-import { FlexColBox } from "@components/elements/box";
+import { FlexColCenteredBox } from "@components/elements/box";
 import { BasicPaper } from "@components/elements/paper";
 
 export default function Page() {
   return (
     <BasicPaper>
-      <FlexColBox>
-        <div>Home画面準備中</div>
-        <div>左上のメニューから選択してください</div>
-      </FlexColBox>
+      <FlexColCenteredBox>
+        <span>Home画面準備中</span>
+      </FlexColCenteredBox>
     </BasicPaper>
   );
 }

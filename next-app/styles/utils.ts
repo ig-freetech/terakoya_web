@@ -25,15 +25,6 @@ export const borderRight = css`
   border-right: 1px solid ${colors.gray};
 `;
 
-/**Text */
-export const boldText = css`
-  font-weight: bold;
-`;
-export const captionText = css`
-  ${boldText}
-  font-size: 24px;
-`;
-
 /**Clickable */
 export const cursorPointer = css`
   cursor: pointer;
@@ -47,3 +38,25 @@ export const clickable = css`
     ${opacity};
   }
 `;
+
+/**Button */
+export const basicButton = css`
+  ${flexCenteredContent};
+  ${clickable};
+  width: 200px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+`;
+
+/**Absolute Position */
+export const absoluteVerticalCentered = css`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+/**Media Queries */
+export const MEDIA_QUERIES = {
+  upTo600: "@media screen and (max-width: 600px)",
+};

@@ -6,7 +6,7 @@ import React from "react";
 import { Controller } from "react-hook-form";
 
 import { Loading } from "@components/elements/loading";
-import { BasicPaper } from "@components/elements/paper";
+import { BasicMuiPaper } from "@components/elements/paper";
 
 import { useSettingExcludedDates } from "./hook";
 
@@ -43,7 +43,7 @@ export default function Page() {
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
-      <BasicPaper backgroundColor="#f5f5f5">
+      <BasicMuiPaper backgroundColor="#f5f5f5">
         <Box flexDirection="column">
           <Box
             display="flex"
@@ -132,7 +132,7 @@ export default function Page() {
             </form>
           )}
         </Box>
-      </BasicPaper>
+      </BasicMuiPaper>
     </Box>
   );
 }

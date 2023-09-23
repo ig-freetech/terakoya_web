@@ -1,6 +1,6 @@
 // npm i io-ts fp-ts becaise fp-ts is a peer dependency of io-ts
 // https://github.com/gcanti/io-ts#installation
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { isLeft } from "fp-ts/Either";
 import * as t from "io-ts";
 // https://github.com/gillchristian/io-ts-reporters
@@ -10,11 +10,18 @@ import { UseQueryOptions } from "react-query";
 import { notifyErrorMsg } from "@apis/slack";
 import { API_BASE_URL } from "@utils/config";
 
+type ErrorResponse = {
+  detail: string;
+};
+
 export const api = axios.create({
   baseURL: API_BASE_URL,
   // Cookie is included in the request to Server-side by default when withCredentials is true.
   // https://axios-http.com/docs/req_config
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 /** Refresh access token and refetch new refresh token */
@@ -22,7 +29,7 @@ const refreshAccessToken = () => api.post("/refresh-token");
 
 const refreshHandler = async <T>(api_request: () => Promise<T>) => {
   try {
-    return api_request();
+    return await api_request();
   } catch (e) {
     if (
       // Branches processes for each error types by using "e instanceof <Error type>"
@@ -36,7 +43,7 @@ const refreshHandler = async <T>(api_request: () => Promise<T>) => {
     ) {
       // If token is expired, refresh access token, retry the request and refetch new refresh token.
       await refreshAccessToken();
-      return api_request();
+      return await api_request();
     }
     // If the error is due to other reasons, throw it
     throw e;
@@ -45,62 +52,129 @@ const refreshHandler = async <T>(api_request: () => Promise<T>) => {
 
 // Validation fails when fields is missing but passes when there are extra fields.
 // https://qiita.com/fukky21/items/421f41baf3ebc4016d3c
-const BasicResponseData = t.type({
-  message: t.string,
-  status_code: t.number,
-});
+// const BasicResponseData = t.type({
+//   message: t.string,
+//   status_code: t.number,
+// });
 
 // t.Mixed is a type that can be anything like `unknown` in TypeScript but it can be validated when decoding.
 // On the other hand, t.Any is a type that can be anything like `unknown` in TypeScript but it can't be validated when decoding.
-type ResponseBody<T extends t.Mixed> = t.TypeOf<typeof BasicResponseData & T>;
+// type ResponseBody<T extends t.Mixed> = t.TypeOf<typeof BasicResponseData & T>;
 
 // Mixed (interface) in io-ts is a type that can be anything like `unknown` in TypeScript.
 // https://www.jsdocs.io/package/io-ts#Mixed
-export const createValidator = <T extends t.Mixed>(additonalProps: T) =>
-  t.intersection([BasicResponseData, additonalProps]);
+// export const createValidator = <T extends t.Mixed>(additonalProps: T) =>
+//   t.intersection([BasicResponseData, additonalProps]);
 
-const handleError = (url: string, err: AxiosError) =>
-  notifyErrorMsg(url, err.message);
+const handleError = (url: string, err: AxiosError) => {
+  const errorResponse = err.response?.data as ErrorResponse;
+  if (!errorResponse) {
+    throw new Error("Error response type is not { detail: string }");
+  }
+  notifyErrorMsg(url, errorResponse.detail);
+  throw new Error(errorResponse.detail);
+};
+
+const parseResponse = <T extends t.Mixed>(
+  res: AxiosResponse<T>,
+  validator: T
+) => {
+  // decode() returns Either<Errors, t.Type> in fp-ts.
+  // https://github.com/gcanti/io-ts/blob/master/index.md#basic-usage
+  const result = validator.decode(res.data);
+  // isLeft() checks if the Either is Left.
+  // https://qiita.com/kalzit/items/483e4d210c0c187787a8#isleftisright
+  if (isLeft(result)) {
+    throw new Error(reporter.report(result).join("\n"));
+  }
+  return result.right;
+};
 
 export const get = <T extends t.Mixed>(
   url: string,
-  validator: t.IntersectionC<[typeof BasicResponseData, T]>,
-  signal: AbortSignal | undefined
+  validator: T,
+  signal?: AbortSignal
 ) =>
   refreshHandler(() =>
     api
       // axios.get must return cancellable promise (having cancel() method) to be used with queryClient.cancelQueries(queryKey) in react-query.
       // https://tanstack.com/query/v4/docs/react/guides/query-cancellation#using-axios-v0220
-      .get<ResponseBody<T>>(url, { signal })
+      .get<T>(url, { signal })
+      .then((res) => parseResponse(res, validator))
+      .catch((err: AxiosError) => {
+        throw handleError(url, err);
+      })
+  );
+
+// export const getWithCookie = <T extends t.Mixed>(
+//   url: string,
+//   validator: T,
+//   signal?: AbortSignal
+// ) =>
+//   refreshHandler(() =>
+//     api
+//       .get<T>(url, { signal, withCredentials: true })
+//       .then((res) => parseResponse(res, validator))
+//       .catch((err: AxiosError) => {
+//         throw handleError(url, err);
+//       })
+//   );
+
+export const put = <T>(url: string, requestBody: unknown, validator?: T) =>
+  refreshHandler(() =>
+    api
+      .put(url, requestBody)
       .then((res) => {
-        // decode() returns Either<Errors, t.Type> in fp-ts.
-        // https://github.com/gcanti/io-ts/blob/master/index.md#basic-usage
-        const result = validator.decode(res.data);
-        // isLeft() checks if the Either is Left.
-        // https://qiita.com/kalzit/items/483e4d210c0c187787a8#isleftisright
-        if (isLeft(result)) {
-          throw new Error(reporter.report(result).join("\n"));
+        if (!validator) {
+          return;
         }
-        // Return the type of the intersection of BasicResponseData and additionalProps.
-        return result.right;
+        return parseResponse(res, validator);
       })
       .catch((err: AxiosError) => {
         throw handleError(url, err);
       })
   );
 
-export const put = <T>(url: string, requestBody: T) =>
+export const post = <T>(url: string, requestBody?: unknown, validator?: T) =>
   refreshHandler(() =>
-    api.put(url, requestBody).catch((err) => {
-      throw handleError(url, err);
-    })
+    api
+      .post(url, requestBody)
+      .then((res) => {
+        if (!validator) {
+          return;
+        }
+        return parseResponse(res, validator);
+      })
+      .catch((err: AxiosError) => {
+        throw handleError(url, err);
+      })
   );
+// export const postWithCookie = <T>(
+//   url: string,
+//   requestBody?: unknown,
+//   validator?: T
+// ) =>
+//   refreshHandler(() =>
+//     api
+//       .post(url, requestBody, { withCredentials: true })
+//       .then((res) => parseResponse(res, validator))
+//       .catch((err: AxiosError) => {
+//         throw handleError(url, err);
+//       })
+//   );
 
-export const post = <T>(url: string, requestBody?: T) =>
+export const postWithResponse = <T extends t.Mixed>(
+  url: string,
+  validator: T,
+  requestBody?: unknown
+) =>
   refreshHandler(() =>
-    api.post(url, requestBody).catch((err) => {
-      throw handleError(url, err);
-    })
+    api
+      .post<T>(url, requestBody)
+      .then((res) => parseResponse(res, validator))
+      .catch((err: AxiosError) => {
+        throw handleError(url, err);
+      })
   );
 
 export type CustomQueryOptions<T> = Omit<

@@ -18,11 +18,10 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import Link from "next/link";
 import React from "react";
 
-import { BookingItem } from "@apis/(booking)/types";
-import { BasicPaper } from "@components/elements/paper";
+import { BookingItem } from "@apis/(booking)/common";
+import { BasicMuiPaper } from "@components/elements/paper";
 import { ISO_FORMAT, TODAY_JST } from "@utils/datetime";
 
 import { useManage, TERAKOYA_TYPE } from "./hook";
@@ -47,6 +46,7 @@ const GRADE = {
   12: "中学2年生",
   13: "中学3年生",
   0: "その他",
+  "-1": "未設定",
 };
 
 /**テラコヤ参加経験 (terakoya_experience) - required */
@@ -94,12 +94,8 @@ export default function Page() {
   const { bookingItemList, setTargetDate, onSelect } = useManage();
 
   return (
-    <BasicPaper>
+    <BasicMuiPaper>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
-        <Link href="/">
-          {/* https://mui.com/material-ui/react-typography/ */}
-          <Typography variant="subtitle1">ホームへ戻る</Typography>
-        </Link>
         <Typography variant="h5" color="GrayText">
           予約情報一覧
         </Typography>
@@ -138,7 +134,7 @@ export default function Page() {
           </TableBody>
         </Table>
       </Box>
-    </BasicPaper>
+    </BasicMuiPaper>
   );
 }
 

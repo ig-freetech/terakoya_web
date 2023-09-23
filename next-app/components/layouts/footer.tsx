@@ -5,16 +5,19 @@ import styled from "@emotion/styled";
 import { FaRegCopyright } from "react-icons/fa";
 import { GrContact } from "react-icons/gr";
 
-import { FlexHorBox, FlexColBox } from "@components/elements/box";
+import {
+  FlexHorCenteredBox,
+  FlexColCenteredBox,
+} from "@components/elements/box";
 import { ExternalLinkNoUnderline } from "@components/elements/link";
 import { colors } from "@styles/colors";
-import { flexSpaceBetween, borderTop } from "@styles/utils";
+import { flexSpaceBetween, borderTop, MEDIA_QUERIES } from "@styles/utils";
 
 const StyledFooter = styled.footer`
   ${flexSpaceBetween}
   ${borderTop}
   padding: 30px;
-  @media screen and (max-width: 600px) {
+  ${MEDIA_QUERIES.upTo600} {
     flex-direction: column;
   }
 `;
@@ -22,11 +25,11 @@ const StyledFooter = styled.footer`
 export default function Footer() {
   return (
     <StyledFooter>
-      <FlexColBox>
-        <FlexHorBox>
+      <FlexColCenteredBox>
+        <FlexHorCenteredBox>
           <GrContact />
-          <div>お問い合わせ</div>
-        </FlexHorBox>
+          <span>お問い合わせ</span>
+        </FlexHorCenteredBox>
         <div
           css={css`
             margin-top: 5px;
@@ -34,13 +37,13 @@ export default function Footer() {
         >
           <div color={colors.darkBrown}>info&#64;npoterakoya.org</div>
         </div>
-      </FlexColBox>
-      <FlexHorBox>
+      </FlexColCenteredBox>
+      <FlexHorCenteredBox>
         <ExternalLinkNoUnderline
           url="https://www.npoterakoya.org/"
           color={colors.darkBrown}
         >
-          <FlexHorBox>
+          <FlexHorCenteredBox>
             <FaRegCopyright />
             <div
               css={css`
@@ -49,9 +52,9 @@ export default function Footer() {
             >
               NPO法人テラコヤ
             </div>
-          </FlexHorBox>
+          </FlexHorCenteredBox>
         </ExternalLinkNoUnderline>
-      </FlexHorBox>
+      </FlexHorCenteredBox>
     </StyledFooter>
   );
 }

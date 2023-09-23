@@ -1,6 +1,8 @@
 import { useMutation } from "react-query";
 
-import { post } from "@apis/common";
+import { post, postWithResponse } from "@apis/common";
+
+import { User } from "./common";
 
 export type AuthAccountRequestBody = {
   email: string;
@@ -11,7 +13,12 @@ export const useSignUp = () =>
   useMutation((reqBody: AuthAccountRequestBody) => post("/signup", reqBody));
 
 export const useSignIn = () =>
-  useMutation((reqBody: AuthAccountRequestBody) => post("/signin", reqBody));
+  useMutation((reqBody: AuthAccountRequestBody) =>
+    postWithResponse("/signin", User, reqBody)
+  );
+
+export const useSignOut = () =>
+  useMutation((dummy: undefined) => post("/signout", dummy));
 
 export type DeleteAccountRequestBody = {
   uuid: string;

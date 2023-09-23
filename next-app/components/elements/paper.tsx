@@ -1,11 +1,29 @@
+import styled from "@emotion/styled";
 import { Paper as MuiPaper } from "@mui/material";
 
-type PaperProps = {
+import { colors } from "@styles/colors";
+
+const StyledPaper = styled.div`
+  min-height: calc(100vh * 0.65);
+  min-width: calc(100vw * 0.9);
+  /* margin: 5px; */
+  padding: 20px 10px;
+  background-color: ${colors.white};
+  border-radius: 5px;
+  /* box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); // elevation effect */
+`;
+type BasicPaperProps = {
+  children?: React.ReactNode;
+};
+export const BasicPaper = (props: BasicPaperProps) => {
+  return <StyledPaper>{props.children}</StyledPaper>;
+};
+
+type BasicMuiPaperProps = {
   children?: React.ReactNode;
   backgroundColor?: string;
 };
-
-export const BasicPaper = (props: PaperProps) => {
+export const BasicMuiPaper = (props: BasicMuiPaperProps) => {
   const { children, backgroundColor } = props;
   return (
     <MuiPaper

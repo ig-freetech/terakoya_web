@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import * as React from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 // https://nextjs-ja-translation-docs.vercel.app/docs/api-reference/next/link
@@ -237,9 +236,6 @@ export default function Page() {
     <div className={styles["wallpaper"]}>
       <div className={styles["container"]}>
         <div className={styles["content"]}>
-          <Link href="/signin">
-            <span className={styles["to-home"]}>管理者の方はこちら</span>
-          </Link>
           <div className={styles["main-caption"]}>
             <span className={styles["main-caption-text"]}>
               カフェ塾テラコヤ参加予約フォーム
@@ -295,7 +291,7 @@ export default function Page() {
                   {isLoadingExDates ? (
                     <Loading />
                   ) : attendanceDateList.length === 0 ? (
-                    <div>現在参加可能日がありません</div>
+                    <span>現在参加可能日がありません</span>
                   ) : (
                     attendanceDateList.map((dateDayjs, i) => (
                       <GroupInput

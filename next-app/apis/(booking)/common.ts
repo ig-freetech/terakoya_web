@@ -1,5 +1,11 @@
 import * as t from "io-ts";
 
+import {
+  GRADE,
+  COURSE_CHOICE,
+  HOW_TO_KNOW_TERAKOYA,
+} from "@apis/(user)/common";
+
 export const TERAKOYA_TYPE = t.union([
   /**カフェ塾テラコヤ(池袋) */
   t.literal(1),
@@ -27,24 +33,6 @@ export const PLACE = t.union([
   t.literal(0),
 ]);
 export type PLACE = t.TypeOf<typeof PLACE>;
-
-export const GRADE = t.union([
-  /**高校1年生 */
-  t.literal(1),
-  /**高校2年生 */
-  t.literal(2),
-  /**高校3年生 */
-  t.literal(3),
-  /**中学1年生 */
-  t.literal(11),
-  /**中学2年生 */
-  t.literal(12),
-  /**中学3年生 */
-  t.literal(13),
-  /**その他 */
-  t.literal(0),
-]);
-export type GRADE = t.TypeOf<typeof GRADE>;
 
 export const ARRIVAL_TIME = t.union([
   /**17:00前 */
@@ -108,40 +96,6 @@ export const STUDY_STYLE = t.union([
 ]);
 export type STUDY_STYLE = t.TypeOf<typeof STUDY_STYLE>;
 
-export const COURSE_CHOICE = t.union([
-  /**まだ決めていない */
-  t.literal(1),
-  /**文系 */
-  t.literal(2),
-  /**理系 */
-  t.literal(3),
-  /**その他 */
-  t.literal(0),
-  /**未選択 */
-  t.literal(-1),
-]);
-export type COURSE_CHOICE = t.TypeOf<typeof COURSE_CHOICE>;
-
-export const HOW_TO_KNOW_TERAKOYA = t.union([
-  /**HP */
-  t.literal(1),
-  /**Instagram */
-  t.literal(2),
-  /**Facebook */
-  t.literal(3),
-  /**Twitter */
-  t.literal(4),
-  /**知人の紹介 */
-  t.literal(5),
-  /**ポスター・ビラ */
-  t.literal(6),
-  /**その他 */
-  t.literal(0),
-  /**未選択 */
-  t.literal(-1),
-]);
-export type HOW_TO_KNOW_TERAKOYA = t.TypeOf<typeof HOW_TO_KNOW_TERAKOYA>;
-
 export const IS_REMINDED = t.union([
   /**未送信 */
   t.literal(0),
@@ -180,3 +134,7 @@ export const BookingItem = t.type({
 });
 
 export type BookingItem = t.TypeOf<typeof BookingItem>;
+
+/**Query keys */
+export const BOOKING_LIST_QUERY_KEY = "booking-list";
+export const BOOKING_EXCLUDED_DATES_QUERY_KEY = "booking-excluded-dates";

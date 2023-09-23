@@ -1,11 +1,14 @@
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
 import {
   useSignIn as useSignInMutation,
   AuthAccountRequestBody,
-} from "@apis/(auth)/index";
+} from "@apis/(user)/auth";
+import { ROUTER } from "@app/links";
+import { useUserStore } from "@stores/user";
 
 export const useSignIn = () => {
   const router = useRouter();
@@ -17,20 +20,27 @@ export const useSignIn = () => {
   });
 
   const { mutate: signIn, isLoading } = useSignInMutation();
+  const { user, isLoggedIn, setLoggedInUser } = useUserStore();
+
+  useEffect(() => {
+    if (isLoggedIn && user) {
+      router.push(ROUTER.PROFILE + `/${user.uuid}`);
+    }
+  }, [user, isLoggedIn, router]);
 
   const onSubmit = handleSubmit((inputs) => {
     if (!inputs.email || !inputs.password) {
-      toast.error("メールアドレスまたはパスワードの書式が不正です");
+      toast.error("メールアドレスまたはパスワードの書式が不正です。");
       return;
     }
     signIn(inputs, {
-      onError: () => {
-        toast.error("メールアドレスまたはパスワードが間違っています");
-        router.push("/error");
+      onError: (error) => {
+        toast.error(`エラーが発生しました。\n${error}`);
       },
-      onSuccess: () => {
-        toast.success("ログインしました");
-        router.push("/");
+      onSuccess(data) {
+        toast.success("ログインしました。");
+        setLoggedInUser(data);
+        router.push(ROUTER.PROFILE + `/${data.uuid}`);
       },
     });
   });

@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 
-import { BOOKING_LIST_QUERY_KEY } from "@apis/(booking)/queryKeys";
-import { BookingItem } from "@apis/(booking)/types";
+import { BOOKING_LIST_QUERY_KEY, BookingItem } from "@apis/(booking)/common";
 import { put } from "@apis/common";
 
 export const useEditBookingPlace = () => {

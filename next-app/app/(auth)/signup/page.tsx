@@ -11,7 +11,7 @@ export default function Page() {
       register={register}
       isLoading={isLoading}
       onSubmit={onSubmit}
-      text="Sign up"
+      isSignIn={false}
     />
   );
 }

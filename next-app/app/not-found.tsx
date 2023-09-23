@@ -8,11 +8,8 @@
 
 import Result from "./(result)/result";
 
-const NOT_FOUND_TEXTS = [
-  "【404 Not Found】",
-  "アクセスしたページが見つかりませんでした。",
-];
+const NOT_FOUND_TEXTS = ["アクセスしたページが見つかりませんでした。"];
 
 export default function Page() {
-  return <Result texts={NOT_FOUND_TEXTS} />;
+  return <Result texts={NOT_FOUND_TEXTS} caption={"【404 Not Found】"} />;
 }

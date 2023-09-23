@@ -2,16 +2,23 @@
 
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { SwipeableDrawer } from "@mui/material";
+import { SwipeableDrawer, Divider } from "@mui/material";
+import toast from "react-hot-toast";
 
+import { useSignOut } from "@apis/(user)/auth";
+import { ROUTER } from "@app/links";
+import { MarginBox } from "@components/elements/box";
 import { InternalLink } from "@components/elements/link";
+import { Loading } from "@components/elements/loading";
 import TerakoyaLogo from "@components/elements/logo";
 import {
-  flexCenteredContent,
-  borderRight,
-  borderBottom,
-  boldText,
-} from "@styles/utils";
+  BoldDangerText,
+  BoldSuccessText,
+  BoldText,
+} from "@components/elements/text";
+import { flexCenteredContent, borderRight, clickable } from "@styles/utils";
+import { useUserStore } from "@stores/user";
+import { useRouter } from "next/navigation";
 
 type MenuItemProps = {
   path: string;
@@ -26,20 +33,14 @@ const MenuItem = (props: MenuItemProps) => {
       `}
     >
       <InternalLink path={path}>
-        <div
-          css={css`
-            ${boldText}
-          `}
-        >
-          {text}
-        </div>
+        <BoldText>{text}</BoldText>
       </InternalLink>
     </div>
   );
 };
 const MENU_ITEM_PROPS_LIST: MenuItemProps[] = [
   {
-    path: "/book",
+    path: ROUTER.BOOK,
     text: "カフェ塾テラコヤ参加予約",
   },
 ];
@@ -57,6 +58,25 @@ type SidebarProps = {
 };
 export default function Sidebar(props: SidebarProps) {
   const { drawerOpen, handleHamburgerIconClick } = props;
+  const router = useRouter();
+  const { mutate: signOut, isLoading } = useSignOut();
+  const { disposeUser, isLoggedIn } = useUserStore();
+  const handleSignOut = () => {
+    const dummyRequestBody = undefined;
+    signOut(dummyRequestBody, {
+      onSuccess: () => {
+        disposeUser();
+        toast.success("ログアウトしました。");
+      },
+      onError: (error) => {
+        toast.error(`エラーが発生しました。\n${error}`);
+      },
+    });
+  };
+  const handleSignIn = () => {
+    router.push(ROUTER.SIGN_IN);
+  };
+
   return (
     // https://mui.com/material-ui/react-drawer/#swipeable
     <SwipeableDrawer
@@ -66,21 +86,37 @@ export default function Sidebar(props: SidebarProps) {
       onClose={handleHamburgerIconClick}
     >
       <StyledSidebarContent>
-        <div
-          css={css`
-            ${borderBottom}
-          `}
-        >
-          <TerakoyaLogo isNotClickable={true} />
-        </div>
-        <div
-          css={css`
-            margin-top: 20px;
-          `}
-        />
+        <TerakoyaLogo isNotClickable={true} />
+        {/**https://mui.com/material-ui/react-divider/ */}
+        <Divider />
+        <MarginBox marginTopPx={20} />
         {MENU_ITEM_PROPS_LIST.map((props, index) => (
           <MenuItem key={index} {...props} />
         ))}
+        <MarginBox marginTopPx={20} />
+        <Divider />
+        <MarginBox marginTopPx={20} />
+        {isLoading ? (
+          <Loading />
+        ) : isLoggedIn ? (
+          <BoldSuccessText
+            css={css`
+              ${clickable}
+            `}
+            onClick={handleSignIn}
+          >
+            サインイン
+          </BoldSuccessText>
+        ) : (
+          <BoldDangerText
+            css={css`
+              ${clickable}
+            `}
+            onClick={handleSignOut}
+          >
+            サインアウト
+          </BoldDangerText>
+        )}
       </StyledSidebarContent>
     </SwipeableDrawer>
   );

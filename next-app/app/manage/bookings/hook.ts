@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 
 import { useEditBookingPlace } from "@apis/(booking)/bookingEditPlace";
 import { useFetchBookingList } from "@apis/(booking)/bookingList";
-import { BookingItem, PLACE } from "@apis/(booking)/types";
+import { BookingItem, PLACE } from "@apis/(booking)/common";
 import { TODAY_JST, ISO_FORMAT } from "@utils/datetime";
 
 /**テラコヤ種別 (terakoya_type) */

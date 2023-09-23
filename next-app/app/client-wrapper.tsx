@@ -6,11 +6,14 @@
 import { Global } from "@emotion/react";
 import { useState } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
+// import Router from "next/navigation";
 
 import Footer from "@components/layouts/footer";
 import Header from "@components/layouts/header";
 import Sidebar from "@components/layouts/sidebar";
 import { globalStyles } from "@styles/global";
+
+// import Loading from "./loading";
 
 // QueryClient is a React context that holds all of the cache data, so create a instance only once here and export it to reuse it across the app.
 // QueryClient instance can be used in any component by using useQueryClient hook.
@@ -40,6 +43,28 @@ export default function ClientWrapper({
 }: {
   children: React.ReactNode;
 }) {
+  // const [isLoading, setIsLoading] = useState(false);
+  // useEffect(() => {
+  //   const handleStart = () => {
+  //     console.log("start");
+  //     setIsLoading(true);
+  //   };
+  //   const handleComplete = () => {
+  //     console.log("complete");
+  //     setIsLoading(false);
+  //   };
+
+  //   Router.events.on("routeChangeStart", handleStart);
+  //   Router.events.on("routeChangeComplete", handleComplete);
+  //   Router.events.on("routeChangeError", handleComplete);
+
+  //   return () => {
+  //     Router.events.off("routeChangeStart", handleStart);
+  //     Router.events.off("routeChangeComplete", handleComplete);
+  //     Router.events.off("routeChangeError", handleComplete);
+  //   };
+  // }, []);
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const handleHamburgerMenuClick = () => {
     setDrawerOpen(!drawerOpen);
@@ -59,10 +84,14 @@ export default function ClientWrapper({
         drawerOpen={drawerOpen}
         handleHamburgerIconClick={handleHamburgerMenuClick}
       />
-      <Header
-        handleHamburgerIconClick={handleHamburgerMenuClick}
-        title={"Title"}
-      />
+      <Header handleHamburgerIconClick={handleHamburgerMenuClick} />
+      {/**
+       * <Suspense> is used to show fallback component while loading data.
+       * https://react.dev/reference/react/Suspense
+       * https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
+       */}
+      {/* <Suspense fallback={<Loading />}>{children}</Suspense> */}
+      {/* {isLoading ? <Loading /> : children} */}
       {children}
       <Footer />
     </QueryClientProvider>

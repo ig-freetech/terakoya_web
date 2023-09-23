@@ -1,13 +1,21 @@
 "use client";
 
-import { Box, TextField, Typography, Button } from "@mui/material";
-import Link from "next/link";
-import React, { BaseSyntheticEvent } from "react";
+import { BaseSyntheticEvent } from "react";
 import { UseFormRegister } from "react-hook-form";
 
-import { AuthAccountRequestBody } from "@apis/(auth)/index";
+import { AuthAccountRequestBody } from "@apis/(user)/auth";
+import { ROUTER } from "@app/links";
+import {
+  FlexColCenteredBox,
+  FlexColStartLeft,
+  MarginBox,
+} from "@components/elements/box";
+import { DarkBrownButton } from "@components/elements/button";
+import { EmailInput, PasswordInput } from "@components/elements/input";
+import { InternalLink } from "@components/elements/link";
 import { Loading } from "@components/elements/loading";
 import { BasicPaper } from "@components/elements/paper";
+import { HeadlineDarkBrown } from "@components/elements/text";
 
 type FormProps = {
   register: UseFormRegister<AuthAccountRequestBody>;
@@ -15,71 +23,43 @@ type FormProps = {
   onSubmit: (
     e?: BaseSyntheticEvent<object, unknown, unknown> | undefined
   ) => Promise<void>;
-  text: "Sign in" | "Sign up";
+  isSignIn: boolean;
 };
 
 export default function Page(props: FormProps) {
-  const { register, isLoading, onSubmit, text } = props;
+  const { register, isLoading, onSubmit, isSignIn } = props;
+
+  const headline = isSignIn ? "お帰りなさい!" : "Welcome to テラコヤ!";
+  const text = isSignIn ? "サインイン" : "サインアップ";
 
   return (
-    // https://mui.com/system/flexbox/
-    <Box display="flex" justifyContent="center" alignItems="center">
-      <BasicPaper>
-        <Box flexDirection="column">
-          <Link href="/">
-            {/* https://mui.com/material-ui/react-typography/ */}
-            <Typography variant="subtitle1">Back to Home</Typography>
-          </Link>
-          <Box display="flex" flexDirection="column" alignItems="center">
-            <Typography variant="h4" sx={{ marginTop: 3 }}>
-              {text}
-            </Typography>
-            <Box sx={{ marginTop: 5 }}>
-              {/* https://mui.com/material-ui/react-text-field/ */}
-              <TextField
-                {...register("email")}
-                fullWidth
-                required={true}
-                type="email"
-                label="Email"
-                variant="filled"
-                sx={{
-                  width: "calc(100vh * 0.4)",
-                }}
-              />
-            </Box>
-            <Box sx={{ marginTop: 5 }}>
-              <TextField
-                {...register("password")}
-                fullWidth
-                required={true}
-                // Hide input text by using type="password"
-                // https://blog.hiros-dot.net/?p=11689#toc4
-                // TODO: Create a password input UI with a show/hide icon and put it in components/elements
-                // https://mui.com/material-ui/react-text-field/#input-adornments
-                type="password"
-                label="Password"
-                variant="filled"
-                sx={{ width: "calc(100vh * 0.4)" }}
-              />
-            </Box>
-            <Box sx={{ marginTop: 5 }}>
-              {isLoading ? (
-                <Loading text={`Processing ${text}...`} />
-              ) : (
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{ width: "200px" }}
-                  onClick={onSubmit}
-                >
-                  {text}
-                </Button>
-              )}
-            </Box>
-          </Box>
-        </Box>
-      </BasicPaper>
-    </Box>
+    <BasicPaper>
+      <FlexColCenteredBox>
+        <MarginBox marginTopPx={20} />
+        <HeadlineDarkBrown>{headline}</HeadlineDarkBrown>
+        <MarginBox marginTopPx={20} />
+        <FlexColStartLeft>
+          <EmailInput register={register} />
+          <MarginBox marginTopPx={20} />
+          <PasswordInput register={register} />
+        </FlexColStartLeft>
+        <MarginBox marginTopPx={20} />
+        {isLoading ? (
+          <Loading text={`${text}処理中...`} />
+        ) : (
+          <DarkBrownButton onClick={onSubmit} type="submit">
+            {text}
+          </DarkBrownButton>
+        )}
+        <MarginBox marginTopPx={20} />
+        {isSignIn
+          ? "まだアカウントをお持ちでない方は"
+          : "既にアカウントをお持ちの方は"}
+        <MarginBox marginLeftPx={5} />
+        <InternalLink path={isSignIn ? ROUTER.SIGN_UP : ROUTER.SIGN_IN}>
+          {isSignIn ? "今すぐユーザー登録して始めよう" : "サインイン"}
+        </InternalLink>
+      </FlexColCenteredBox>
+    </BasicPaper>
   );
 }

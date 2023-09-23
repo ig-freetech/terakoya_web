@@ -1,11 +1,14 @@
 /** @jsxImportSource @emotion/react */
+
 import { css } from "@emotion/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { FlexHorBox } from "@components/elements/box";
-import { colors } from "@styles/colors";
+import { ROUTER } from "@app/links";
+import { FlexHorCenteredBox } from "@components/elements/box";
 import { clickable } from "@styles/utils";
+
+import { CaptionDarkBrown } from "./text";
 
 type TerakoyaLogoProps = {
   isNotClickable?: boolean;
@@ -14,9 +17,9 @@ type TerakoyaLogoProps = {
 export default function TerakoyaLogo(props: TerakoyaLogoProps) {
   const { isNotClickable } = props;
   const router = useRouter();
-  const goToHome = () => router.push("/");
+  const goToHome = () => router.push(ROUTER.HOME);
   return (
-    <FlexHorBox
+    <FlexHorCenteredBox
       onClick={goToHome}
       css={
         !isNotClickable &&
@@ -35,13 +38,7 @@ export default function TerakoyaLogo(props: TerakoyaLogoProps) {
         width={50}
         height={50}
       />
-      <h2
-        css={css`
-          color: ${colors.darkBrown};
-        `}
-      >
-        テラコヤ
-      </h2>
-    </FlexHorBox>
+      <CaptionDarkBrown>テラコヤ</CaptionDarkBrown>
+    </FlexHorCenteredBox>
   );
 }
