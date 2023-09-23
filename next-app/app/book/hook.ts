@@ -72,7 +72,7 @@ export const useBook = () => {
   );
   useEffect(() => {
     if (!user) {
-      toast.error("参加予約を行うにはログインが必要です。");
+      toast.error("参加予約を行うにはサインインが必要です。");
       router.push(ROUTER.SIGN_IN);
       return;
     }
