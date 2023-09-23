@@ -1,3 +1,5 @@
+"use client";
+
 import Result from "@app/(result)/result";
 
 const SUCCESS_RESULT_TEXTS = [

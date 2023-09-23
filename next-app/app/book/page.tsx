@@ -210,11 +210,16 @@ const STUDY_SUBJECT_HIGH_OPTION_LIST: Array<Option> = [
   { name: "その他", value: STUDY_SUBJECT.OTHER },
 ];
 
+type TextAreaProps = {
+  registerRtn?: UseFormRegisterReturn;
+};
 /**
  * TextArea
  */
-export const TextArea: React.FC<CommonInputProps> = (props) => (
-  <textarea className={styles["textarea"]} {...props.registerRtn} rows={2} />
+const TextArea: React.FC<CommonInputProps> = ({
+  registerRtn,
+}: TextAreaProps) => (
+  <textarea className={styles["textarea"]} {...registerRtn} rows={2} />
 );
 
 export default function Page() {

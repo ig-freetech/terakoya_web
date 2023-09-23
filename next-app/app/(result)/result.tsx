@@ -1,3 +1,5 @@
+"use client";
+
 // import styles from "@app/(result)/result.module.scss";
 import { BsCheckCircle } from "react-icons/bs";
 import { MdOutlineDangerous } from "react-icons/md";

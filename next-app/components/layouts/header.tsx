@@ -2,6 +2,7 @@
 
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { RxHamburgerMenu } from "react-icons/rx";
 
@@ -9,10 +10,9 @@ import { ROUTER } from "@app/links";
 import { FlexColCenteredBox } from "@components/elements/box";
 import { InternalLink } from "@components/elements/link";
 import TerakoyaLogo from "@components/elements/logo";
+import { useUserStore } from "@stores/user";
 import { colors } from "@styles/colors";
 import { flexSpaceBetween, borderBottom, clickable } from "@styles/utils";
-import { useUserStore } from "@stores/user";
-import { useEffect, useState } from "react";
 
 const StyledHeader = styled.header`
   ${flexSpaceBetween}

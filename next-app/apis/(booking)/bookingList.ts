@@ -2,13 +2,11 @@ import * as t from "io-ts";
 import { useQuery } from "react-query";
 
 import { BOOKING_LIST_QUERY_KEY, BookingItem } from "@apis/(booking)/common";
-import { get, createValidator, CustomQueryOptions } from "@apis/common";
+import { get, CustomQueryOptions } from "@apis/common";
 
-const fetchBookingListValidator = createValidator(
-  t.type({
-    item_list: t.array(BookingItem),
-  })
-);
+const fetchBookingListValidator = t.type({
+  item_list: t.array(BookingItem),
+});
 type FetchResponseBody = t.TypeOf<typeof fetchBookingListValidator>;
 
 export const useFetchBookingList = (
