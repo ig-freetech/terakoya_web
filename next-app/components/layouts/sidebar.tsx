@@ -3,6 +3,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { SwipeableDrawer, Divider } from "@mui/material";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 import { useSignOut } from "@apis/(user)/auth";
@@ -16,9 +17,8 @@ import {
   BoldSuccessText,
   BoldText,
 } from "@components/elements/text";
-import { flexCenteredContent, borderRight, clickable } from "@styles/utils";
 import { useUserStore } from "@stores/user";
-import { useRouter } from "next/navigation";
+import { flexCenteredContent, borderRight, clickable } from "@styles/utils";
 
 type MenuItemProps = {
   path: string;
