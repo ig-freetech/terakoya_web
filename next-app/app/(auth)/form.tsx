@@ -11,11 +11,12 @@ import {
   MarginBox,
 } from "@components/elements/box";
 import { DarkBrownButton } from "@components/elements/button";
-import { EmailInput, PasswordInput } from "@components/elements/input";
 import { InternalLink } from "@components/elements/link";
 import { Loading } from "@components/elements/loading";
 import { BasicPaper } from "@components/elements/paper";
 import { HeadlineDarkBrown } from "@components/elements/text";
+import { EmailInput } from "@components/layouts/input/email";
+import { PasswordInput } from "@components/layouts/input/password";
 
 type FormProps = {
   register: UseFormRegister<AuthAccountRequestBody>;

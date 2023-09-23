@@ -38,8 +38,8 @@ export const useSignIn = () => {
         toast.error(`エラーが発生しました。\n${error}`);
       },
       onSuccess(data) {
-        toast.success("サインインしました。");
         setLoggedInUser(data);
+        toast.success("サインインしました。");
         router.push(ROUTER.PROFILE + `/${data.uuid}`);
       },
     });
