@@ -1,12 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import styled from "@emotion/styled";
-import { UseFormRegister } from "react-hook-form";
 
-import { FlexColStartLeft, MarginBox } from "@components/elements/box";
-import { CaptionDarkBrown } from "@components/elements/text";
 import { colors } from "@styles/colors";
-import { InputHTMLAttributes } from "react";
 
 const iconSize = 30;
 export const StyledInput = styled.input`

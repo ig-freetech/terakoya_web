@@ -1,8 +1,13 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
-import { useFetchUserProfile } from "@apis/(user)/profile";
+import { User } from "@apis/(user)/common";
+import {
+  useFetchUserProfile,
+  useUpdateUserProfile,
+} from "@apis/(user)/profile";
 import { useUserStore } from "@stores/user";
 
 export const useProfile = (uuid: string) => {
@@ -25,10 +30,35 @@ export const useProfile = (uuid: string) => {
     },
   });
 
+  const { register, reset, handleSubmit } = useForm<User>();
+
+  useEffect(() => {
+    if (user) {
+      reset(user);
+    }
+  }, [user, reset]);
+
+  const { mutate: update, isLoading: isUpdating } = useUpdateUserProfile(uuid);
+
+  const onSubmit = handleSubmit((inputs) => {
+    update(inputs, {
+      onSuccess: (data) => {
+        setLoggedInUser(data);
+        toast.success("プロフィールを更新しました。");
+      },
+      onError: (error) => {
+        toast.error(`エラーが発生しました。\n${error}`);
+      },
+    });
+  });
+
   return {
     isLoading,
     isError,
     user,
     refetch,
+    register,
+    onSubmit,
+    isUpdating,
   };
 };

@@ -1,15 +1,18 @@
-"use client";
+/** @jsxImportSource @emotion/react */
 
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+"use client";
 
 import {
   COURSE_CHOICE,
   GRADE,
   HOW_TO_KNOW_TERAKOYA,
-  User,
 } from "@apis/(user)/common";
-import { FlexColStartLeft, MarginBox } from "@components/elements/box";
+import {
+  FlexColStartLeft,
+  FlexHorCenteredBox,
+  MarginBox,
+} from "@components/elements/box";
+import { DarkBrownButton } from "@components/elements/button";
 import { ErrorReloading } from "@components/elements/error";
 import { StyledComboBox, StyledInput } from "@components/elements/input";
 import { Loading } from "@components/elements/loading";
@@ -18,6 +21,10 @@ import { CaptionDarkBrown } from "@components/elements/text";
 
 import { useProfile } from "./hook";
 
+type Option = {
+  name: string;
+  value: GRADE | COURSE_CHOICE | HOW_TO_KNOW_TERAKOYA | string;
+};
 const GRADE_LIST: Array<Option> = [
   // react-hook-form show a validation error when the value is undefined, null or empty string
   { name: "", value: "" },
@@ -29,22 +36,19 @@ const GRADE_LIST: Array<Option> = [
   { name: "高校3年生", value: 3 },
   { name: "その他", value: 0 },
 ];
-
-type Option = {
-  name: string;
-  value: GRADE | COURSE_CHOICE | HOW_TO_KNOW_TERAKOYA | string;
-};
+const COURSE_CHOICE_LIST: Array<Option> = [
+  { name: "", value: -1 },
+  { name: "まだ決めていない", value: 1 },
+  { name: "文系", value: 2 },
+  { name: "理系", value: 3 },
+  { name: "その他", value: 0 },
+];
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes#example
 export default function Page({ params }: { params: { uuid: string } }) {
-  const { user, isLoading, isError, refetch } = useProfile(params.uuid);
-  const { register, reset } = useForm<User>();
-
-  useEffect(() => {
-    if (user) {
-      reset(user);
-    }
-  }, [user, reset]);
+  const { user, isLoading, isError, refetch, register, onSubmit, isUpdating } = useProfile(
+    params.uuid
+  );
 
   return (
     <BasicPaper>
@@ -56,49 +60,81 @@ export default function Page({ params }: { params: { uuid: string } }) {
           onClick={refetch}
         />
       ) : (
-        <FlexColStartLeft>
-          <MarginBox marginTopPx={30} />
-          <CaptionDarkBrown>名前</CaptionDarkBrown>
-          <MarginBox marginTopPx={10} />
-          <StyledInput
-            {...register("name")}
-            type="text"
-            placeholder="西村 博之"
-            required={true}
-          />
-          <MarginBox marginTopPx={20} />
-          <CaptionDarkBrown>ニックネーム（呼んでほしい名前）</CaptionDarkBrown>
-          <MarginBox marginTopPx={10} />
-          <StyledInput
-            {...register("nickname")}
-            type="text"
-            placeholder="ヒロ"
-            required={false}
-          />
-          <MarginBox marginTopPx={30} />
-          <CaptionDarkBrown>メールアドレス</CaptionDarkBrown>
-          <MarginBox marginTopPx={10} />
-          <StyledInput
-            {...register("email")}
-            type="email"
-            placeholder="abc@example.com"
-            required={true}
-          />
-          <MarginBox marginTopPx={30} />
-          <CaptionDarkBrown>学年</CaptionDarkBrown>
-          <MarginBox marginTopPx={10} />
-          <StyledComboBox
-            {...register("grade", { valueAsNumber: true })}
-            required
-          >
-            {GRADE_LIST.map((option, i) => (
-              <option key={i} value={option.value}>
-                {option.name}
-              </option>
-            ))}
-          </StyledComboBox>
-          <MarginBox marginTopPx={30} />
-        </FlexColStartLeft>
+        <FlexHorCenteredBox>
+          <form onSubmit={onSubmit}>
+            <FlexColStartLeft>
+              <MarginBox marginTopPx={30} />
+              <CaptionDarkBrown>名前</CaptionDarkBrown>
+              <MarginBox marginTopPx={10} />
+              <StyledInput
+                {...register("name")}
+                type="text"
+                placeholder="西村 博之"
+                required={true}
+              />
+              <MarginBox marginTopPx={20} />
+              <CaptionDarkBrown>
+                ニックネーム
+                <br />
+                （呼んでほしい名前）
+              </CaptionDarkBrown>
+              <MarginBox marginTopPx={10} />
+              <StyledInput
+                {...register("nickname")}
+                type="text"
+                placeholder="ヒロ"
+                required={false}
+              />
+              <MarginBox marginTopPx={30} />
+              <CaptionDarkBrown>メールアドレス</CaptionDarkBrown>
+              <MarginBox marginTopPx={10} />
+              <StyledInput
+                {...register("email")}
+                type="email"
+                placeholder="abc@example.com"
+                required={true}
+              />
+              <MarginBox marginTopPx={30} />
+              <CaptionDarkBrown>学年</CaptionDarkBrown>
+              <MarginBox marginTopPx={10} />
+              <StyledComboBox
+                {...register("grade", { valueAsNumber: true })}
+                required
+              >
+                {GRADE_LIST.map((option, i) => (
+                  <option key={i} value={option.value}>
+                    {option.name}
+                  </option>
+                ))}
+              </StyledComboBox>
+              <MarginBox marginTopPx={30} />
+              <CaptionDarkBrown>在籍している学校</CaptionDarkBrown>
+              <MarginBox marginTopPx={10} />
+              <StyledInput
+                {...register("school")}
+                type="text"
+                placeholder="○○高等学校"
+                required={false}
+              />
+              <MarginBox marginTopPx={30} />
+              <CaptionDarkBrown>文理選択</CaptionDarkBrown>
+              <MarginBox marginTopPx={10} />
+              <StyledComboBox {...register("course_choice")}>
+                {COURSE_CHOICE_LIST.map((option, i) => (
+                  <option key={i} value={option.value}>
+                    {option.name}
+                  </option>
+                ))}
+              </StyledComboBox>
+              <MarginBox marginTopPx={30} />
+              {isUpdating ? (
+                <Loading />
+              ) : (
+                <DarkBrownButton type="submit">更新</DarkBrownButton>
+              )}
+            </FlexColStartLeft>
+          </form>
+        </FlexHorCenteredBox>
       )}
     </BasicPaper>
   );
