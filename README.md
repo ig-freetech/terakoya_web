@@ -14,6 +14,10 @@
 
 - [Vercel automatically deploys the app when a commit is pushed to the target branch (master or develop)](https://zenn.dev/nekoshita/articles/f8a737f38a5fb4). So you don't need to run any commands on Github Actions to deploy the app on Vercel.
 
+- An web hosting environment is automatically created on Vercel for each remote branch on GitHub.
+
+  - But you need to set the "Origin" (e.g. https://terakoya-web-git-feature-terakoya-00242-ig-freetech.vercel.app) in API Gateway's Access-Control-Allow-Origin to **avoid CORS error**, if you want to access the API Gateway from an web hosting environment except for master and develop on Vercel.
+
 ##### DNS Settings
 
 1. [Register domain in Route53](https://chigusa-web.com/blog/route53-reg/)

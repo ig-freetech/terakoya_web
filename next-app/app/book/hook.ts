@@ -23,40 +23,45 @@ import {
   getNextTargetDayDate,
 } from "@utils/datetime";
 
+// Control the value of the form fields as string in useForm because setValue() does not work for number type in Safari
+type BookRequestBody = Omit<
+  RequestBody,
+  "terakoya_type" | "terakoya_experience"
+> & {
+  terakoya_type: string;
+  terakoya_experience: string;
+};
+const INITIAL_VALUES = {
+  name: "",
+  email: "",
+  attendance_date_list: [],
+  study_subject_detail: "",
+  study_style: STUDY_STYLE.NULL,
+  school_name: "",
+  first_choice_school: "",
+  course_choice: COURSE_CHOICE.NULL,
+  future_free: "",
+  like_thing_free: "",
+  how_to_know_terakoya: HOW_TO_KNOW_TERAKOYA.NULL,
+  remarks: "",
+};
+
 export const useBook = () => {
   const router = useRouter();
 
   // https://legacy.react-hook-form.com/api/useform/
   const { register, handleSubmit, setValue, getValues, resetField, reset } =
-    useForm<
-      // Control the value of the form fields as string in useForm because setValue() does not work for number type in Safari
-      Omit<RequestBody, "terakoya_type" | "terakoya_experience"> & {
-        terakoya_type: string;
-        terakoya_experience: string;
-      }
-    >({
+    useForm<BookRequestBody>({
       // Should avoid providing undefined as a default value as long as possible
       // https://www.react-hook-form.com/api/useform/#defaultValues
-      defaultValues: {
-        name: "",
-        email: "",
-        attendance_date_list: [],
-        study_subject_detail: "",
-        study_style: STUDY_STYLE.NULL,
-        school_name: "",
-        first_choice_school: "",
-        course_choice: COURSE_CHOICE.NULL,
-        future_free: "",
-        like_thing_free: "",
-        how_to_know_terakoya: HOW_TO_KNOW_TERAKOYA.NULL,
-        remarks: "",
-      },
+      defaultValues: INITIAL_VALUES,
     });
 
   const { user } = useUserStore();
   const setUserInfo = useCallback(
     (user: User) => {
       reset({
+        ...INITIAL_VALUES,
         name: user.name,
         email: user.email,
         grade: user.grade !== -1 ? user.grade : undefined,
