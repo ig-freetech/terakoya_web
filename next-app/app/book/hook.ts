@@ -59,6 +59,9 @@ export const useBook = () => {
       reset({
         name: user.name,
         email: user.email,
+        grade: user.grade !== -1 ? user.grade : undefined,
+        school_name: user.school,
+        course_choice: user.course_choice,
       });
     },
     [reset]
