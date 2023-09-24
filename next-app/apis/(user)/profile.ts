@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "react-query";
 
 import { USER_QUERY_KEY, User } from "@apis/(user)/common";
-import { CustomQueryOptions, get, post } from "@apis/common";
+import { CustomQueryOptions, get, put } from "@apis/common";
 
 export const useFetchUserProfile = (
   uuid: string,
@@ -14,4 +14,4 @@ export const useFetchUserProfile = (
   );
 
 export const useUpdateUserProfile = (uuid: string) =>
-  useMutation((reqBody: User) => post(`/user/${uuid}`, reqBody));
+  useMutation((reqBody: User) => put(`/user/${uuid}`, reqBody));
