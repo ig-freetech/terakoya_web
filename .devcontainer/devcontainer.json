@@ -18,11 +18,11 @@
         "editor.formatOnSave": true,
         // Target files for ESLint are formatted with it when files saved.
         // https://qiita.com/fukasawah/items/03fa205353ac03b06b7e#vscode%E3%81%AE%E8%A8%AD%E5%AE%9A
-        "editor.codeActionsOnSave": {
-          // Fix all ESLint auto-fixable problems when files saved.
-          // https://zenn.dev/resistance_gowy/articles/91b4f62b9f48ec#prettier
-          "source.fixAll.eslint": true
-        },
+        // "editor.codeActionsOnSave": {
+        //   // Fix all ESLint auto-fixable problems when files saved.
+        //   // https://zenn.dev/resistance_gowy/articles/91b4f62b9f48ec#prettier
+        //   "source.fixAll.eslint": true
+        // },
         // Specify the target language for ESLint.
         "eslint.validate": [
           "javascript",
@@ -46,6 +46,9 @@
         "dbaeumer.vscode-eslint",
         "orta.vscode-jest",
         "pkief.material-icon-theme",
+        // Enable intellisense for emotion.
+        // https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components
+        "styled-components.vscode-styled-components",
         "ms-azuretools.vscode-docker",
         // Terraform intellisense
         // https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform

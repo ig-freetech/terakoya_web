@@ -20,8 +20,18 @@ module.exports = withBundleAnalyzer({
   eslint: {
     // Explicitly define the directories to be linted
     // https://nextjs.org/docs/pages/building-your-application/configuring/eslint#linting-custom-directories-and-files
-    dirs: ["apis", "app", "components", "pages", "styles", "utils"],
+    dirs: ["apis", "app", "components", "pages", "stores", "styles", "utils"],
   },
+  // ! Error occurs when using the following settings because app/**/page.tsx is Server Component.
+  // It's not required to install @emotion/babel-plugin in order to use "css" prop by configuring compiler settings in Next.js v12.2 or later.
+  // https://zenn.dev/tatsuyasusukida/articles/easy-to-use-emotion-from-nextjs-12-2
+  // But .babelrc is required.
+  // Next.js uses Babel for transpiling code by default, so you can use Babel plugins and presets in your Next.js app.
+  // JSX pragma (ex: /** @jsx jsx */) is not required at the top of all files that uses css prop by configuring Babel like the following.
+  // https://emotion.sh/docs/css-prop
+  // compiler: {
+  //   emotion: true,
+  // },
   // Define common headers settings for all API routes in pages/api/*
   // https://nextjs.org/docs/pages/api-reference/next-config-js/headers
   // async headers() {

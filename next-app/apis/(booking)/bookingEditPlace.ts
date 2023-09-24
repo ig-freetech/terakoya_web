@@ -1,15 +1,12 @@
 import { useMutation, useQueryClient } from "react-query";
 
-import { BOOKING_LIST_QUERY_KEY } from "@apis/(booking)/queryKeys";
-import { BookingItem } from "@apis/(booking)/types";
+import { BOOKING_LIST_QUERY_KEY, BookingItem } from "@apis/(booking)/common";
 import { put } from "@apis/common";
-import { API_BASE_URL } from "@utils/config";
 
 export const useEditBookingPlace = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    (updatedItem: BookingItem) =>
-      put(`${API_BASE_URL}/booking/edit/place`, updatedItem),
+    (updatedItem: BookingItem) => put("/booking/edit/place", updatedItem),
     {
       // Optimistic update is a technique to update the UI immediately expecting that the mutation will succeed while simultaneously sending a request to update the data source.
       // https://qiita.com/suzuki0430/items/1812e600797bba661cef#optimistic-update

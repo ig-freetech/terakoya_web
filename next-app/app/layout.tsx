@@ -20,17 +20,19 @@
 
 import { Toaster } from "react-hot-toast";
 
-import ClientWrapper from "@app/_app";
+import ClientWrapper from "@app/client-wrapper";
 
 // global.scss is imported here so that it can be used across all pages.
 // css or scss files can be imported only in _app.tsx not in _document.tsx.
-import "@styles/global.scss";
+// import "@styles/scss/global.scss";
 
 // Define meta data to be included in the head tag of the html template.
 // https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#modifying-head
 export const metadata = {
   title: "カフェ塾テラコヤ",
-  description: "",
+  description:
+    // "NPO法人テラコヤが運営するテラコヤユーザーのためのWebサイトです。ここではテラコヤユーザー同士での『学び』にフォーカスした交流が楽しめます。その他、カフェ塾テラコヤの参加予約なども行うことができます。",
+    "NPO法人テラコヤが運営するテラコヤユーザーのためのWebサイトです。ここではカフェ塾テラコヤの参加予約を行うことができます。",
 };
 
 export default function RootLayout({
