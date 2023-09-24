@@ -26,5 +26,5 @@ export type DeleteAccountRequestBody = {
 
 export const useDeleteAccount = () =>
   useMutation((reqBody: DeleteAccountRequestBody) =>
-    post("/delete-account", reqBody)
+    post("/account/delete", reqBody)
   );

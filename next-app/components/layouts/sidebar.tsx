@@ -6,7 +6,7 @@ import { SwipeableDrawer, Divider } from "@mui/material";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-import { useSignOut } from "@apis/(user)/auth";
+import { useSignOut, useDeleteAccount } from "@apis/(user)/auth";
 import { ROUTER } from "@app/links";
 import { MarginBox } from "@components/elements/box";
 import { InternalLink } from "@components/elements/link";
@@ -16,6 +16,7 @@ import {
   BoldDangerText,
   BoldSuccessText,
   BoldText,
+  SmallTextDarkGray,
 } from "@components/elements/text";
 import { useUserStore } from "@stores/user";
 import { flexCenteredContent, borderRight, clickable } from "@styles/utils";
@@ -60,7 +61,7 @@ export default function Sidebar(props: SidebarProps) {
   const { drawerOpen, handleHamburgerIconClick } = props;
   const router = useRouter();
   const { mutate: signOut, isLoading } = useSignOut();
-  const { disposeUser, isLoggedIn } = useUserStore();
+  const { user, disposeUser, isLoggedIn } = useUserStore();
   const handleSignOut = () => {
     signOut();
     disposeUser();
@@ -69,6 +70,34 @@ export default function Sidebar(props: SidebarProps) {
   };
   const handleSignIn = () => {
     router.push(ROUTER.SIGN_IN);
+  };
+
+  const { mutate: deleteAccount, isLoading: isDeleting } = useDeleteAccount();
+  const handleDeleteAccount = () => {
+    const isYes = window.confirm(
+      "※本当にアカウントを削除しますか？\nこの操作は取り消すことができません。"
+    );
+    if (!isYes) return;
+
+    if (!user) {
+      toast.error(
+        "ユーザー情報が取得できません。もう一度サインインし直して下さい。"
+      );
+      return;
+    }
+    deleteAccount(
+      { sk: user.sk, uuid: user.uuid },
+      {
+        onSuccess: () => {
+          disposeUser();
+          toast.success("アカウントを削除しました。");
+          router.push(ROUTER.SIGN_IN);
+        },
+        onError: (error) => {
+          toast.error(`アカウントの削除に失敗しました。${error}`);
+        },
+      }
+    );
   };
 
   return (
@@ -87,6 +116,12 @@ export default function Sidebar(props: SidebarProps) {
         {MENU_ITEM_PROPS_LIST.map((props, index) => (
           <MenuItem key={index} {...props} />
         ))}
+        {user?.is_admin ? (
+          <>
+            <MarginBox marginTopPx={10} />
+            <MenuItem path={ROUTER.MANAGE} text="予約情報管理画面" />
+          </>
+        ) : null}
         <MarginBox marginTopPx={20} />
         <Divider />
         <MarginBox marginTopPx={20} />
@@ -113,6 +148,23 @@ export default function Sidebar(props: SidebarProps) {
             サインイン
           </BoldSuccessText>
         )}
+        <MarginBox marginTopPx={20} />
+        <Divider />
+        <MarginBox marginTopPx={20} />
+        {isLoggedIn ? (
+          isDeleting ? (
+            <Loading />
+          ) : (
+            <SmallTextDarkGray
+              css={css`
+                ${clickable}
+              `}
+              onClick={handleDeleteAccount}
+            >
+              アカウントを削除
+            </SmallTextDarkGray>
+          )
+        ) : null}
       </StyledSidebarContent>
     </SwipeableDrawer>
   );

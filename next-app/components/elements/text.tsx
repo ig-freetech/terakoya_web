@@ -59,3 +59,7 @@ export const SmallTextGray = styled.span`
   font-size: 12px;
   color: ${colors.gray};
 `;
+export const SmallTextDarkGray = styled.span`
+  font-size: 12px;
+  color: ${colors.darkGray};
+`;
