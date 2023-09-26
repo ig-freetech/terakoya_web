@@ -51,8 +51,8 @@ export const useProfile = (uuid: string) => {
 
   const onSubmit = handleSubmit((inputs) => {
     update(inputs, {
-      onSuccess: (data) => {
-        setLoggedInUser(data);
+      onSuccess: () => {
+        setLoggedInUser(inputs);
         toast.success("プロフィールを更新しました。");
       },
       onError: (error) => {
