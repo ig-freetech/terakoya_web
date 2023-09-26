@@ -30,7 +30,16 @@ export const useProfile = (uuid: string) => {
     },
   });
 
-  const { register, reset, handleSubmit } = useForm<User>();
+  const { register, reset, handleSubmit } = useForm<User>({
+    defaultValues: {
+      name: "",
+      nickname: "",
+      email: "",
+      grade: -1,
+      school: "",
+      course_choice: -1,
+    },
+  });
 
   useEffect(() => {
     if (user) {

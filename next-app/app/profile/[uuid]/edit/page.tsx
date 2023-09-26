@@ -46,15 +46,14 @@ const COURSE_CHOICE_LIST: Array<Option> = [
 
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes#example
 export default function Page({ params }: { params: { uuid: string } }) {
-  const { user, isLoading, isError, refetch, register, onSubmit, isUpdating } = useProfile(
-    params.uuid
-  );
+  const { isLoading, isError, refetch, register, onSubmit, isUpdating } =
+    useProfile(params.uuid);
 
   return (
     <BasicPaper>
       {isLoading ? (
         <Loading />
-      ) : isError || !user ? (
+      ) : isError ? (
         <ErrorReloading
           text="プロフィール情報の読み込みに失敗しました。"
           onClick={refetch}
@@ -119,7 +118,9 @@ export default function Page({ params }: { params: { uuid: string } }) {
               <MarginBox marginTopPx={30} />
               <CaptionDarkBrown>文理選択</CaptionDarkBrown>
               <MarginBox marginTopPx={10} />
-              <StyledComboBox {...register("course_choice")}>
+              <StyledComboBox
+                {...register("course_choice", { valueAsNumber: true })}
+              >
                 {COURSE_CHOICE_LIST.map((option, i) => (
                   <option key={i} value={option.value}>
                     {option.name}
