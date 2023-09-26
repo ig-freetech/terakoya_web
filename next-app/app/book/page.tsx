@@ -314,18 +314,20 @@ export default function Page() {
                     ))}
                   </Label>
                   <MarginBox marginTopPx={40} />
-                  <FlexHorCenteredBox>
-                    <DarkBrownButton
-                      onClick={onNextStep}
-                      disabled={isDisabledOnNextStep}
-                    >
-                      次へ
-                    </DarkBrownButton>
-                    <MarginBox marginLeftPx={10} />
-                    <IndigoSecondaryButton onClick={onPrevStep}>
-                      戻る
-                    </IndigoSecondaryButton>
-                  </FlexHorCenteredBox>
+                  <div className={styles.buttonGroup}>
+                    <FlexHorCenteredBox>
+                      <DarkBrownButton
+                        onClick={onNextStep}
+                        disabled={isDisabledOnNextStep}
+                      >
+                        次へ
+                      </DarkBrownButton>
+                      <MarginBox marginLeftPx={10} />
+                      <IndigoSecondaryButton onClick={onPrevStep}>
+                        戻る
+                      </IndigoSecondaryButton>
+                    </FlexHorCenteredBox>
+                  </div>
                 </FlexColStartLeft>
               ) : null}
               {step === 3 ? (

@@ -66,7 +66,7 @@ export default function Sidebar(props: SidebarProps) {
     signOut();
     disposeUser();
     router.push(ROUTER.SIGN_IN);
-    toast.success("ログアウトしました。");
+    toast.success("サインアウトしました。");
   };
   const handleSignIn = () => {
     router.push(ROUTER.SIGN_IN);
