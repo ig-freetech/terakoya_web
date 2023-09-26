@@ -156,3 +156,9 @@ $common-opacity: 0.7;
     }
   }
 }
+
+.buttonGroup {
+  @include breakpoint.mq-tablet {
+    width: 100%;
+  }
+}
