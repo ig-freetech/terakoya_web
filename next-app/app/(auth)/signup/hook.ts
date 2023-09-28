@@ -21,12 +21,12 @@ export const useSignUp = () => {
 
   const { mutate: signUp, isLoading } = useSignUpMutation();
 
-  const { isLoggedIn } = useUserStore();
+  const { isSignedIn } = useUserStore();
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isSignedIn) {
       router.push(ROUTER.PROFILE);
     }
-  }, [isLoggedIn, router]);
+  }, [isSignedIn, router]);
 
   const onSubmit = handleSubmit((inputs) => {
     if (!inputs.email || !inputs.password) {

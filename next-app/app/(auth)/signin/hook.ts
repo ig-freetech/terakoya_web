@@ -20,13 +20,13 @@ export const useSignIn = () => {
   });
 
   const { mutate: signIn, isLoading } = useSignInMutation();
-  const { user, isLoggedIn, setLoggedInUser } = useUserStore();
+  const { user, isSignedIn, setLoggedInUser } = useUserStore();
 
   useEffect(() => {
-    if (isLoggedIn && user) {
+    if (isSignedIn && user) {
       router.push(ROUTER.PROFILE + `/${user.uuid}/edit`);
     }
-  }, [user, isLoggedIn, router]);
+  }, [user, isSignedIn, router]);
 
   const onSubmit = handleSubmit((inputs) => {
     if (!inputs.email || !inputs.password) {

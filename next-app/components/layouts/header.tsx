@@ -26,12 +26,12 @@ type HeaderProps = {
 export default function Header(props: HeaderProps) {
   const { handleHamburgerIconClick } = props;
   const [profilePath, setProfilePath] = useState<string>(ROUTER.SIGN_IN);
-  const { user, isLoggedIn } = useUserStore();
+  const { user, isSignedIn } = useUserStore();
   useEffect(() => {
-    if (isLoggedIn && user) {
+    if (isSignedIn && user) {
       setProfilePath(ROUTER.PROFILE + `/${user.uuid}/edit`);
     }
-  }, [isLoggedIn, user]);
+  }, [isSignedIn, user]);
   return (
     <StyledHeader>
       <FlexColCenteredBox
