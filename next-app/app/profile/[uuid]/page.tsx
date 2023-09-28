@@ -2,6 +2,8 @@
 
 "use client";
 
+import { css } from "@emotion/react";
+
 import {
   FlexColStartLeft,
   FlexHorCenteredBox,
@@ -11,8 +13,13 @@ import { DarkBrownButton } from "@components/elements/button";
 import { ErrorReloading } from "@components/elements/error";
 import { Loading } from "@components/elements/loading";
 import { BasicPaper } from "@components/elements/paper";
-import { CaptionDarkBrown, TextPrimaryBlack } from "@components/elements/text";
+import {
+  CaptionDarkBrown,
+  SmallTextDarkGray,
+  TextPrimaryBlack,
+} from "@components/elements/text";
 import { GRADE, COURSE_CHOICE } from "@domains/user/const";
+import { clickable } from "@styles/utils";
 
 import { useProfile } from "./hook";
 
@@ -24,6 +31,8 @@ export default function Page({ params }: { params: { uuid: string } }) {
     refetch,
     isSameUser,
     handleGoToEdit,
+    handleDeleteAccount,
+    isDeleting,
   } = useProfile(params.uuid);
 
   if (isLoading)
@@ -51,7 +60,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
     <BasicPaper>
       <FlexHorCenteredBox>
         <FlexColStartLeft>
-          <MarginBox marginTopPx={30} />
+          <MarginBox marginTopPx={10} />
           <CaptionDarkBrown>名前</CaptionDarkBrown>
           <MarginBox marginTopPx={10} />
           <TextPrimaryBlack>{name || "未設定"}</TextPrimaryBlack>
@@ -87,6 +96,19 @@ export default function Page({ params }: { params: { uuid: string } }) {
             <>
               <MarginBox marginTopPx={30} />
               <DarkBrownButton onClick={handleGoToEdit}>編集</DarkBrownButton>
+              <MarginBox marginTopPx={50} />
+              {isDeleting ? (
+                <Loading />
+              ) : (
+                <SmallTextDarkGray
+                  css={css`
+                    ${clickable}
+                  `}
+                  onClick={handleDeleteAccount}
+                >
+                  アカウントを削除
+                </SmallTextDarkGray>
+              )}
             </>
           ) : null}
         </FlexColStartLeft>

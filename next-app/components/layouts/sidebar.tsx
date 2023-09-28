@@ -6,7 +6,7 @@ import { SwipeableDrawer, Divider } from "@mui/material";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-import { useSignOut, useDeleteAccount } from "@apis/(user)/auth";
+import { useSignOut } from "@apis/(user)/auth";
 import { ROUTER } from "@app/links";
 import { MarginBox } from "@components/elements/box";
 import { InternalLink } from "@components/elements/link";
@@ -16,7 +16,6 @@ import {
   BoldDangerText,
   BoldSuccessText,
   BoldText,
-  SmallTextDarkGray,
 } from "@components/elements/text";
 import { useUserStore } from "@stores/user";
 import { flexCenteredContent, borderRight, clickable } from "@styles/utils";
@@ -72,34 +71,6 @@ export default function Sidebar(props: SidebarProps) {
     router.push(ROUTER.SIGN_IN);
   };
 
-  const { mutate: deleteAccount, isLoading: isDeleting } = useDeleteAccount();
-  const handleDeleteAccount = () => {
-    const isYes = window.confirm(
-      "※本当にアカウントを削除しますか？\nこの操作は取り消すことができません。"
-    );
-    if (!isYes) return;
-
-    if (!user) {
-      toast.error(
-        "ユーザー情報が取得できません。もう一度サインインし直して下さい。"
-      );
-      return;
-    }
-    deleteAccount(
-      { sk: user.sk, uuid: user.uuid },
-      {
-        onSuccess: () => {
-          disposeUser();
-          toast.success("アカウントを削除しました。");
-          router.push(ROUTER.SIGN_IN);
-        },
-        onError: (error) => {
-          toast.error(`アカウントの削除に失敗しました。${error}`);
-        },
-      }
-    );
-  };
-
   return (
     // https://mui.com/material-ui/react-drawer/#swipeable
     <SwipeableDrawer
@@ -151,20 +122,6 @@ export default function Sidebar(props: SidebarProps) {
         <MarginBox marginTopPx={20} />
         <Divider />
         <MarginBox marginTopPx={20} />
-        {isSignedIn ? (
-          isDeleting ? (
-            <Loading />
-          ) : (
-            <SmallTextDarkGray
-              css={css`
-                ${clickable}
-              `}
-              onClick={handleDeleteAccount}
-            >
-              アカウントを削除
-            </SmallTextDarkGray>
-          )
-        ) : null}
       </StyledSidebarContent>
     </SwipeableDrawer>
   );
