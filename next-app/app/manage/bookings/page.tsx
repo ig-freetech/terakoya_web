@@ -24,6 +24,7 @@ import React, { useEffect } from "react";
 import { BookingItem } from "@apis/(booking)/common";
 import { ROUTER } from "@app/links";
 import { BasicMuiPaper } from "@components/elements/paper";
+import { GRADE, COURSE_CHOICE } from "@domains/user/const";
 import { useRedirectToSignIn } from "@hooks/useAuth";
 import { useUserStore } from "@stores/user";
 import { ISO_FORMAT, TODAY_JST } from "@utils/datetime";
@@ -39,18 +40,6 @@ const ARRIVAL_TIME = {
   2: "17:00~17:30",
   3: "17:30~18:00",
   4: "18:00以降",
-};
-
-/**学年 (grade) - required */
-const GRADE = {
-  1: "高校1年生",
-  2: "高校2年生",
-  3: "高校3年生",
-  11: "中学1年生",
-  12: "中学2年生",
-  13: "中学3年生",
-  0: "その他",
-  "-1": "未設定",
 };
 
 /**テラコヤ参加経験 (terakoya_experience) - required */
@@ -82,15 +71,6 @@ const STUDY_STYLE = {
   3: "友達と話しながら楽しく勉強したい",
   4: "1人では難しいのでスタッフ付きっ切りで勉強を教えて欲しい",
   5: "勉強も教えて欲しいけどスタッフの話を聞いたり、相談したい。",
-  0: "その他",
-};
-
-/**文理選択 (course_choice) */
-const COURSE_CHOICE = {
-  "-1": "-",
-  1: "まだ決めていない",
-  2: "文系",
-  3: "理系",
   0: "その他",
 };
 
