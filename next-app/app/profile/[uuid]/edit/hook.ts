@@ -7,7 +7,7 @@ import {
   useFetchUserProfile,
   useUpdateUserProfile,
 } from "@apis/(user)/profile";
-import { useRedirectToSignIn } from "@hooks/useAuth";
+import { useRedirectToSignIn } from "@hooks/useAdmin";
 import { useUserStore } from "@stores/user";
 
 export const useProfile = (uuid: string) => {
