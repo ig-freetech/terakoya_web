@@ -61,7 +61,7 @@ export default function Sidebar(props: SidebarProps) {
   const { drawerOpen, handleHamburgerIconClick } = props;
   const router = useRouter();
   const { mutate: signOut, isLoading } = useSignOut();
-  const { user, disposeUser, isLoggedIn } = useUserStore();
+  const { user, disposeUser, isSignedIn } = useUserStore();
   const handleSignOut = () => {
     signOut();
     disposeUser();
@@ -125,7 +125,7 @@ export default function Sidebar(props: SidebarProps) {
         <MarginBox marginTopPx={20} />
         <Divider />
         <MarginBox marginTopPx={20} />
-        {isLoggedIn ? (
+        {isSignedIn ? (
           isLoading ? (
             <Loading />
           ) : (
@@ -151,7 +151,7 @@ export default function Sidebar(props: SidebarProps) {
         <MarginBox marginTopPx={20} />
         <Divider />
         <MarginBox marginTopPx={20} />
-        {isLoggedIn ? (
+        {isSignedIn ? (
           isDeleting ? (
             <Loading />
           ) : (

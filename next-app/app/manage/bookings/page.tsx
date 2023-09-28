@@ -18,10 +18,14 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 import { BookingItem } from "@apis/(booking)/common";
+import { ROUTER } from "@app/links";
 import { BasicMuiPaper } from "@components/elements/paper";
+import { useRedirectToSignIn } from "@hooks/useAuth";
+import { useUserStore } from "@stores/user";
 import { ISO_FORMAT, TODAY_JST } from "@utils/datetime";
 
 import { useManage, TERAKOYA_TYPE } from "./hook";
@@ -91,7 +95,19 @@ const COURSE_CHOICE = {
 };
 
 export default function Page() {
+  useRedirectToSignIn();
+
+  const router = useRouter();
+  const { user } = useUserStore();
+  useEffect(() => {
+    if (!user?.is_admin) {
+      router.push(ROUTER.HOME);
+    }
+  });
+
   const { bookingItemList, setTargetDate, onSelect } = useManage();
+
+  if (!user || !user?.is_admin) return null;
 
   return (
     <BasicMuiPaper>

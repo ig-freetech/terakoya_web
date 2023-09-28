@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -8,17 +7,12 @@ import {
   useFetchUserProfile,
   useUpdateUserProfile,
 } from "@apis/(user)/profile";
+import { useRedirectToSignIn } from "@hooks/useAuth";
 import { useUserStore } from "@stores/user";
 
 export const useProfile = (uuid: string) => {
-  const router = useRouter();
-  const { user, isLoggedIn, setLoggedInUser } = useUserStore();
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      router.push("/signin");
-    }
-  }, [isLoggedIn, router, uuid]);
+  const { user, setLoggedInUser } = useUserStore();
+  useRedirectToSignIn();
 
   const { isLoading, isError, refetch } = useFetchUserProfile(uuid, {
     // ユーザーのUUIDを利用

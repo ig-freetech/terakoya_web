@@ -2,15 +2,29 @@
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Typography, Button, TextField, Tooltip } from "@mui/material";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import { Controller } from "react-hook-form";
 
+import { ROUTER } from "@app/links";
 import { Loading } from "@components/elements/loading";
 import { BasicMuiPaper } from "@components/elements/paper";
+import { useRedirectToSignIn } from "@hooks/useAuth";
+import { useUserStore } from "@stores/user";
 
 import { useSettingExcludedDates } from "./hook";
 
 export default function Page() {
+  useRedirectToSignIn();
+
+  const router = useRouter();
+  const { user } = useUserStore();
+  useEffect(() => {
+    if (!user?.is_admin) {
+      router.push(ROUTER.HOME);
+    }
+  });
+
   const {
     isLoadingFetchDates,
     isLoadingUpdateDates,
@@ -22,6 +36,8 @@ export default function Page() {
     hasError,
     helperText,
   } = useSettingExcludedDates();
+
+  if (!user || !user?.is_admin) return null;
 
   const AddButton = () => (
     <Tooltip title="空のテキストボックスがある状態では追加はできません">

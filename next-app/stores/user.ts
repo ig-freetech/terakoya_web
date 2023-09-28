@@ -7,9 +7,9 @@ import { User } from "@apis/(user)/common";
 // https://docs.pmnd.rs/zustand/integrations/persisting-store-data#how-do-i-use-it-with-typescript
 type UserStore = {
   // Only properties defined in type UserStore are accessible from outside.
-  // For example, you can't access the property `isLoggedIn` if you don't define it in type UserStore.
+  // For example, you can't access the property `isSignedIn` if you don't define it in type UserStore.
   user?: User;
-  isLoggedIn: boolean;
+  isSignedIn: boolean;
   setLoggedInUser: (user: User) => void;
   disposeUser: () => void;
 };
@@ -22,9 +22,9 @@ export const useUserStore = create<UserStore>()(
     persist(
       (set) => ({
         user: undefined,
-        isLoggedIn: false,
-        setLoggedInUser: (user) => set({ user, isLoggedIn: true }),
-        disposeUser: () => set({ user: undefined, isLoggedIn: false }),
+        isSignedIn: false,
+        setLoggedInUser: (user) => set({ user, isSignedIn: true }),
+        disposeUser: () => set({ user: undefined, isSignedIn: false }),
       }),
       {
         // Default storage to be used is localStorage.
@@ -36,7 +36,7 @@ export const useUserStore = create<UserStore>()(
         // https://docs.pmnd.rs/zustand/integrations/persisting-store-data#partialize
         partialize: (state) => ({
           user: state.user,
-          isLoggedIn: state.isLoggedIn,
+          isSignedIn: state.isSignedIn,
         }),
       }
     )
