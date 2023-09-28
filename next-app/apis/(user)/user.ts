@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "react-query";
 import { USER_QUERY_KEY, User } from "@apis/(user)/common";
 import { CustomQueryOptions, get, put } from "@apis/common";
 
-export const useFetchUserProfile = (
+export const useFetchUser = (
   uuid: string,
   options?: CustomQueryOptions<User>
 ) =>
