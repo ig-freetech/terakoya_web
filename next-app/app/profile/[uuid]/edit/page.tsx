@@ -14,12 +14,16 @@ import {
 } from "@components/elements/box";
 import { DarkBrownButton } from "@components/elements/button";
 import { ErrorReloading } from "@components/elements/error";
-import { StyledComboBox, StyledInput } from "@components/elements/input";
+import {
+  StyledComboBox,
+  StyledInput,
+  StyledTextArea,
+} from "@components/elements/input";
 import { Loading } from "@components/elements/loading";
 import { BasicPaper } from "@components/elements/paper";
 import { CaptionDarkBrown } from "@components/elements/text";
 
-import { useProfile } from "./hook";
+import { useProfileEdit } from "./hook";
 
 type Option = {
   name: string;
@@ -47,7 +51,7 @@ const COURSE_CHOICE_LIST: Array<Option> = [
 // https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes#example
 export default function Page({ params }: { params: { uuid: string } }) {
   const { isLoading, isError, refetch, register, onSubmit, isUpdating } =
-    useProfile(params.uuid);
+    useProfileEdit(params.uuid);
 
   return (
     <BasicPaper>
@@ -127,6 +131,14 @@ export default function Page({ params }: { params: { uuid: string } }) {
                   </option>
                 ))}
               </StyledComboBox>
+              <MarginBox marginTopPx={30} />
+              <CaptionDarkBrown>将来の夢・志望校など</CaptionDarkBrown>
+              <MarginBox marginTopPx={10} />
+              <StyledTextArea {...register("future_path")} rows={2} />
+              <MarginBox marginTopPx={30} />
+              <CaptionDarkBrown>好きなもの(こと)</CaptionDarkBrown>
+              <MarginBox marginTopPx={10} />
+              <StyledTextArea {...register("like_thing")} rows={2} />
               <MarginBox marginTopPx={30} />
               {isUpdating ? (
                 <Loading />

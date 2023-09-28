@@ -24,3 +24,11 @@ export const StyledComboBox = styled.select`
   padding-left: 10px;
   padding-right: 10px;
 `;
+
+export const StyledTextArea = styled.textarea`
+  width: calc(100% - 20px);
+  outline: none;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+`;
