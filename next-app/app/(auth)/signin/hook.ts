@@ -24,7 +24,7 @@ export const useSignIn = () => {
 
   useEffect(() => {
     if (isSignedIn && user) {
-      router.push(ROUTER.PROFILE + `/${user.uuid}/edit`);
+      router.push(`${ROUTER.PROFILE}/${user.uuid}`);
     }
   }, [user, isSignedIn, router]);
 
@@ -40,7 +40,7 @@ export const useSignIn = () => {
       onSuccess(data) {
         setLoggedInUser(data);
         toast.success("サインインしました。");
-        router.push(ROUTER.PROFILE + `/${data.uuid}/edit`);
+        router.push(`${ROUTER.PROFILE}/${data.uuid}`);
       },
     });
   });

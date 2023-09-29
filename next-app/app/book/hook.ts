@@ -67,6 +67,8 @@ export const useBook = () => {
         grade: user.grade !== -1 ? user.grade : undefined,
         school_name: user.school,
         course_choice: user.course_choice,
+        like_thing_free: user.like_thing,
+        future_free: user.future_path,
       });
     },
     [reset]

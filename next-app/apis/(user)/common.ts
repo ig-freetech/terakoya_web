@@ -62,28 +62,36 @@ const AUTHORITY = t.union([
 ]);
 type AUTHORITY = t.TypeOf<typeof AUTHORITY>;
 
-export const User = t.type({
+const UserCommonProperties = t.type({
   uuid: t.string,
-  sk: t.string,
-  email: t.string,
   name: t.string,
   nickname: t.string,
-  school: t.string,
   grade: GRADE,
   course_choice: COURSE_CHOICE,
-  // https://github.com/gcanti/io-ts/blob/master/index.md#implemented-types--combinators
-  staff_in_charge: t.array(t.string),
-  future_path: t.string,
   like_thing: t.string,
-  how_to_know_terakoya: HOW_TO_KNOW_TERAKOYA,
-  number_of_attendances: t.number,
-  // t.number and Number type in TypeScript represent both integer and float.
-  attendance_rate: t.number,
-  is_admin: AUTHORITY,
-  created_at_iso: t.string,
-  updated_at_iso: t.string,
 });
+
+export const User = t.intersection([
+  UserCommonProperties,
+  t.type({
+    sk: t.string,
+    email: t.string,
+    school: t.string,
+    staff_in_charge: t.array(t.string),
+    future_path: t.string,
+    how_to_know_terakoya: HOW_TO_KNOW_TERAKOYA,
+    number_of_attendances: t.number,
+    attendance_rate: t.number,
+    is_admin: AUTHORITY,
+    created_at_iso: t.string,
+    updated_at_iso: t.string,
+  }),
+]);
 export type User = t.TypeOf<typeof User>;
+
+export const UserProfile = UserCommonProperties;
+export type UserProfile = t.TypeOf<typeof UserProfile>;
 
 /**Query keys */
 export const USER_QUERY_KEY = "user";
+export const USER_PROFILE_QUERY_KEY = "user_profile";

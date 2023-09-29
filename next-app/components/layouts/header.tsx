@@ -29,7 +29,7 @@ export default function Header(props: HeaderProps) {
   const { user, isSignedIn } = useUserStore();
   useEffect(() => {
     if (isSignedIn && user) {
-      setProfilePath(ROUTER.PROFILE + `/${user.uuid}/edit`);
+      setProfilePath(ROUTER.PROFILE + `/${user.uuid}`);
     }
   }, [isSignedIn, user]);
   return (

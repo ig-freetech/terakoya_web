@@ -20,7 +20,16 @@ module.exports = withBundleAnalyzer({
   eslint: {
     // Explicitly define the directories to be linted
     // https://nextjs.org/docs/pages/building-your-application/configuring/eslint#linting-custom-directories-and-files
-    dirs: ["apis", "app", "components", "pages", "stores", "styles", "utils"],
+    dirs: [
+      "apis",
+      "app",
+      "components",
+      "domains",
+      "pages",
+      "stores",
+      "styles",
+      "utils",
+    ],
   },
   // ! Error occurs when using the following settings because app/**/page.tsx is Server Component.
   // It's not required to install @emotion/babel-plugin in order to use "css" prop by configuring compiler settings in Next.js v12.2 or later.

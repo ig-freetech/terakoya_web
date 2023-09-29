@@ -55,6 +55,12 @@ export const TextDarkBrown = styled.span`
 export const TextLightBrown = styled.span`
   color: ${colors.lightBrown};
 `;
+export const TextIndigo = styled.span`
+  color: ${colors.indigo};
+`;
+export const TextPrimaryBlack = styled.span`
+  color: ${colors.primaryBlack};
+`;
 export const SmallTextGray = styled.span`
   font-size: 12px;
   color: ${colors.gray};

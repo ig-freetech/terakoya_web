@@ -1,21 +1,24 @@
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
 import { User } from "@apis/(user)/common";
-import {
-  useFetchUserProfile,
-  useUpdateUserProfile,
-} from "@apis/(user)/profile";
+import { useFetchUser, useUpdateUserProfile } from "@apis/(user)/user";
+import { ROUTER } from "@app/links";
 import { useRedirectToSignIn } from "@hooks/useAuth";
 import { useUserStore } from "@stores/user";
 
-export const useProfile = (uuid: string) => {
+export const useProfileEdit = (uuid: string) => {
+  const router = useRouter();
   const { user, setLoggedInUser } = useUserStore();
   useRedirectToSignIn();
 
-  const { isLoading, isError, refetch } = useFetchUserProfile(uuid, {
-    // ユーザーのUUIDを利用
+  const {
+    isLoading: isFetching,
+    isError: isErrorFetching,
+    refetch,
+  } = useFetchUser(uuid, {
     onSuccess: (data) => {
       setLoggedInUser(data);
     },
@@ -23,6 +26,14 @@ export const useProfile = (uuid: string) => {
       toast.error(`エラーが発生しました。\n${error}`);
     },
   });
+
+  const { mutate: update, isLoading: isUpdating } = useUpdateUserProfile(uuid);
+
+  useEffect(() => {
+    if (user?.uuid !== uuid) {
+      router.push(`${ROUTER.PROFILE}/${uuid}`);
+    }
+  }, [user, uuid, router]);
 
   const { register, reset, handleSubmit } = useForm<User>({
     defaultValues: {
@@ -32,6 +43,8 @@ export const useProfile = (uuid: string) => {
       grade: -1,
       school: "",
       course_choice: -1,
+      like_thing: "",
+      future_path: "",
     },
   });
 
@@ -41,13 +54,12 @@ export const useProfile = (uuid: string) => {
     }
   }, [user, reset]);
 
-  const { mutate: update, isLoading: isUpdating } = useUpdateUserProfile(uuid);
-
   const onSubmit = handleSubmit((inputs) => {
     update(inputs, {
       onSuccess: () => {
         setLoggedInUser(inputs);
         toast.success("プロフィールを更新しました。");
+        router.push(`${ROUTER.PROFILE}/${uuid}`);
       },
       onError: (error) => {
         toast.error(`エラーが発生しました。\n${error}`);
@@ -56,8 +68,8 @@ export const useProfile = (uuid: string) => {
   });
 
   return {
-    isLoading,
-    isError,
+    isFetching,
+    isErrorFetching,
     user,
     refetch,
     register,
