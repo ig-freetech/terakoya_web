@@ -25,7 +25,7 @@ import { useProfile } from "./hook";
 
 export default function Page({ params }: { params: { uuid: string } }) {
   const {
-    fetchedUser,
+    profile,
     isLoading,
     isError,
     refetch,
@@ -52,9 +52,9 @@ export default function Page({ params }: { params: { uuid: string } }) {
       </BasicPaper>
     );
 
-  if (!fetchedUser) return null;
+  if (!profile) return null;
 
-  const { name, nickname, grade, course_choice, like_thing } = fetchedUser;
+  const { name, nickname, grade, course_choice, like_thing } = profile;
 
   return (
     <BasicPaper>

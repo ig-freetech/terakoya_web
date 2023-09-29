@@ -4,30 +4,36 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
 import { User } from "@apis/(user)/common";
+import { useFetchUser, useUpdateUserProfile } from "@apis/(user)/user";
 import { ROUTER } from "@app/links";
 import { useRedirectToSignIn } from "@hooks/useAuth";
-import { useUser } from "@hooks/user/useUser";
 import { useUserStore } from "@stores/user";
 
 export const useProfileEdit = (uuid: string) => {
   const router = useRouter();
-  const { user: currentUser, setLoggedInUser } = useUserStore();
+  const { user, setLoggedInUser } = useUserStore();
   useRedirectToSignIn();
 
   const {
-    user: editedUser,
-    isLoading,
-    isError,
+    isLoading: isFetching,
+    isError: isErrorFetching,
     refetch,
-    update,
-    isUpdating,
-  } = useUser(uuid);
+  } = useFetchUser(uuid, {
+    onSuccess: (data) => {
+      setLoggedInUser(data);
+    },
+    onError: (error) => {
+      toast.error(`エラーが発生しました。\n${error}`);
+    },
+  });
+
+  const { mutate: update, isLoading: isUpdating } = useUpdateUserProfile(uuid);
 
   useEffect(() => {
-    if (currentUser?.uuid !== uuid) {
+    if (user?.uuid !== uuid) {
       router.push(`${ROUTER.PROFILE}/${uuid}`);
     }
-  }, [currentUser, uuid, router]);
+  }, [user, uuid, router]);
 
   const { register, reset, handleSubmit } = useForm<User>({
     defaultValues: {
@@ -43,10 +49,10 @@ export const useProfileEdit = (uuid: string) => {
   });
 
   useEffect(() => {
-    if (editedUser) {
-      reset(editedUser);
+    if (user) {
+      reset(user);
     }
-  }, [editedUser, reset]);
+  }, [user, reset]);
 
   const onSubmit = handleSubmit((inputs) => {
     update(inputs, {
@@ -62,9 +68,9 @@ export const useProfileEdit = (uuid: string) => {
   });
 
   return {
-    isLoading,
-    isError,
-    editedUser,
+    isFetching,
+    isErrorFetching,
+    user,
     refetch,
     register,
     onSubmit,

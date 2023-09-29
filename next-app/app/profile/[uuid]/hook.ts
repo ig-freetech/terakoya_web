@@ -1,9 +1,11 @@
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 import { useDeleteAccount } from "@apis/(user)/auth";
+import { UserProfile } from "@apis/(user)/common";
+import { useFetchProfile } from "@apis/(user)/user";
 import { ROUTER } from "@app/links";
-import { useUser } from "@hooks/user/useUser";
 import { useUserStore } from "@stores/user";
 
 export const useProfile = (uuid: string) => {
@@ -13,7 +15,15 @@ export const useProfile = (uuid: string) => {
   };
 
   const { user: currentUser, disposeUser } = useUserStore();
-  const { user: fetchedUser, isLoading, isError, refetch } = useUser(uuid);
+  const [profile, setProfile] = useState<UserProfile>();
+  const { isLoading, isError, refetch } = useFetchProfile(uuid, {
+    onSuccess: (data) => {
+      setProfile(data);
+    },
+    onError: (error) => {
+      toast.error(`エラーが発生しました。\n${error}`);
+    },
+  });
   const isSameUser = currentUser?.uuid === uuid;
 
   const { mutate: deleteAccount, isLoading: isDeleting } = useDeleteAccount();
@@ -45,7 +55,7 @@ export const useProfile = (uuid: string) => {
   };
 
   return {
-    fetchedUser,
+    profile,
     isLoading,
     isError,
     refetch,
