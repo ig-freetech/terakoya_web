@@ -58,7 +58,10 @@
         "eamodio.gitlens",
         "github.vscode-pull-request-github",
         // https://qiita.com/take_me/items/ae0772646dd59630a8b5
-        "aaron-bond.better-comments"
+        "aaron-bond.better-comments",
+        // Size calculator for imported packages.
+        // https://ohbarye.hatenablog.jp/entry/2020/12/31/vscode-import-cost
+        "wix.vscode-import-cost"
       ]
     }
   }
