@@ -172,7 +172,7 @@ const AccordionTableRow = (props: AccordionTableRowProps) => {
             <MenuItem value={0}>未設定</MenuItem>
             <MenuItem value={1}>サンシャインシティ</MenuItem>
             <MenuItem value={2}>良品計画本社</MenuItem>
-            <MenuItem value={3}>DIORAMA CAFE</MenuItem>
+            <MenuItem value={3}>テラコヤ事務所（ベースキャンプ）</MenuItem>
             <MenuItem value={4}>キャリア・マム</MenuItem>
             <MenuItem value={5}>キカガク</MenuItem>
           </Select>
