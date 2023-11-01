@@ -17,7 +17,7 @@ export const PLACE = t.union([
   t.literal(1),
   /**良品計画本社 */
   t.literal(2),
-  /**DIORAMA CAFE */
+  /**テラコヤ事務所（ベースキャンプ） */
   t.literal(3),
   /**キャリア・マム */
   t.literal(4),
