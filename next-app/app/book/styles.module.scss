@@ -5,8 +5,8 @@
 // Class defined in CSS modules is converted to a unique class name on a per-component basis, so that it does not conflict with other class names in other scss files loaded in other components.
 // https://lpeg.info/react/css_modules.html
 
-@use "@styles/utils/breakpoint.module.scss" as breakpoint;
-@use "@styles/utils/color.module.scss" as color;
+@use "@styles/scss/breakpoint.module.scss" as breakpoint;
+@use "@styles/scss/color.module.scss" as color;
 
 $common-padding: 30px;
 $common-input-padding: 10px;
@@ -33,14 +33,14 @@ $common-opacity: 0.7;
 }
 
 .wallpaper {
-  background-color: color.$color-wallpaper;
+  background-color: color.$color-white;
   min-height: 100vh;
   padding: 5px;
   .container {
     @extend .common-flex-justify-center;
     padding: $common-padding;
     .content {
-      background-color: color.$color-white;
+      background-color: color.$color-terakoya-extreme-light-brown;
       box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.6);
       padding: $common-padding;
       border-radius: $common-border-radius;
@@ -154,5 +154,11 @@ $common-opacity: 0.7;
     &:hover {
       opacity: $common-opacity;
     }
+  }
+}
+
+.buttonGroup {
+  @include breakpoint.mq-tablet {
+    width: 100%;
   }
 }

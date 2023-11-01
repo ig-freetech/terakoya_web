@@ -1,17 +1,14 @@
 import * as t from "io-ts";
 import { useQuery, useMutation } from "react-query";
 
-import { BOOKING_EXCLUDED_DATES_QUERY_KEY } from "@apis/(booking)/queryKeys";
-import { createValidator, get, put, CustomQueryOptions } from "@apis/common";
-import { API_BASE_URL } from "@utils/config";
+import { BOOKING_EXCLUDED_DATES_QUERY_KEY } from "@apis/(booking)/common";
+import { get, put, CustomQueryOptions } from "@apis/common";
 
-const API_ROUTE_URL = `${API_BASE_URL}/booking/excluded-dates`;
+const API_ROUTE_URL = "/booking/excluded-dates";
 
-const fetchExcludedDatesValidator = createValidator(
-  t.type({
-    dates: t.array(t.string),
-  })
-);
+const fetchExcludedDatesValidator = t.type({
+  dates: t.array(t.string),
+});
 type FetchResponseBody = t.TypeOf<typeof fetchExcludedDatesValidator>;
 
 // It's a best practice to use a custom hook for each method type (GET, POST, PUT, DELETE, etc) to reuse the logic across your app.

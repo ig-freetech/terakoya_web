@@ -1,20 +1,25 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+/** @jsxImportSource @emotion/react */
+
+import { css } from "@emotion/react";
+import { CircularProgress } from "@mui/material";
+
+import { FlexColCenteredBox } from "@components/elements/box";
+import { BoldText } from "@components/elements/text";
 
 type LoadingProps = {
   text?: string;
 };
 export const Loading = (props: LoadingProps) => (
-  <Box
-    display="flex"
-    flexDirection="column"
-    justifyContent="center"
-    alignItems="center"
+  <FlexColCenteredBox
+    css={css`
+      height: 100%;
+    `}
   >
     <CircularProgress />
     {/**
      * Nullish coalescing operator is null ?? "value" or undefined ?? "value".
      * https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing
      */}
-    <Typography>{props.text ?? "Loading..."}</Typography>
-  </Box>
+    <BoldText>{props.text ?? "Loading..."}</BoldText>
+  </FlexColCenteredBox>
 );

@@ -26,13 +26,13 @@ import { IS_PROD } from "@utils/config";
 //     return await fn(req, res);
 //   };
 
-export type RequestBody = { msg: string };
+export type RequestBody = { url: string; msg: string };
 
 // handler is a function that has two parameters, req and res.
 // https://deecode.net/?p=1811
 // https://nextjs.org/docs/pages/building-your-application/routing/api-routes
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { msg } = req.body as RequestBody;
+  const { url, msg } = req.body as RequestBody;
 
   const errorChannelUrl = process.env.SLACK_ERROR_CH_WEBHOOK_URL;
 
@@ -55,7 +55,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*Error Message:*\n${msg}`,
+          text: `*In*:\n${url}\n\n*Error Message:*\n${msg}`,
         },
       },
     ],

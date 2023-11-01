@@ -1,16 +1,12 @@
 import * as t from "io-ts";
 import { useQuery } from "react-query";
 
-import { BOOKING_LIST_QUERY_KEY } from "@apis/(booking)/queryKeys";
-import { BookingItem } from "@apis/(booking)/types";
-import { get, createValidator, CustomQueryOptions } from "@apis/common";
-import { API_BASE_URL } from "@utils/config";
+import { BOOKING_LIST_QUERY_KEY, BookingItem } from "@apis/(booking)/common";
+import { get, CustomQueryOptions } from "@apis/common";
 
-const fetchBookingListValidator = createValidator(
-  t.type({
-    item_list: t.array(BookingItem),
-  })
-);
+const fetchBookingListValidator = t.type({
+  item_list: t.array(BookingItem),
+});
 type FetchResponseBody = t.TypeOf<typeof fetchBookingListValidator>;
 
 export const useFetchBookingList = (
@@ -26,7 +22,7 @@ export const useFetchBookingList = (
     [BOOKING_LIST_QUERY_KEY, target_date], // Query key can be a string or an array of strings.
     ({ signal }) =>
       get(
-        `${API_BASE_URL}/booking/list?date=${target_date}`,
+        `/booking/list?date=${target_date}`,
         fetchBookingListValidator,
         signal
       ),

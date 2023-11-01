@@ -1,7 +1,6 @@
 import { useMutation } from "react-query";
 
 import { post } from "@apis/common";
-import { API_BASE_URL } from "@utils/config";
 
 export const TERAKOYA_TYPE = {
   /**カフェ塾テラコヤ(池袋) */
@@ -160,4 +159,4 @@ export type RequestBody = {
 };
 
 export const usePostBooking = () =>
-  useMutation((body: RequestBody) => post(`${API_BASE_URL}/book`, body));
+  useMutation((body: RequestBody) => post("/book", body));
