@@ -13,15 +13,17 @@ export const EmailInput = (props: EmailInputProps) => {
 
   return (
     <FlexColStartLeft>
-      <MarginBox marginTopPx={20} />
-      <CaptionDarkBrown>メールアドレス</CaptionDarkBrown>
-      <MarginBox marginTopPx={10} />
-      <StyledInput
-        {...register("email")}
-        required={true}
-        type="email"
-        placeholder="Email"
-      />
+      <MarginBox marginTopPx={20}>
+        <CaptionDarkBrown>メールアドレス</CaptionDarkBrown>
+      </MarginBox>
+      <MarginBox marginTopPx={10}>
+        <StyledInput
+          {...register("email")}
+          required={true}
+          type="email"
+          placeholder="Email"
+        />
+      </MarginBox>
     </FlexColStartLeft>
   );
 };

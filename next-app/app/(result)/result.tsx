@@ -30,22 +30,25 @@ const Result: React.FC<ResultProps> = (props) => {
         {mode === "success" ? (
           <FlexHorCenteredBox>
             <BsCheckCircle />
-            <MarginBox marginLeftPx={5} />
-            <CaptionSuccess>{caption}</CaptionSuccess>
+            <MarginBox marginLeftPx={5}>
+              <CaptionSuccess>{caption}</CaptionSuccess>
+            </MarginBox>
           </FlexHorCenteredBox>
         ) : mode === "danger" ? (
           <FlexHorCenteredBox>
             <MdOutlineDangerous />
-            <MarginBox marginLeftPx={5} />
-            <CaptionDanger>{caption}</CaptionDanger>
+            <MarginBox marginLeftPx={5}>
+              <CaptionDanger>{caption}</CaptionDanger>
+            </MarginBox>
           </FlexHorCenteredBox>
         ) : (
           <CaptionDarkBrown>{caption}</CaptionDarkBrown>
         )}
         {texts.map((text, index) => (
           <div key={index}>
-            <MarginBox marginTopPx={10} />
-            <BoldTextDarkBrown>{text}</BoldTextDarkBrown>
+            <MarginBox marginTopPx={10}>
+              <BoldTextDarkBrown>{text}</BoldTextDarkBrown>
+            </MarginBox>
           </div>
         ))}
       </FlexColCenteredBox>

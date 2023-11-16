@@ -36,30 +36,35 @@ export default function Page(props: FormProps) {
   return (
     <BasicPaper>
       <FlexColCenteredBox>
-        <MarginBox marginTopPx={20} />
-        <HeadlineDarkBrown>{headline}</HeadlineDarkBrown>
-        <MarginBox marginTopPx={20} />
-        <FlexColStartLeft>
-          <EmailInput register={register} />
-          <MarginBox marginTopPx={20} />
-          <PasswordInput register={register} />
-        </FlexColStartLeft>
-        <MarginBox marginTopPx={20} />
-        {isLoading ? (
-          <Loading text={`${text}処理中...`} />
-        ) : (
-          <DarkBrownButton onClick={onSubmit} type="submit">
-            {text}
-          </DarkBrownButton>
-        )}
-        <MarginBox marginTopPx={20} />
-        {isSignIn
-          ? "まだアカウントをお持ちでない方は"
-          : "既にアカウントをお持ちの方は"}
-        <MarginBox marginLeftPx={5} />
-        <InternalLink path={isSignIn ? ROUTER.SIGN_UP : ROUTER.SIGN_IN}>
-          {isSignIn ? "今すぐユーザー登録して始めよう" : "サインイン"}
-        </InternalLink>
+        <MarginBox marginTopPx={20}>
+          <HeadlineDarkBrown>{headline}</HeadlineDarkBrown>
+        </MarginBox>
+        <MarginBox marginTopPx={20}>
+          <FlexColStartLeft>
+            <EmailInput register={register} />
+            <MarginBox marginTopPx={20} />
+            <PasswordInput register={register} />
+          </FlexColStartLeft>
+        </MarginBox>
+        <MarginBox marginTopPx={20}>
+          {isLoading ? (
+            <Loading text={`${text}処理中...`} />
+          ) : (
+            <DarkBrownButton onClick={onSubmit} type="submit">
+              {text}
+            </DarkBrownButton>
+          )}
+        </MarginBox>
+        <MarginBox marginTopPx={20}>
+          {isSignIn
+            ? "まだアカウントをお持ちでない方は"
+            : "既にアカウントをお持ちの方は"}
+        </MarginBox>
+        <MarginBox marginLeftPx={5}>
+          <InternalLink path={isSignIn ? ROUTER.SIGN_UP : ROUTER.SIGN_IN}>
+            {isSignIn ? "今すぐユーザー登録して始めよう" : "サインイン"}
+          </InternalLink>
+        </MarginBox>
       </FlexColCenteredBox>
     </BasicPaper>
   );

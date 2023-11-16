@@ -39,31 +39,34 @@ export const PasswordInput = (props: PasswordInputProps) => {
 
   return (
     <FlexColStartLeft>
-      <MarginBox marginTopPx={20} />
-      <CaptionDarkBrown>パスワード</CaptionDarkBrown>
-      <MarginBox marginTopPx={10} />
-      <FlexHorCenteredBox
-        css={css`
-          // Set position: relative to the parent element of the DOM element to be positioned absolutely.
-          // https://zero-plus.io/media/css-position-absolute/
-          position: relative;
-        `}
-      >
-        <StyledInput
-          {...register("password")}
-          required={true}
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-        />
-        <MarginBox marginLeftPx={2} />
-        <StyledIconButton onClick={togglePasswordVisibility}>
-          {showPassword ? (
-            <AiOutlineEye size={30} />
-          ) : (
-            <AiOutlineEyeInvisible size={30} />
-          )}
-        </StyledIconButton>
-      </FlexHorCenteredBox>
+      <MarginBox marginTopPx={20}>
+        <CaptionDarkBrown>パスワード</CaptionDarkBrown>
+      </MarginBox>
+      <MarginBox marginTopPx={10}>
+        <FlexHorCenteredBox
+          css={css`
+            // Set position: relative to the parent element of the DOM element to be positioned absolutely.
+            // https://zero-plus.io/media/css-position-absolute/
+            position: relative;
+          `}
+        >
+          <StyledInput
+            {...register("password")}
+            required={true}
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+          />
+          <MarginBox marginLeftPx={2}>
+            <StyledIconButton onClick={togglePasswordVisibility}>
+              {showPassword ? (
+                <AiOutlineEye size={30} />
+              ) : (
+                <AiOutlineEyeInvisible size={30} />
+              )}
+            </StyledIconButton>
+          </MarginBox>
+        </FlexHorCenteredBox>
+      </MarginBox>
     </FlexColStartLeft>
   );
 };

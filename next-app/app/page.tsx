@@ -58,6 +58,7 @@
 
 "use client";
 
+import TimelinePage from "@app/(timeline)/page";
 import { FlexColCenteredBox } from "@components/elements/box";
 import { BasicPaper } from "@components/elements/paper";
 
@@ -65,7 +66,7 @@ export default function Page() {
   return (
     <BasicPaper>
       <FlexColCenteredBox>
-        <span>Home画面準備中</span>
+        <TimelinePage />
       </FlexColCenteredBox>
     </BasicPaper>
   );

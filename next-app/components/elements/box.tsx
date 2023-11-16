@@ -31,16 +31,22 @@ export const FlexColStartLeft = styled.div`
 type MarginBoxProps = {
   marginTopPx?: number;
   marginLeftPx?: number;
+  marginBottomPx?: number;
+  children?: React.ReactNode;
 };
-export const MarginBox = (props: MarginBoxProps) => {
-  const { marginTopPx, marginLeftPx } = props;
-  return (
-    // TODO: <MarginBox>{children}</MarginBox>
-    <div
-      css={css`
-        margin-top: ${marginTopPx || 0}px;
-        margin-left: ${marginLeftPx || 0}px;
-      `}
-    />
-  );
-};
+export const MarginBox = ({
+  marginTopPx,
+  marginLeftPx,
+  marginBottomPx,
+  children,
+}: MarginBoxProps) => (
+  <div
+    css={css`
+      margin-top: ${marginTopPx || 0}px;
+      margin-left: ${marginLeftPx || 0}px;
+      margin-bottom: ${marginBottomPx || 0}px;
+    `}
+  >
+    {children}
+  </div>
+);

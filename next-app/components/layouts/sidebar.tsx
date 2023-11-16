@@ -83,19 +83,20 @@ export default function Sidebar(props: SidebarProps) {
         <TerakoyaLogo isNotClickable={true} />
         {/**https://mui.com/material-ui/react-divider/ */}
         <Divider />
-        <MarginBox marginTopPx={20} />
+        <MarginBox marginTopPx={20}>
         {MENU_ITEM_PROPS_LIST.map((props, index) => (
           <MenuItem key={index} {...props} />
         ))}
+        </MarginBox>
         {user?.is_admin ? (
-          <>
-            <MarginBox marginTopPx={10} />
+          <MarginBox marginTopPx={10}>
             <MenuItem path={ROUTER.MANAGE} text="予約情報管理画面" />
-          </>
+          </MarginBox>
         ) : null}
-        <MarginBox marginTopPx={20} />
+        <MarginBox marginTopPx={20}>
         <Divider />
-        <MarginBox marginTopPx={20} />
+        </MarginBox>
+        <MarginBox marginTopPx={20}>
         {isSignedIn ? (
           isLoading ? (
             <Loading />
@@ -119,9 +120,10 @@ export default function Sidebar(props: SidebarProps) {
             サインイン
           </BoldSuccessText>
         )}
-        <MarginBox marginTopPx={20} />
+        </MarginBox>
+        <MarginBox marginTopPx={20} marginBottomPx={20}>
         <Divider />
-        <MarginBox marginTopPx={20} />
+        </MarginBox>
       </StyledSidebarContent>
     </SwipeableDrawer>
   );
