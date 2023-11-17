@@ -1,19 +1,12 @@
 import * as t from "io-ts";
 
-export const IS_DELETED = t.union([
-  /**未送信 */
-  t.literal(0),
-  /**送信済み */
-  t.literal(1),
-]);
-export type IS_DELETED = t.TypeOf<typeof IS_DELETED>;
-
 export const ReactionType = t.union([
   /**Like */
   t.literal(1),
   /**Bad */
   t.literal(2),
 ]);
+export type ReactionType = t.TypeOf<typeof ReactionType>;
 
 const Reaction = t.type({
   uuid: t.string,
@@ -28,7 +21,6 @@ const TimelineBase = t.type({
   user_profile_img_url: t.string,
   texts: t.string,
   reactions: t.array(Reaction),
-  is_deleted: IS_DELETED,
 });
 
 export const Comment = t.intersection([

@@ -3,15 +3,25 @@ import { css } from "@emotion/react";
 import { colors } from "@styles/colors";
 
 /**Flexbox */
-export const flexCenteredContent = css`
+export const flexHor = css`
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+`;
+export const flexCol = css`
+  display: flex;
+  flex-direction: column;
+`;
+export const flexHorAlignCentered = css`
+  ${flexHor};
   align-items: center;
 `;
-export const flexSpaceBetween = css`
-  display: flex;
+export const flexHorCentered = css`
+  ${flexHorAlignCentered};
+  justify-content: center;
+`;
+export const flexHorSpaceBetween = css`
+  ${flexHor};
   justify-content: space-between;
-  align-items: center;
 `;
 
 /**Border */
@@ -41,7 +51,7 @@ export const clickable = css`
 
 /**Button */
 export const basicButton = css`
-  ${flexCenteredContent};
+  ${flexHorCentered};
   ${clickable};
   width: 200px;
   padding: 10px;

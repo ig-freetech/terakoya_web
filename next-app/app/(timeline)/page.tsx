@@ -4,11 +4,12 @@
 
 import { FlexColCenteredBox, MarginBox } from "@components/elements/box";
 import { IndigoSecondaryButton } from "@components/elements/button";
-import { BasicPaper } from "@components/elements/paper";
+import { PagePaper } from "@components/elements/paper";
 import { CaptionDarkBrown, HeadlineDarkBrown } from "@components/elements/text";
 
 import { useTimeline } from "./hook";
 import Loading from "./loading";
+import { PostItem } from "@components/layouts/timeline/postItem";
 
 export default function Page() {
   const { postList, isLoading, isError, refetch } = useTimeline();
@@ -19,14 +20,14 @@ export default function Page() {
 
   if (isLoading)
     return (
-      <BasicPaper>
+      <PagePaper>
         <Loading />
-      </BasicPaper>
+      </PagePaper>
     );
 
   if (isError)
     return (
-      <BasicPaper>
+      <PagePaper>
         <FlexColCenteredBox>
           <CaptionDarkBrown>
             タイムラインの読み込みに失敗しました。
@@ -37,43 +38,18 @@ export default function Page() {
             </IndigoSecondaryButton>
           </MarginBox>
         </FlexColCenteredBox>
-      </BasicPaper>
+      </PagePaper>
     );
 
   return (
-    <BasicPaper>
-      <FlexColCenteredBox>
-        <MarginBox marginTopPx={10}>
-          <HeadlineDarkBrown>タイムライン</HeadlineDarkBrown>
-        </MarginBox>
-        <MarginBox marginTopPx={20}>
-          {postList?.map((post) => {
-            return (
-              <div key={post.post_id}>
-                <MarginBox marginTopPx={10}>
-                  <CaptionDarkBrown>{post.user_name}</CaptionDarkBrown>
-                </MarginBox>
-                <MarginBox marginTopPx={10}>
-                  <CaptionDarkBrown>
-                    {post.user_profile_img_url}
-                  </CaptionDarkBrown>
-                </MarginBox>
-                <MarginBox marginTopPx={10}>
-                  <CaptionDarkBrown>{post.texts}</CaptionDarkBrown>
-                </MarginBox>
-                <MarginBox marginTopPx={10}>
-                  <CaptionDarkBrown>{post.comment_count}</CaptionDarkBrown>
-                </MarginBox>
-                <MarginBox marginTopPx={10}>
-                  <CaptionDarkBrown>
-                    タイムスタンプ: {post.timestamp}
-                  </CaptionDarkBrown>
-                </MarginBox>
-              </div>
-            );
-          })}
-        </MarginBox>
-      </FlexColCenteredBox>
-    </BasicPaper>
+    <PagePaper>
+      <MarginBox marginTopPx={20}>
+        {postList?.map((post) => (
+          <MarginBox key={post.post_id} marginTopPx={10}>
+            <PostItem post={post} />
+          </MarginBox>
+        ))}
+      </MarginBox>
+    </PagePaper>
   );
 }

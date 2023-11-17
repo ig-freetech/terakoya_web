@@ -18,7 +18,7 @@ import {
   BoldText,
 } from "@components/elements/text";
 import { useUserStore } from "@stores/user";
-import { flexCenteredContent, borderRight, clickable } from "@styles/utils";
+import { flexHorCentered, borderRight, clickable } from "@styles/utils";
 
 type MenuItemProps = {
   path: string;
@@ -46,7 +46,7 @@ const MENU_ITEM_PROPS_LIST: MenuItemProps[] = [
 ];
 
 const StyledSidebarContent = styled("div")`
-  ${flexCenteredContent}
+  ${flexHorCentered}
   ${borderRight}
   flex-direction: column;
   padding: 20px;
@@ -84,9 +84,9 @@ export default function Sidebar(props: SidebarProps) {
         {/**https://mui.com/material-ui/react-divider/ */}
         <Divider />
         <MarginBox marginTopPx={20}>
-        {MENU_ITEM_PROPS_LIST.map((props, index) => (
-          <MenuItem key={index} {...props} />
-        ))}
+          {MENU_ITEM_PROPS_LIST.map((props, index) => (
+            <MenuItem key={index} {...props} />
+          ))}
         </MarginBox>
         {user?.is_admin ? (
           <MarginBox marginTopPx={10}>
@@ -94,35 +94,35 @@ export default function Sidebar(props: SidebarProps) {
           </MarginBox>
         ) : null}
         <MarginBox marginTopPx={20}>
-        <Divider />
+          <Divider />
         </MarginBox>
         <MarginBox marginTopPx={20}>
-        {isSignedIn ? (
-          isLoading ? (
-            <Loading />
+          {isSignedIn ? (
+            isLoading ? (
+              <Loading />
+            ) : (
+              <BoldDangerText
+                css={css`
+                  ${clickable}
+                `}
+                onClick={handleSignOut}
+              >
+                サインアウト
+              </BoldDangerText>
+            )
           ) : (
-            <BoldDangerText
+            <BoldSuccessText
               css={css`
                 ${clickable}
               `}
-              onClick={handleSignOut}
+              onClick={handleSignIn}
             >
-              サインアウト
-            </BoldDangerText>
-          )
-        ) : (
-          <BoldSuccessText
-            css={css`
-              ${clickable}
-            `}
-            onClick={handleSignIn}
-          >
-            サインイン
-          </BoldSuccessText>
-        )}
+              サインイン
+            </BoldSuccessText>
+          )}
         </MarginBox>
         <MarginBox marginTopPx={20} marginBottomPx={20}>
-        <Divider />
+          <Divider />
         </MarginBox>
       </StyledSidebarContent>
     </SwipeableDrawer>

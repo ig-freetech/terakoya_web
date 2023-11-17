@@ -9,7 +9,7 @@ import {
   FlexHorCenteredBox,
   MarginBox,
 } from "@components/elements/box";
-import { BasicPaper } from "@components/elements/paper";
+import { PagePaper } from "@components/elements/paper";
 import {
   BoldTextDarkBrown,
   CaptionSuccess,
@@ -25,7 +25,7 @@ type ResultProps = {
 const Result: React.FC<ResultProps> = (props) => {
   const { caption, texts, mode } = props;
   return (
-    <BasicPaper>
+    <PagePaper>
       <FlexColCenteredBox>
         {mode === "success" ? (
           <FlexHorCenteredBox>
@@ -52,7 +52,7 @@ const Result: React.FC<ResultProps> = (props) => {
           </div>
         ))}
       </FlexColCenteredBox>
-    </BasicPaper>
+    </PagePaper>
   );
   // return (
   //   <div className={styles.result}>

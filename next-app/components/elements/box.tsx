@@ -3,21 +3,36 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { flexCenteredContent, flexSpaceBetween } from "@styles/utils";
+import {
+  flexCol,
+  flexHor,
+  flexHorAlignCentered,
+  flexHorCentered,
+  flexHorSpaceBetween,
+} from "@styles/utils";
 
+export const FlexHorBox = styled.div`
+  ${flexHor}
+`;
+export const FlexColBox = styled.div`
+  ${flexCol}
+`;
+export const FlexHorAlignCenterBox = styled.div`
+  ${flexHorAlignCentered}
+`;
 export const FlexHorCenteredBox = styled.div`
-  ${flexCenteredContent}
+  ${flexHorCentered}
 `;
 export const FlexColCenteredBox = styled.div`
-  ${flexCenteredContent}
+  ${flexHorCentered}
   flex-direction: column;
 `;
 
 export const FlexHorSpaceBetweenBox = styled.div`
-  ${flexSpaceBetween}
+  ${flexHorSpaceBetween}
 `;
 export const FlexColSpaceBetweenBox = styled.div`
-  ${flexSpaceBetween}
+  ${flexHorSpaceBetween}
   flex-direction: column;
 `;
 

@@ -12,7 +12,7 @@ import {
 import { DarkBrownButton } from "@components/elements/button";
 import { ErrorReloading } from "@components/elements/error";
 import { Loading } from "@components/elements/loading";
-import { BasicPaper } from "@components/elements/paper";
+import { PagePaper } from "@components/elements/paper";
 import {
   CaptionDarkBrown,
   SmallTextDarkGray,
@@ -37,19 +37,19 @@ export default function Page({ params }: { params: { uuid: string } }) {
 
   if (isLoading)
     return (
-      <BasicPaper>
+      <PagePaper>
         <Loading />
-      </BasicPaper>
+      </PagePaper>
     );
 
   if (isError)
     return (
-      <BasicPaper>
+      <PagePaper>
         <ErrorReloading
           text="プロフィール情報の読み込みに失敗しました。"
           onClick={refetch}
         />
-      </BasicPaper>
+      </PagePaper>
     );
 
   if (!profile) return null;
@@ -57,7 +57,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
   const { name, nickname, grade, course_choice, like_thing } = profile;
 
   return (
-    <BasicPaper>
+    <PagePaper>
       <FlexHorCenteredBox>
         <FlexColStartLeft>
           <MarginBox marginTopPx={10}>
@@ -125,6 +125,6 @@ export default function Page({ params }: { params: { uuid: string } }) {
           ) : null}
         </FlexColStartLeft>
       </FlexHorCenteredBox>
-    </BasicPaper>
+    </PagePaper>
   );
 }

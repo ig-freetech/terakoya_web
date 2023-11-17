@@ -10,11 +10,16 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Tokyo");
 
+// https://day.js.org/docs/en/parse/unix-timestamp
+export const cvtTimestampToJstDayjs = (timestamp: number) =>
+  dayjs.unix(timestamp);
+
 export const TODAY_JST = dayjs().tz("Asia/Tokyo");
 
 const ONE_WEEK_DAYS = 7;
 
 export const ISO_FORMAT = "YYYY-MM-DD";
+export const ISO_FORMAT_WITH_TIME = "YYYY-MM-DD HH:mm:ss";
 
 export const getNextSameDayDateList = (
   startingPointDate: Dayjs,

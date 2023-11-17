@@ -60,14 +60,14 @@
 
 import TimelinePage from "@app/(timeline)/page";
 import { FlexColCenteredBox } from "@components/elements/box";
-import { BasicPaper } from "@components/elements/paper";
+import { PagePaper } from "@components/elements/paper";
 
 export default function Page() {
   return (
-    <BasicPaper>
+    <PagePaper>
       <FlexColCenteredBox>
         <TimelinePage />
       </FlexColCenteredBox>
-    </BasicPaper>
+    </PagePaper>
   );
 }

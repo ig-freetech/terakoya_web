@@ -1,21 +1,39 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Paper as MuiPaper } from "@mui/material";
 
 import { colors } from "@styles/colors";
 
+const AtomPaperStyle = css`
+  padding: 20px 20px;
+  background-color: ${colors.white};
+  border-radius: 5px;
+`;
+
+type PaperProps = {
+  children?: React.ReactNode;
+};
+export const AtomStyledPaper = styled.div`
+  ${AtomPaperStyle}
+`;
+export const AtomTransparentLightIndigoPaper = styled(AtomStyledPaper)`
+  // https://ironodata.info/rgb.php?color=0F5EA9
+  background-color: rgba(15, 94, 169, 0.2);
+`;
+export const AtomTransparentLightBrownPaper = styled(AtomStyledPaper)`
+  // https://ironodata.info/rgb.php?color=8B4513
+  background-color: rgba(139, 69, 19, 0.1);
+`;
+
 const StyledPaper = styled.div`
+  ${AtomPaperStyle}
   min-height: calc(100vh * 0.65);
   min-width: calc(100vw * 0.9);
   /* margin: 5px; */
-  padding: 20px 10px;
-  background-color: ${colors.white};
-  border-radius: 5px;
   /* box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); // elevation effect */
 `;
-type BasicPaperProps = {
-  children?: React.ReactNode;
-};
-export const BasicPaper = (props: BasicPaperProps) => {
+
+export const PagePaper = (props: PaperProps) => {
   return <StyledPaper>{props.children}</StyledPaper>;
 };
 
@@ -23,7 +41,7 @@ type BasicMuiPaperProps = {
   children?: React.ReactNode;
   backgroundColor?: string;
 };
-export const BasicMuiPaper = (props: BasicMuiPaperProps) => {
+export const PageMuiPaper = (props: BasicMuiPaperProps) => {
   const { children, backgroundColor } = props;
   return (
     <MuiPaper

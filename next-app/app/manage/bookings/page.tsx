@@ -23,7 +23,7 @@ import React, { useEffect } from "react";
 
 import { BookingItem } from "@apis/(booking)/common";
 import { ROUTER } from "@app/links";
-import { BasicMuiPaper } from "@components/elements/paper";
+import { PageMuiPaper } from "@components/elements/paper";
 import { GRADE, COURSE_CHOICE } from "@domains/user/const";
 import { useRedirectToSignIn } from "@hooks/useAuth";
 import { useUserStore } from "@stores/user";
@@ -90,7 +90,7 @@ export default function Page() {
   if (!user || !user?.is_admin) return null;
 
   return (
-    <BasicMuiPaper>
+    <PageMuiPaper>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Typography variant="h5" color="GrayText">
           予約情報一覧
@@ -130,7 +130,7 @@ export default function Page() {
           </TableBody>
         </Table>
       </Box>
-    </BasicMuiPaper>
+    </PageMuiPaper>
   );
 }
 

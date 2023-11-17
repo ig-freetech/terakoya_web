@@ -12,10 +12,10 @@ import { InternalLink } from "@components/elements/link";
 import TerakoyaLogo from "@components/elements/logo";
 import { useUserStore } from "@stores/user";
 import { colors } from "@styles/colors";
-import { flexSpaceBetween, borderBottom, clickable } from "@styles/utils";
+import { flexHorSpaceBetween, borderBottom, clickable } from "@styles/utils";
 
 const StyledHeader = styled.header`
-  ${flexSpaceBetween}
+  ${flexHorSpaceBetween}
   ${borderBottom}
   padding: 20px;
 `;

@@ -20,7 +20,7 @@ import {
   StyledTextArea,
 } from "@components/elements/input";
 import { Loading } from "@components/elements/loading";
-import { BasicPaper } from "@components/elements/paper";
+import { PagePaper } from "@components/elements/paper";
 import { CaptionDarkBrown } from "@components/elements/text";
 
 import { useProfileEdit } from "./hook";
@@ -61,23 +61,23 @@ export default function Page({ params }: { params: { uuid: string } }) {
 
   if (isFetching)
     return (
-      <BasicPaper>
+      <PagePaper>
         <Loading />
-      </BasicPaper>
+      </PagePaper>
     );
 
   if (isErrorFetching)
     return (
-      <BasicPaper>
+      <PagePaper>
         <ErrorReloading
           text="プロフィール情報の読み込みに失敗しました。"
           onClick={refetch}
         />
-      </BasicPaper>
+      </PagePaper>
     );
 
   return (
-    <BasicPaper>
+    <PagePaper>
       <FlexHorCenteredBox>
         <form onSubmit={onSubmit}>
           <FlexColStartLeft>
@@ -180,6 +180,6 @@ export default function Page({ params }: { params: { uuid: string } }) {
           </FlexColStartLeft>
         </form>
       </FlexHorCenteredBox>
-    </BasicPaper>
+    </PagePaper>
   );
 }

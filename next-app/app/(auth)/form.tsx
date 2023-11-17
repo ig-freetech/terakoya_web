@@ -13,7 +13,7 @@ import {
 import { DarkBrownButton } from "@components/elements/button";
 import { InternalLink } from "@components/elements/link";
 import { Loading } from "@components/elements/loading";
-import { BasicPaper } from "@components/elements/paper";
+import { PagePaper } from "@components/elements/paper";
 import { HeadlineDarkBrown } from "@components/elements/text";
 import { EmailInput } from "@components/layouts/input/email";
 import { PasswordInput } from "@components/layouts/input/password";
@@ -34,7 +34,7 @@ export default function Page(props: FormProps) {
   const text = isSignIn ? "サインイン" : "サインアップ";
 
   return (
-    <BasicPaper>
+    <PagePaper>
       <FlexColCenteredBox>
         <MarginBox marginTopPx={20}>
           <HeadlineDarkBrown>{headline}</HeadlineDarkBrown>
@@ -66,6 +66,6 @@ export default function Page(props: FormProps) {
           </InternalLink>
         </MarginBox>
       </FlexColCenteredBox>
-    </BasicPaper>
+    </PagePaper>
   );
 }
