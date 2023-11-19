@@ -70,7 +70,7 @@ export const PostItem = ({ post }: Props) => {
             {userProfileImageUrl ? (
               <Image alt="userIcon" src={userProfileImageUrl} />
             ) : (
-              <HiOutlineUserCircle size={20} />
+              <HiOutlineUserCircle size={30} />
             )}
             <MarginBox marginLeftPx={10}>
               <TextPrimaryBlack>{userName}</TextPrimaryBlack>

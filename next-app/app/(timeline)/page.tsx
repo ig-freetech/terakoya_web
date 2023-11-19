@@ -53,7 +53,7 @@ export default function Page() {
             <CaptionSuccess>今日の学びを投稿しよう</CaptionSuccess>
             <MarginBox marginTopPx={10}>
               <FlexHorBox>
-                <HiOutlineUserCircle size={20} />
+                <HiOutlineUserCircle size={30} />
                 <MarginBox marginLeftPx={20} isWidthMax={true}>
                   <FlexColBox>
                     <StyledTextArea
