@@ -88,7 +88,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
               <StyledInput
                 {...register("name")}
                 type="text"
-                placeholder="西村 博之"
+                placeholder="山田 太郎"
                 required={true}
               />
             </MarginBox>
@@ -103,7 +103,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
               <StyledInput
                 {...register("nickname")}
                 type="text"
-                placeholder="ヒロ"
+                placeholder="タロウ"
                 required={false}
               />
             </MarginBox>
@@ -161,13 +161,13 @@ export default function Page({ params }: { params: { uuid: string } }) {
             <MarginBox marginTopPx={30}>
               <CaptionDarkBrown>将来の夢・志望校など</CaptionDarkBrown>
             </MarginBox>
-            <MarginBox marginTopPx={10}>
+            <MarginBox marginTopPx={10} isWidthMax={true}>
               <StyledTextArea {...register("future_path")} rows={2} />
             </MarginBox>
             <MarginBox marginTopPx={30}>
               <CaptionDarkBrown>好きなもの(こと)</CaptionDarkBrown>
             </MarginBox>
-            <MarginBox marginTopPx={10}>
+            <MarginBox marginTopPx={10} isWidthMax={true}>
               <StyledTextArea {...register("like_thing")} rows={2} />
             </MarginBox>
             <MarginBox marginTopPx={30}>

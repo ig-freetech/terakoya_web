@@ -8,10 +8,13 @@
 import { Loading as LoadingElement } from "@components/elements/loading";
 import { PagePaper } from "@components/elements/paper";
 
-export default function Loading() {
+type LoadingProps = {
+  text?: string;
+};
+export default function Loading(props: LoadingProps) {
   return (
     <PagePaper>
-      <LoadingElement />;
+      <LoadingElement text={props.text} />;
     </PagePaper>
   );
 }

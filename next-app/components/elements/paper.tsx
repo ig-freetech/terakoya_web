@@ -24,6 +24,12 @@ export const AtomTransparentLightBrownPaper = styled(AtomStyledPaper)`
   // https://ironodata.info/rgb.php?color=8B4513
   background-color: rgba(139, 69, 19, 0.1);
 `;
+export const AtomTransparentIndigoPaper = styled(AtomStyledPaper)`
+  background-color: rgba(23, 43, 77, 0.1);
+`;
+export const AtomGrayPaper = styled(AtomStyledPaper)`
+  background-color: ${colors.gray};
+`;
 
 const StyledPaper = styled.div`
   ${AtomPaperStyle}

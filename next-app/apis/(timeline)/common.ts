@@ -41,6 +41,14 @@ export const Post = t.intersection([
 ]);
 export type Post = t.TypeOf<typeof Post>;
 
+export const SubmitPostRequestBody = t.type({
+  uuid: t.string,
+  user_name: t.string,
+  user_profile_img_url: t.string,
+  texts: t.string,
+});
+export type SubmitPostRequestBody = t.TypeOf<typeof SubmitPostRequestBody>;
+
 /**Query keys */
 export const ALL_POST_LIST_QUERY_KEY = "all_post_list";
 export const USER_POST_LIST_QUERY_KEY = "user_post_list";

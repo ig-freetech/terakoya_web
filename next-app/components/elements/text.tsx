@@ -6,6 +6,9 @@ import { MEDIA_QUERIES } from "@styles/utils";
 export const BoldText = styled.span`
   font-weight: bold;
 `;
+export const BoldWrapText = styled(BoldText)`
+  white-space: pre-wrap;
+`;
 export const BoldDangerText = styled(BoldText)`
   color: ${colors.danger};
 `;
@@ -60,6 +63,9 @@ export const TextIndigo = styled.span`
 `;
 export const TextPrimaryBlack = styled.span`
   color: ${colors.primaryBlack};
+`;
+export const TextDanger = styled.span`
+  color: ${colors.danger};
 `;
 export const SmallTextGray = styled.span`
   font-size: 12px;

@@ -269,25 +269,24 @@ export default function Page() {
                         ※下記の選択に応じて参加希望日で選択できる日程が切り替わります。
                       </span>
                     </MarginBox>
-                    <MarginBox marginTopPx={20}>
-                      {TERAKOYA_TYPE_RADIO_DATA.map((data, i) => (
-                        <GroupInput
-                          key={i}
-                          // valueAs option cannot be used with `radio` input
-                          // https://zenn.dev/yodaka/articles/e490a79bccd5e2
-                          // registerRtn={register("terakoya_type", {
-                          //   valueAsNumber: true,
-                          // })}
-                          registerRtn={register("terakoya_type")}
-                          inputType="radio"
-                          data={data}
-                          isRequired={true}
-                          onChange={(e) =>
-                            onChangeSelectedTerakoyaType(e.target.value)
-                          }
-                        />
-                      ))}
-                    </MarginBox>
+                    <MarginBox marginTopPx={20} />
+                    {TERAKOYA_TYPE_RADIO_DATA.map((data, i) => (
+                      <GroupInput
+                        key={i}
+                        // valueAs option cannot be used with `radio` input
+                        // https://zenn.dev/yodaka/articles/e490a79bccd5e2
+                        // registerRtn={register("terakoya_type", {
+                        //   valueAsNumber: true,
+                        // })}
+                        registerRtn={register("terakoya_type")}
+                        inputType="radio"
+                        data={data}
+                        isRequired={true}
+                        onChange={(e) =>
+                          onChangeSelectedTerakoyaType(e.target.value)
+                        }
+                      />
+                    ))}
                   </Label>
                   <MarginBox marginTopPx={40}>
                     <DarkBrownButton
@@ -302,20 +301,19 @@ export default function Page() {
               {step === 2 ? (
                 <FlexColStartLeft>
                   <Label text="テラコヤへのご参加は？">
-                    <MarginBox marginTopPx={20}>
-                      {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data, i) => (
-                        <GroupInput
-                          key={i}
-                          registerRtn={register("terakoya_experience")}
-                          inputType="radio"
-                          data={data}
-                          isRequired={true}
-                          onChange={(e) =>
-                            onChangeSelectedExperience(e.target.value)
-                          }
-                        />
-                      ))}
-                    </MarginBox>
+                    <MarginBox marginTopPx={20} />
+                    {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data, i) => (
+                      <GroupInput
+                        key={i}
+                        registerRtn={register("terakoya_experience")}
+                        inputType="radio"
+                        data={data}
+                        isRequired={true}
+                        onChange={(e) =>
+                          onChangeSelectedExperience(e.target.value)
+                        }
+                      />
+                    ))}
                   </Label>
                   <MarginBox marginTopPx={40}>
                     <div className={styles.buttonGroup}>
@@ -327,10 +325,10 @@ export default function Page() {
                           次へ
                         </DarkBrownButton>
                         <MarginBox marginLeftPx={10}>
-                        <IndigoSecondaryButton onClick={onPrevStep}>
-                          戻る
-                        </IndigoSecondaryButton>
-                      </MarginBox>
+                          <IndigoSecondaryButton onClick={onPrevStep}>
+                            戻る
+                          </IndigoSecondaryButton>
+                        </MarginBox>
                       </FlexHorCenteredBox>
                     </div>
                   </MarginBox>

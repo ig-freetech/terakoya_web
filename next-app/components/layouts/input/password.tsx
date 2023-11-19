@@ -28,9 +28,9 @@ const StyledIconButton = styled.span`
 
 type PasswordInputProps = {
   register: UseFormRegister<AuthAccountRequestBody>;
+  onSubmit: () => Promise<void>;
 };
-export const PasswordInput = (props: PasswordInputProps) => {
-  const { register } = props;
+export const PasswordInput = ({ register, onSubmit }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -55,6 +55,12 @@ export const PasswordInput = (props: PasswordInputProps) => {
             required={true}
             type={showPassword ? "text" : "password"}
             placeholder="Password"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                onSubmit();
+              }
+            }}
           />
           <MarginBox marginLeftPx={2}>
             <StyledIconButton onClick={togglePasswordVisibility}>

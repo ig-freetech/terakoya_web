@@ -1,6 +1,10 @@
+import Linkify from "linkify-react";
 import Image from "next/image";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { HiOutlineUserCircle, HiOutlineChatAlt2 } from "react-icons/hi";
+
+// https://www.npmjs.com/package/linkify-react
+// https://qiita.com/yuikoito/items/d5cb63263f5726808cd2
 
 import { Post } from "@apis/(timeline)/common";
 import {
@@ -12,7 +16,7 @@ import {
 import { BlackDivider } from "@components/elements/divider";
 import { AtomTransparentLightBrownPaper } from "@components/elements/paper";
 import {
-  BoldText,
+  BoldWrapText,
   TextIndigo,
   TextPrimaryBlack,
   SmallTextDarkGray,
@@ -78,7 +82,9 @@ export const PostItem = ({ post }: Props) => {
           <BlackDivider />
         </MarginBox>
         <MarginBox marginTopPx={10}>
-          <BoldText>{texts}</BoldText>
+          <BoldWrapText>
+            <Linkify>{texts}</Linkify>
+          </BoldWrapText>
           <MarginBox marginTopPx={10}>
             <SmallTextDarkGray>{datetime}</SmallTextDarkGray>
           </MarginBox>

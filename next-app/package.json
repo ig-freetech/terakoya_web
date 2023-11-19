@@ -24,6 +24,8 @@
     "io-ts": "^2.2.20",
     "io-ts-reporters": "^2.0.1",
     "japanese-holidays": "^1.0.10",
+    "linkify-react": "^4.1.2",
+    "linkifyjs": "^4.1.2",
     "lodash": "^4.17.21",
     "next": "^13.4.4",
     "react": "^18.1.0",

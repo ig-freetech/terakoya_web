@@ -1,15 +1,16 @@
 import * as t from "io-ts";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 import {
   Post,
-  Comment,
+  SubmitPostRequestBody,
+  // Comment,
   ALL_POST_LIST_QUERY_KEY,
   USER_POST_LIST_QUERY_KEY,
-  POST_QUERY_KEY,
-  COMMENT_LIST_QUERY_KEY,
+  // POST_QUERY_KEY,
+  // COMMENT_LIST_QUERY_KEY,
 } from "@apis/(timeline)/common";
-import { get, CustomQueryOptions } from "@apis/common";
+import { get, CustomQueryOptions, post } from "@apis/common";
 import { createQueryParams } from "@apis/utils";
 
 const fetchPostItemListValidator = t.type({
@@ -56,3 +57,6 @@ export const useFetchUserPostList = (
       ),
     options
   );
+
+export const useSubmitPost = () =>
+  useMutation((reqBody: SubmitPostRequestBody) => post(`/timeline`, reqBody));

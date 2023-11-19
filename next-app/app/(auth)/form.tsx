@@ -43,7 +43,7 @@ export default function Page(props: FormProps) {
           <FlexColStartLeft>
             <EmailInput register={register} />
             <MarginBox marginTopPx={20} />
-            <PasswordInput register={register} />
+            <PasswordInput register={register} onSubmit={onSubmit} />
           </FlexColStartLeft>
         </MarginBox>
         <MarginBox marginTopPx={20}>
