@@ -3,6 +3,7 @@
 "use client";
 
 import styled from "@emotion/styled";
+import { useEffect } from "react";
 import { HiOutlineUserCircle } from "react-icons/hi";
 
 import {
@@ -25,7 +26,6 @@ import { colors } from "@styles/colors";
 
 import { useFetchTimeline, usePostTimeline } from "./hook";
 import Loading from "./loading";
-import { useEffect } from "react";
 
 const PostFormPaper = styled(AtomStyledPaper)`
   border: 1px solid ${colors.primaryBrown};
