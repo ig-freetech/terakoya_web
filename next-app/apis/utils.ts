@@ -1,5 +1,5 @@
 export const createQueryParams = (
-  params: Record<string, string | number | undefined>
+  params: Record<string, string | number | undefined | null>
 ) => {
   const queryParams = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {

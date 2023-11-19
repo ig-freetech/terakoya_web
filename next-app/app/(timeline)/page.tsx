@@ -3,7 +3,6 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { useEffect } from "react";
 import { HiOutlineUserCircle } from "react-icons/hi";
 
 import {
@@ -38,33 +37,11 @@ export default function Page() {
     postList,
     isFetchingPostList,
     isErrorFetchingPostList,
-    refetch,
+    fetch,
     refetchInitialPostList,
   } = useFetchTimeline();
   const { onSubmitPost, isSubmittingPost, errorText, register } =
     usePostTimeline(refetchInitialPostList);
-
-  const handleReload = () => {
-    refetch();
-  };
-
-  const handleScroll = () => {
-    // Refetch data when the scroll position of window + window height approaches the height of the document.
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 100 >=
-      document.documentElement.offsetHeight
-    ) {
-      refetch();
-    }
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    // Remove event listeners on cleanup when unmounted
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <PagePaper>
@@ -111,14 +88,14 @@ export default function Page() {
               タイムラインの読み込みに失敗しました。
             </CaptionDarkBrown>
             <MarginBox marginTopPx={20}>
-              <IndigoSecondaryButton onClick={handleReload}>
+              <IndigoSecondaryButton onClick={fetch}>
                 再読み込み
               </IndigoSecondaryButton>
             </MarginBox>
           </FlexColCenteredBox>
         ) : (
-          postList?.map((post) => (
-            <MarginBox key={post.post_id} marginTopPx={10}>
+          postList?.map((post, index) => (
+            <MarginBox key={index} marginTopPx={10}>
               <PostItem post={post} />
             </MarginBox>
           ))

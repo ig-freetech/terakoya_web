@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as yup from "yup";
@@ -11,17 +11,19 @@ import { ROUTER } from "@app/links";
 import { useUserStore } from "@stores/user";
 
 export const useFetchTimeline = () => {
-  const [lastEvaluatedTimestamp, setLastTimestamp] = useState<number>();
+  const [lastEvaluatedTimestamp, setLastTimestamp] = useState<number | null>();
+  const [lastEvaluatedPostId, setLastPostId] = useState<string | null>();
   const [postList, setPostList] = useState<Array<Post>>([]);
   const {
     data,
     isLoading: isFetchingPostList,
     isError: isErrorFetchingPostList,
     refetch,
-  } = useFetchAllPostList(lastEvaluatedTimestamp, {
+  } = useFetchAllPostList(lastEvaluatedTimestamp, lastEvaluatedPostId, {
     onSuccess(data) {
       setPostList((prev) => [...prev, ...data.items]);
       setLastTimestamp(data.last_evaluated_timestamp);
+      setLastPostId(data.last_evaluated_id);
     },
     onError(error) {
       toast.error(`エラーが発生しました。\n${error}`);
@@ -32,6 +34,26 @@ export const useFetchTimeline = () => {
     setLastTimestamp(undefined);
     refetch();
   };
+  const hasFetchedAllPosts = useMemo(
+    () =>
+      postList.length > 0 && !lastEvaluatedTimestamp && !lastEvaluatedPostId,
+    [postList, lastEvaluatedTimestamp, lastEvaluatedPostId]
+  );
+  const fetch = useCallback(() => {
+    if (hasFetchedAllPosts) return;
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 100 >=
+      document.documentElement.offsetHeight
+    )
+      refetch();
+  }, [hasFetchedAllPosts, refetch]);
+  useEffect(() => {
+    window.addEventListener("scroll", fetch);
+    // Remove event listeners on cleanup when unmounted
+    return () => {
+      window.removeEventListener("scroll", fetch);
+    };
+  }, [fetch]);
 
   useEffect(() => {
     if (postList.length === 0 && data?.items && data.items.length > 0) {
@@ -44,7 +66,7 @@ export const useFetchTimeline = () => {
     postList,
     isFetchingPostList,
     isErrorFetchingPostList,
-    refetch,
+    fetch,
     refetchInitialPostList,
   };
 };
