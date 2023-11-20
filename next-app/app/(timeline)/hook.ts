@@ -41,11 +41,14 @@ export const useFetchTimeline = () => {
   );
   const fetch = useCallback(() => {
     if (hasFetchedAllPosts) return;
+
+    // Fetch more posts if scrolling to the bottom of the page
     if (
       window.innerHeight + document.documentElement.scrollTop + 100 >=
       document.documentElement.offsetHeight
-    )
+    ) {
       refetch();
+    }
   }, [hasFetchedAllPosts, refetch]);
   useEffect(() => {
     window.addEventListener("scroll", fetch);
