@@ -22,6 +22,7 @@ const TimelineBase = t.type({
   texts: t.string,
   reactions: t.array(Reaction),
 });
+export type TimelineBase = t.TypeOf<typeof TimelineBase>;
 
 export const Comment = t.intersection([
   TimelineBase,
@@ -48,9 +49,3 @@ export const SubmitPostRequestBody = t.type({
   texts: t.string,
 });
 export type SubmitPostRequestBody = t.TypeOf<typeof SubmitPostRequestBody>;
-
-/**Query keys */
-export const ALL_POST_LIST_QUERY_KEY = "all_post_list";
-export const USER_POST_LIST_QUERY_KEY = "user_post_list";
-export const POST_QUERY_KEY = "post";
-export const COMMENT_LIST_QUERY_KEY = "comment_list";

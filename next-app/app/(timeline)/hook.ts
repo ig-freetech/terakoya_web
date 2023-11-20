@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as yup from "yup";
 
-import { Post } from "@apis/(timeline)/common";
-import { useSubmitPost, useFetchAllPostList } from "@apis/(timeline)/postList";
+import { useSubmitPost, useFetchAllPostList } from "@apis/(timeline)";
+import { Post } from "@apis/(timeline)/type";
 import { ROUTER } from "@app/links";
 import { useUserStore } from "@stores/user";
 

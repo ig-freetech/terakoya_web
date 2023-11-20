@@ -7,20 +7,16 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 
 import {
   FlexColBox,
-  FlexColCenteredBox,
   FlexHorBox,
   FlexHorEndRightBox,
   MarginBox,
 } from "@components/elements/box";
 import { IndigoSecondaryButton } from "@components/elements/button";
+import { ErrorReloading } from "@components/elements/error";
 import { StyledTextArea } from "@components/elements/input";
 import { PagePaper, AtomStyledPaper } from "@components/elements/paper";
-import {
-  CaptionDarkBrown,
-  CaptionSuccess,
-  TextDanger,
-} from "@components/elements/text";
-import { PostItem } from "@components/layouts/timeline/postItem";
+import { CaptionSuccess, TextDanger } from "@components/elements/text";
+import { PostItem } from "@components/layouts/timeline";
 import { colors } from "@styles/colors";
 
 import { useFetchTimeline, usePostTimeline } from "./hook";
@@ -83,20 +79,14 @@ export default function Page() {
         {isFetchingPostList ? (
           <Loading text="最新の投稿を取得中..." />
         ) : isErrorFetchingPostList ? (
-          <FlexColCenteredBox>
-            <CaptionDarkBrown>
-              タイムラインの読み込みに失敗しました。
-            </CaptionDarkBrown>
-            <MarginBox marginTopPx={20}>
-              <IndigoSecondaryButton onClick={fetch}>
-                再読み込み
-              </IndigoSecondaryButton>
-            </MarginBox>
-          </FlexColCenteredBox>
+          <ErrorReloading
+            text="タイムラインの読み込みに失敗しました。"
+            onClick={fetch}
+          />
         ) : (
           postList?.map((post, index) => (
             <MarginBox key={index} marginTopPx={10}>
-              <PostItem post={post} />
+              <PostItem post={post} isLinkable={true} />
             </MarginBox>
           ))
         )}

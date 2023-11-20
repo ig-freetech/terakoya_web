@@ -1,3 +1,8 @@
+/** @jsxImportSource @emotion/react */
+
+"use client";
+
+import { css } from "@emotion/react";
 import Linkify from "linkify-react";
 import Image from "next/image";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
@@ -6,7 +11,7 @@ import { HiOutlineUserCircle, HiOutlineChatAlt2 } from "react-icons/hi";
 // https://www.npmjs.com/package/linkify-react
 // https://qiita.com/yuikoito/items/d5cb63263f5726808cd2
 
-import { Post } from "@apis/(timeline)/common";
+import { Comment, Post, TimelineBase } from "@apis/(timeline)/type";
 import {
   FlexColBox,
   FlexHorAlignCenterBox,
@@ -26,20 +31,23 @@ import {
   ISO_FORMAT_WITH_TIME,
   TODAY_JST,
 } from "@utils/datetime";
+import Link from "next/link";
+import { ROUTER } from "@app/links";
 
 type Props = {
-  post: Post;
+  timelineItem: TimelineBase;
+  /**For only PostItem */
+  commentCountChildren?: React.ReactNode;
 };
 
-export const PostItem = ({ post }: Props) => {
+const TimelineItem = ({ timelineItem, commentCountChildren }: Props) => {
   const {
     user_name: userName,
     user_profile_img_url: userProfileImageUrl,
     texts,
-    comment_count: commentCount,
     reactions,
     timestamp,
-  } = post;
+  } = timelineItem;
 
   const LIKE = 1;
   const BAD = 2;
@@ -82,7 +90,13 @@ export const PostItem = ({ post }: Props) => {
           <BlackDivider />
         </MarginBox>
         <MarginBox marginTopPx={10}>
-          <BoldWrapText>
+          <BoldWrapText
+            css={css`
+              // break-all is to breaks lines at any character
+              // https://developer.mozilla.org/ja/docs/Web/CSS/word-break#break-all
+              word-break: break-all;
+            `}
+          >
             <Linkify>{texts}</Linkify>
           </BoldWrapText>
           <MarginBox marginTopPx={10}>
@@ -91,22 +105,17 @@ export const PostItem = ({ post }: Props) => {
         </MarginBox>
         <MarginBox marginTopPx={10}>
           <FlexHorSpaceBetweenBox>
-            <FlexHorAlignCenterBox>
-              <HiOutlineChatAlt2 size={20} />
-              <MarginBox marginLeftPx={5}>
-                <TextIndigo>{commentCount}</TextIndigo>
-              </MarginBox>
-            </FlexHorAlignCenterBox>
+            {commentCountChildren}
             <FlexHorAlignCenterBox>
               <AiOutlineLike size={20} />
               <MarginBox marginLeftPx={5}>
-                <TextIndigo>{likeCount}</TextIndigo>
+                <TextPrimaryBlack>{likeCount}</TextPrimaryBlack>
               </MarginBox>
               <MarginBox marginLeftPx={10}>
                 <FlexHorAlignCenterBox>
                   <AiOutlineDislike size={20} />
                   <MarginBox marginLeftPx={5}>
-                    <TextIndigo>{badCount}</TextIndigo>
+                    <TextPrimaryBlack>{badCount}</TextPrimaryBlack>
                   </MarginBox>
                 </FlexHorAlignCenterBox>
               </MarginBox>
@@ -117,3 +126,43 @@ export const PostItem = ({ post }: Props) => {
     </AtomTransparentLightBrownPaper>
   );
 };
+
+type PostItemProps = {
+  post: Post;
+  isLinkable?: boolean;
+};
+export const PostItem = ({ post, isLinkable }: PostItemProps) => {
+  const Content = () => (
+    <TimelineItem
+      timelineItem={post}
+      commentCountChildren={
+        <FlexHorAlignCenterBox>
+          <HiOutlineChatAlt2 size={20} />
+          <MarginBox marginLeftPx={5}>
+            <TextPrimaryBlack>{post.comment_count}</TextPrimaryBlack>
+          </MarginBox>
+        </FlexHorAlignCenterBox>
+      }
+    />
+  );
+  return isLinkable ? (
+    <Link
+      href={`${ROUTER.POST}/${post.post_id}`}
+      css={css`
+        text-decoration: none; // Remove default link underline
+        color: inherit; // Remove default link color: ;
+      `}
+    >
+      <Content />
+    </Link>
+  ) : (
+    <Content />
+  );
+};
+
+type CommentItemProps = {
+  comment: Comment;
+};
+export const CommentItem = ({ comment }: CommentItemProps) => (
+  <TimelineItem timelineItem={comment} />
+);
