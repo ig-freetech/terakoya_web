@@ -5,7 +5,7 @@
 import { css } from "@emotion/react";
 
 import {
-  FlexColStartLeft,
+  FlexColStartLeftBox,
   FlexHorCenteredBox,
   MarginBox,
 } from "@components/elements/box";
@@ -59,7 +59,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
   return (
     <PagePaper>
       <FlexHorCenteredBox>
-        <FlexColStartLeft>
+        <FlexColStartLeftBox>
           <MarginBox marginTopPx={10}>
             <CaptionDarkBrown>名前</CaptionDarkBrown>
           </MarginBox>
@@ -123,7 +123,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
               </MarginBox>
             </>
           ) : null}
-        </FlexColStartLeft>
+        </FlexColStartLeftBox>
       </FlexHorCenteredBox>
     </PagePaper>
   );

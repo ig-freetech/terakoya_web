@@ -1,7 +1,12 @@
 import * as t from "io-ts";
 import { useMutation, useQuery } from "react-query";
 
-import { Comment, Post, SubmitPostRequestBody } from "@apis/(timeline)/type";
+import {
+  Comment,
+  Post,
+  SubmitCommentRequestBody,
+  SubmitPostRequestBody,
+} from "@apis/(timeline)/type";
 import { get, CustomQueryOptions, post } from "@apis/common";
 import { createQueryParams } from "@apis/utils";
 
@@ -102,4 +107,9 @@ export const useFetchCommentList = (
         signal
       ),
     options
+  );
+
+export const useSubmitComment = () =>
+  useMutation((reqBody: SubmitCommentRequestBody) =>
+    post(`/timeline/${reqBody.post_id}/comment`, reqBody)
   );

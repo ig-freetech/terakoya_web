@@ -7,7 +7,7 @@ import { AuthAccountRequestBody } from "@apis/(user)/auth";
 import { ROUTER } from "@app/links";
 import {
   FlexColCenteredBox,
-  FlexColStartLeft,
+  FlexColStartLeftBox,
   MarginBox,
 } from "@components/elements/box";
 import { DarkBrownButton } from "@components/elements/button";
@@ -40,11 +40,11 @@ export default function Page(props: FormProps) {
           <HeadlineDarkBrown>{headline}</HeadlineDarkBrown>
         </MarginBox>
         <MarginBox marginTopPx={20}>
-          <FlexColStartLeft>
+          <FlexColStartLeftBox>
             <EmailInput register={register} />
             <MarginBox marginTopPx={20} />
             <PasswordInput register={register} onSubmit={onSubmit} />
-          </FlexColStartLeft>
+          </FlexColStartLeftBox>
         </MarginBox>
         <MarginBox marginTopPx={20}>
           {isLoading ? (

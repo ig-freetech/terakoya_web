@@ -49,3 +49,13 @@ export const SubmitPostRequestBody = t.type({
   texts: t.string,
 });
 export type SubmitPostRequestBody = t.TypeOf<typeof SubmitPostRequestBody>;
+
+export const SubmitCommentRequestBody = t.intersection([
+  SubmitPostRequestBody,
+  t.type({
+    post_id: t.string,
+  }),
+]);
+export type SubmitCommentRequestBody = t.TypeOf<
+  typeof SubmitCommentRequestBody
+>;

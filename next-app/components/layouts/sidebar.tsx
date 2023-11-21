@@ -3,6 +3,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { SwipeableDrawer, Divider } from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -14,11 +15,17 @@ import { Loading } from "@components/elements/loading";
 import TerakoyaLogo from "@components/elements/logo";
 import {
   BoldDangerText,
-  BoldSuccessText,
   BoldText,
+  BoldSuccessText,
 } from "@components/elements/text";
 import { useUserStore } from "@stores/user";
-import { flexHorCentered, borderRight, clickable } from "@styles/utils";
+import { colors } from "@styles/colors";
+import {
+  flexHorCentered,
+  borderRight,
+  clickable,
+  disableLinkStyle,
+} from "@styles/utils";
 
 type MenuItemProps = {
   path: string;
@@ -67,9 +74,6 @@ export default function Sidebar(props: SidebarProps) {
     router.push(ROUTER.SIGN_IN);
     toast.success("サインアウトしました。");
   };
-  const handleSignIn = () => {
-    router.push(ROUTER.SIGN_IN);
-  };
 
   return (
     // https://mui.com/material-ui/react-drawer/#swipeable
@@ -104,6 +108,7 @@ export default function Sidebar(props: SidebarProps) {
               <BoldDangerText
                 css={css`
                   ${clickable}
+                  ${disableLinkStyle}
                 `}
                 onClick={handleSignOut}
               >
@@ -111,14 +116,20 @@ export default function Sidebar(props: SidebarProps) {
               </BoldDangerText>
             )
           ) : (
-            <BoldSuccessText
+            <Link
+              href={ROUTER.SIGN_IN}
               css={css`
-                ${clickable}
+                ${disableLinkStyle}
               `}
-              onClick={handleSignIn}
             >
-              サインイン
-            </BoldSuccessText>
+              <BoldSuccessText
+                css={css`
+                  ${clickable}/* color: ${colors.success}; */
+                `}
+              >
+                サインイン
+              </BoldSuccessText>
+            </Link>
           )}
         </MarginBox>
         <MarginBox marginTopPx={20} marginBottomPx={20}>

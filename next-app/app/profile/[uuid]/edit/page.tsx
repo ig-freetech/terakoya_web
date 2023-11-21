@@ -8,7 +8,7 @@ import {
   HOW_TO_KNOW_TERAKOYA,
 } from "@apis/(user)/common";
 import {
-  FlexColStartLeft,
+  FlexColStartLeftBox,
   FlexHorCenteredBox,
   MarginBox,
 } from "@components/elements/box";
@@ -80,7 +80,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
     <PagePaper>
       <FlexHorCenteredBox>
         <form onSubmit={onSubmit}>
-          <FlexColStartLeft>
+          <FlexColStartLeftBox>
             <MarginBox marginTopPx={30}>
               <CaptionDarkBrown>名前</CaptionDarkBrown>
             </MarginBox>
@@ -177,7 +177,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
                 <DarkBrownButton type="submit">更新</DarkBrownButton>
               )}
             </MarginBox>
-          </FlexColStartLeft>
+          </FlexColStartLeftBox>
         </form>
       </FlexHorCenteredBox>
     </PagePaper>

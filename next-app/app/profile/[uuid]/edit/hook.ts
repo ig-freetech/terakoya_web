@@ -7,13 +7,17 @@ import { User } from "@apis/(user)/common";
 import { useFetchUser, useUpdateUserProfile } from "@apis/(user)/user";
 import { ROUTER } from "@app/links";
 import { useRedirectToSignIn } from "@hooks/useAuth";
+import { useHandleError } from "@hooks/useHandleError";
 import { useUserStore } from "@stores/user";
 
 export const useProfileEdit = (uuid: string) => {
-  const router = useRouter();
-  const { user, setLoggedInUser } = useUserStore();
   useRedirectToSignIn();
 
+  const router = useRouter();
+
+  const { user, setLoggedInUser } = useUserStore();
+
+  const { handleError } = useHandleError();
   const {
     isLoading: isFetching,
     isError: isErrorFetching,
@@ -22,9 +26,7 @@ export const useProfileEdit = (uuid: string) => {
     onSuccess: (data) => {
       setLoggedInUser(data);
     },
-    onError: (error) => {
-      toast.error(`エラーが発生しました。\n${error}`);
-    },
+    onError: (error) => handleError(error),
   });
 
   const { mutate: update, isLoading: isUpdating } = useUpdateUserProfile(uuid);
@@ -61,9 +63,8 @@ export const useProfileEdit = (uuid: string) => {
         toast.success("プロフィールを更新しました。");
         router.push(`${ROUTER.PROFILE}/${uuid}`);
       },
-      onError: (error) => {
-        toast.error(`エラーが発生しました。\n${error}`);
-      },
+      onError: (error) =>
+        handleError(error, "プロフィールの更新に失敗しました。"),
     });
   });
 

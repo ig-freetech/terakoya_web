@@ -8,7 +8,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import { AuthAccountRequestBody } from "@apis/(user)/auth";
 import {
-  FlexColStartLeft,
+  FlexColStartLeftBox,
   MarginBox,
   FlexHorCenteredBox,
 } from "@components/elements/box";
@@ -38,7 +38,7 @@ export const PasswordInput = ({ register, onSubmit }: PasswordInputProps) => {
   };
 
   return (
-    <FlexColStartLeft>
+    <FlexColStartLeftBox>
       <MarginBox marginTopPx={20}>
         <CaptionDarkBrown>パスワード</CaptionDarkBrown>
       </MarginBox>
@@ -73,6 +73,6 @@ export const PasswordInput = ({ register, onSubmit }: PasswordInputProps) => {
           </MarginBox>
         </FlexHorCenteredBox>
       </MarginBox>
-    </FlexColStartLeft>
+    </FlexColStartLeftBox>
   );
 };

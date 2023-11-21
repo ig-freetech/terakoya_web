@@ -33,7 +33,6 @@ export default function Page() {
     postList,
     isFetchingPostList,
     isErrorFetchingPostList,
-    fetch,
     refetchInitialPostList,
   } = useFetchTimeline();
   const { onSubmitPost, isSubmittingPost, errorText, register } =
@@ -81,7 +80,7 @@ export default function Page() {
         ) : isErrorFetchingPostList ? (
           <ErrorReloading
             text="タイムラインの読み込みに失敗しました。"
-            onClick={fetch}
+            onClick={refetchInitialPostList}
           />
         ) : (
           postList?.map((post, index) => (

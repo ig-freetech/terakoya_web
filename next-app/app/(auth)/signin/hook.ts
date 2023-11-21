@@ -8,6 +8,7 @@ import {
   AuthAccountRequestBody,
 } from "@apis/(user)/auth";
 import { ROUTER } from "@app/links";
+import { useHandleError } from "@hooks/useHandleError";
 import { useUserStore } from "@stores/user";
 
 export const useSignIn = () => {
@@ -20,6 +21,7 @@ export const useSignIn = () => {
   });
 
   const { mutate: signIn, isLoading } = useSignInMutation();
+  const { handleError } = useHandleError();
   const { user, isSignedIn, setLoggedInUser } = useUserStore();
 
   useEffect(() => {
@@ -34,14 +36,12 @@ export const useSignIn = () => {
       return;
     }
     signIn(inputs, {
-      onError: (error) => {
-        toast.error(`エラーが発生しました。\n${error}`);
-      },
       onSuccess(data) {
         setLoggedInUser(data);
         toast.success("サインインしました。");
         router.push(`${ROUTER.PROFILE}/${data.uuid}`);
       },
+      onError: (error) => handleError(error, "サインインに失敗しました。"),
     });
   });
 

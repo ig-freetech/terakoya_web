@@ -8,12 +8,15 @@ import * as yup from "yup";
 import { useSubmitPost, useFetchAllPostList } from "@apis/(timeline)";
 import { Post } from "@apis/(timeline)/type";
 import { ROUTER } from "@app/links";
+import { useHandleError } from "@hooks/useHandleError";
 import { useUserStore } from "@stores/user";
 
 export const useFetchTimeline = () => {
   const [lastEvaluatedTimestamp, setLastTimestamp] = useState<number | null>();
   const [lastEvaluatedPostId, setLastPostId] = useState<string | null>();
   const [postList, setPostList] = useState<Array<Post>>([]);
+
+  const { handleError } = useHandleError();
   const {
     data,
     isLoading: isFetchingPostList,
@@ -25,20 +28,22 @@ export const useFetchTimeline = () => {
       setLastTimestamp(data.last_evaluated_timestamp);
       setLastPostId(data.last_evaluated_id);
     },
-    onError(error) {
-      toast.error(`エラーが発生しました。\n${error}`);
-    },
+    onError: (error) =>
+      handleError(error, "タイムラインの取得に失敗しました。"),
   });
+
   const refetchInitialPostList = () => {
     setPostList([]);
     setLastTimestamp(undefined);
     refetch();
   };
+
   const hasFetchedAllPosts = useMemo(
     () =>
       postList.length > 0 && !lastEvaluatedTimestamp && !lastEvaluatedPostId,
     [postList, lastEvaluatedTimestamp, lastEvaluatedPostId]
   );
+
   const fetch = useCallback(() => {
     if (hasFetchedAllPosts) return;
 
@@ -50,6 +55,7 @@ export const useFetchTimeline = () => {
       refetch();
     }
   }, [hasFetchedAllPosts, refetch]);
+
   useEffect(() => {
     window.addEventListener("scroll", fetch);
     // Remove event listeners on cleanup when unmounted
@@ -69,14 +75,12 @@ export const useFetchTimeline = () => {
     postList,
     isFetchingPostList,
     isErrorFetchingPostList,
-    fetch,
     refetchInitialPostList,
   };
 };
 
 export const usePostTimeline = (refetchInitialPostList: () => void) => {
   const router = useRouter();
-  const { user } = useUserStore();
 
   const {
     register,
@@ -97,7 +101,10 @@ export const usePostTimeline = (refetchInitialPostList: () => void) => {
     ),
   });
 
+  const { user } = useUserStore();
+
   const { mutate: submitPost, isLoading: isSubmittingPost } = useSubmitPost();
+  const { handleError } = useHandleError();
   const onSubmitPost = handleSubmit((inputs) => {
     if (!user) {
       toast.error(
@@ -126,9 +133,7 @@ export const usePostTimeline = (refetchInitialPostList: () => void) => {
           reset();
           refetchInitialPostList();
         },
-        onError(error) {
-          toast.error(`エラーが発生しました。\n${error}`);
-        },
+        onError: (error) => handleError(error, "投稿に失敗しました。"),
       }
     );
   });

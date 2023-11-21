@@ -48,6 +48,10 @@ export const clickable = css`
     ${opacity};
   }
 `;
+export const disableLinkStyle = css`
+  text-decoration: none; // Remove default link underline
+  color: inherit; // Remove default link color
+`;
 
 /**Button */
 export const basicButton = css`
@@ -72,5 +76,6 @@ export const absoluteVerticalCentered = css`
 
 /**Media Queries */
 export const MEDIA_QUERIES = {
+  // https://emotion.sh/docs/media-queries
   upTo600: "@media screen and (max-width: 600px)",
 };

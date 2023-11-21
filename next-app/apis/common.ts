@@ -66,13 +66,25 @@ const refreshHandler = async <T>(api_request: () => Promise<T>) => {
 // export const createValidator = <T extends t.Mixed>(additonalProps: T) =>
 //   t.intersection([BasicResponseData, additonalProps]);
 
+export class ErrorData extends Error {
+  detail: string;
+  statusCode?: number;
+
+  constructor(detail: string, statusCode?: number) {
+    super(detail); // Call parent class constructor
+    this.detail = detail;
+    this.statusCode = statusCode;
+    this.name = "ErrorData"; // エラーの名前を設定
+  }
+}
+
 const handleError = (url: string, err: AxiosError) => {
   const errorResponse = err.response?.data as ErrorResponse;
   if (!errorResponse) {
-    throw new Error("Error response type is not { detail: string }");
+    throw new ErrorData("Error response type is not { detail: string }");
   }
   notifyErrorMsg(url, errorResponse.detail);
-  throw new Error(errorResponse.detail);
+  throw new ErrorData(errorResponse.detail, err.response?.status);
 };
 
 const parseResponse = <T extends t.Mixed>(

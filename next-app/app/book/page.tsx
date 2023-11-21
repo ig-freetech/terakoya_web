@@ -15,7 +15,7 @@ import {
   TERAKOYA_TYPE,
 } from "@apis/(booking)/book";
 import {
-  FlexColStartLeft,
+  FlexColStartLeftBox,
   FlexHorCenteredBox,
   MarginBox,
 } from "@components/elements/box";
@@ -262,7 +262,7 @@ export default function Page() {
           <div className={styles["form-container"]}>
             <form className={styles["form"]} onSubmit={onSubmit}>
               {step === 1 ? (
-                <FlexColStartLeft>
+                <FlexColStartLeftBox>
                   <Label text="参加希望">
                     <MarginBox marginTopPx={20}>
                       <span className={styles["label-description"]}>
@@ -296,10 +296,10 @@ export default function Page() {
                       次へ
                     </DarkBrownButton>
                   </MarginBox>
-                </FlexColStartLeft>
+                </FlexColStartLeftBox>
               ) : null}
               {step === 2 ? (
-                <FlexColStartLeft>
+                <FlexColStartLeftBox>
                   <Label text="テラコヤへのご参加は？">
                     <MarginBox marginTopPx={20} />
                     {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data, i) => (
@@ -332,7 +332,7 @@ export default function Page() {
                       </FlexHorCenteredBox>
                     </div>
                   </MarginBox>
-                </FlexColStartLeft>
+                </FlexColStartLeftBox>
               ) : null}
               {step === 3 ? (
                 <>

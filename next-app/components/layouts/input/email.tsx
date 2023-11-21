@@ -1,7 +1,7 @@
 import { UseFormRegister } from "react-hook-form";
 
 import { AuthAccountRequestBody } from "@apis/(user)/auth";
-import { FlexColStartLeft, MarginBox } from "@components/elements/box";
+import { FlexColStartLeftBox, MarginBox } from "@components/elements/box";
 import { StyledInput } from "@components/elements/input";
 import { CaptionDarkBrown } from "@components/elements/text";
 
@@ -12,7 +12,7 @@ export const EmailInput = (props: EmailInputProps) => {
   const { register } = props;
 
   return (
-    <FlexColStartLeft>
+    <FlexColStartLeftBox>
       <MarginBox marginTopPx={20}>
         <CaptionDarkBrown>メールアドレス</CaptionDarkBrown>
       </MarginBox>
@@ -24,6 +24,6 @@ export const EmailInput = (props: EmailInputProps) => {
           placeholder="Email"
         />
       </MarginBox>
-    </FlexColStartLeft>
+    </FlexColStartLeftBox>
   );
 };

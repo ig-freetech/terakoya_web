@@ -6,23 +6,22 @@ import { useDeleteAccount } from "@apis/(user)/auth";
 import { UserProfile } from "@apis/(user)/common";
 import { useFetchProfile } from "@apis/(user)/user";
 import { ROUTER } from "@app/links";
+import { useHandleError } from "@hooks/useHandleError";
 import { useUserStore } from "@stores/user";
 
 export const useProfile = (uuid: string) => {
   const router = useRouter();
-  const handleGoToEdit = () => {
-    router.push(`${ROUTER.PROFILE}/${uuid}/edit`);
-  };
 
   const { user: currentUser, disposeUser } = useUserStore();
+
   const [profile, setProfile] = useState<UserProfile>();
+
+  const { handleError } = useHandleError();
   const { isLoading, isError, refetch } = useFetchProfile(uuid, {
     onSuccess: (data) => {
       setProfile(data);
     },
-    onError: (error) => {
-      toast.error(`エラーが発生しました。\n${error}`);
-    },
+    onError: (error) => handleError(error),
   });
   const isSameUser = currentUser?.uuid === uuid;
 
@@ -47,11 +46,14 @@ export const useProfile = (uuid: string) => {
           toast.success("アカウントを削除しました。");
           router.push(ROUTER.SIGN_IN);
         },
-        onError: (error) => {
-          toast.error(`アカウントの削除に失敗しました。${error}`);
-        },
+        onError: (error) =>
+          handleError(error, "アカウントの削除に失敗しました。"),
       }
     );
+  };
+
+  const handleGoToEdit = () => {
+    router.push(`${ROUTER.PROFILE}/${uuid}/edit`);
   };
 
   return {
