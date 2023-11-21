@@ -108,7 +108,6 @@ export default function Sidebar(props: SidebarProps) {
               <BoldDangerText
                 css={css`
                   ${clickable}
-                  ${disableLinkStyle}
                 `}
                 onClick={handleSignOut}
               >
