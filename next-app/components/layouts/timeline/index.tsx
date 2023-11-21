@@ -170,7 +170,7 @@ export const PostItem = ({ post, isLinkable }: PostItemProps) => {
       href={`${ROUTER.POST}/${post.post_id}`}
       css={css`
         text-decoration: none; // Remove default link underline
-        color: inherit; // Remove default link color: ;
+        color: inherit; // Remove default link color
       `}
     >
       <Content />
