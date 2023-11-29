@@ -4,10 +4,11 @@ import { useMutation, useQuery } from "react-query";
 import {
   Comment,
   Post,
+  Reaction,
   SubmitCommentRequestBody,
   SubmitPostRequestBody,
 } from "@apis/(timeline)/type";
-import { get, CustomQueryOptions, post } from "@apis/common";
+import { get, CustomQueryOptions, post, put } from "@apis/common";
 import { createQueryParams } from "@apis/utils";
 
 /**Query keys */
@@ -112,4 +113,22 @@ export const useFetchCommentList = (
 export const useSubmitComment = () =>
   useMutation((reqBody: SubmitCommentRequestBody) =>
     post(`/timeline/${reqBody.post_id}/comment`, reqBody)
+  );
+
+export type UsePutReactionToPostArgs = {
+  postId: string;
+  reqBody: Reaction;
+};
+export const usePutReactionToPost = () =>
+  useMutation((args: UsePutReactionToPostArgs) =>
+    put(`/timeline/${args.postId}/reaction`, args.reqBody)
+  );
+
+export type UsePutReactionToCommentArgs = {
+  commentId: string;
+  reqBody: Reaction;
+};
+export const usePutReactionToComment = () =>
+  useMutation((args: UsePutReactionToCommentArgs) =>
+    put(`/timeline/comment/${args.commentId}/reaction`, args.reqBody)
   );

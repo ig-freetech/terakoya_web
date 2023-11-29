@@ -14,6 +14,11 @@ const Reaction = t.type({
 });
 export type Reaction = t.TypeOf<typeof Reaction>;
 
+export const REACTION_TYPE = {
+  LIKE: 1,
+  BAD: 2,
+} as const;
+
 const TimelineBase = t.type({
   uuid: t.string,
   timestamp: t.number,

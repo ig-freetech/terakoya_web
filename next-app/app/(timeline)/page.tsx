@@ -19,7 +19,7 @@ import { CaptionSuccess, TextDanger } from "@components/elements/text";
 import { PostItem } from "@components/layouts/timeline";
 import { colors } from "@styles/colors";
 
-import { useFetchTimeline, usePostTimeline } from "./hook";
+import { useFetchTimeline, usePostTimeline, usePutReaction } from "./hook";
 import Loading from "./loading";
 
 const PostFormPaper = styled(AtomStyledPaper)`
@@ -37,6 +37,8 @@ export default function Page() {
   } = useFetchTimeline();
   const { onSubmitPost, isSubmittingPost, errorText, register } =
     usePostTimeline(refetchInitialPostList);
+  const { currentToggledPostList, handleReactionToPost } =
+    usePutReaction(postList);
 
   return (
     <PagePaper>
@@ -83,9 +85,13 @@ export default function Page() {
             onClick={refetchInitialPostList}
           />
         ) : (
-          postList?.map((post, index) => (
+          currentToggledPostList?.map((post, index) => (
             <MarginBox key={index} marginTopPx={10}>
-              <PostItem post={post} isLinkable={true} />
+              <PostItem
+                post={post}
+                onClickLike={() => handleReactionToPost(post.post_id)}
+                isLinkable={true}
+              />
             </MarginBox>
           ))
         )}

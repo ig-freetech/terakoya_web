@@ -24,19 +24,22 @@ import { MEDIA_QUERIES } from "@styles/utils";
 import { usePostComment, usePostTimeline } from "./hook";
 
 export default function Page({ params }: { params: { postId: string } }) {
+  const postId = params.postId;
   const {
-    post,
+    toggledReactionPost,
     isFetchingPost,
     isErrorFetchingPost,
     refetchPost,
-    commentList,
+    currentToggledReactionCommentList,
+    handleReactionToPost,
+    handleReactionToComment,
     isFetchingCommentList,
     isErrorFetchingCommentList,
     refetchInitialCommentList,
-  } = usePostTimeline(params.postId);
+  } = usePostTimeline(postId);
 
   const { register, onSubmitComment, isSubmittingComment, errorText } =
-    usePostComment(params.postId, refetchPost, refetchInitialCommentList);
+    usePostComment(postId, refetchPost, refetchInitialCommentList);
 
   const { ref, onChange, ...rest } = register("texts");
 
@@ -64,7 +67,12 @@ export default function Page({ params }: { params: { postId: string } }) {
         />
       ) : (
         <FlexColBox>
-          {post ? <PostItem post={post} /> : null}
+          {toggledReactionPost ? (
+            <PostItem
+              post={toggledReactionPost}
+              onClickLike={() => handleReactionToPost(postId)}
+            />
+          ) : null}
           <MarginBox marginTopPx={20} isWidthMax={true}>
             {isFetchingCommentList ? (
               <Loading text="コメントを読み込み中...." />
@@ -116,9 +124,14 @@ export default function Page({ params }: { params: { postId: string } }) {
                     </MarginBox>
                   </FlexHorBox>
                 </FlexColBox>
-                {commentList?.map((comment, index) => (
+                {currentToggledReactionCommentList?.map((comment, index) => (
                   <MarginBox key={index} marginTopPx={20} isWidthMax={true}>
-                    <CommentItem comment={comment} />
+                    <CommentItem
+                      comment={comment}
+                      onClickLike={() =>
+                        handleReactionToComment(comment.comment_id)
+                      }
+                    />
                   </MarginBox>
                 ))}
               </FlexColCenteredBox>

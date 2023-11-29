@@ -6,13 +6,18 @@ import { css } from "@emotion/react";
 import Linkify from "linkify-react";
 import Image from "next/image";
 import Link from "next/link";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 import { HiOutlineUserCircle, HiOutlineChatAlt2 } from "react-icons/hi";
 
 // https://www.npmjs.com/package/linkify-react
 // https://qiita.com/yuikoito/items/d5cb63263f5726808cd2
 
-import { Comment, Post, TimelineBase } from "@apis/(timeline)/type";
+import {
+  Comment,
+  Post,
+  TimelineBase,
+  REACTION_TYPE,
+} from "@apis/(timeline)/type";
 import { ROUTER } from "@app/links";
 import {
   FlexColBox,
@@ -31,14 +36,19 @@ import {
   TextPrimaryBlack,
   SmallTextDarkGray,
 } from "@components/elements/text";
+import { colors } from "@styles/colors";
+import { clickable } from "@styles/utils";
 import {
   cvtTimestampToJstDayjs,
   ISO_FORMAT_WITH_TIME,
   TODAY_JST,
 } from "@utils/datetime";
 
+import { useReactionToggle } from "./hook";
+
 type Props = {
   timelineItem: TimelineBase;
+  onClickLike: () => void;
   /**For only PostItem */
   commentCountChildren?: React.ReactNode;
   isComment?: boolean;
@@ -46,6 +56,7 @@ type Props = {
 
 const TimelineItem = ({
   timelineItem,
+  onClickLike,
   commentCountChildren,
   isComment,
 }: Props) => {
@@ -57,12 +68,19 @@ const TimelineItem = ({
     timestamp,
   } = timelineItem;
 
-  const LIKE = 1;
-  const BAD = 2;
   const likeCount = reactions.filter(
-    (reaction) => reaction.type == LIKE
+    (reaction) => reaction.type == REACTION_TYPE.LIKE
   ).length;
-  const badCount = reactions.filter((reaction) => reaction.type == BAD).length;
+  const { isCurrentUserLiked } = useReactionToggle(timelineItem);
+  const handleClickLike = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    // Prevent from triggering parent onClick event so that it can't move to the post page
+    e.preventDefault();
+
+    onClickLike();
+  };
+  // const badCount = reactions.filter(
+  //   (reaction) => reaction.type == REACTION_TYPE.BAD
+  // ).length;
 
   const dayjsPostedTime = cvtTimestampToJstDayjs(timestamp);
   const datetime = dayjsPostedTime.format(ISO_FORMAT_WITH_TIME);
@@ -123,12 +141,27 @@ const TimelineItem = ({
           `}
         >
           {commentCountChildren}
-          <FlexHorAlignCenterBox>
-            <AiOutlineLike size={20} />
+          <FlexHorAlignCenterBox
+            css={css`
+              color: ${isCurrentUserLiked
+                ? colors.success
+                : colors.primaryBlack};
+            `}
+          >
+            <AiOutlineLike
+              size={20}
+              onClick={handleClickLike}
+              css={css`
+                ${clickable}
+                &:hover {
+                  color: ${colors.success};
+                }
+              `}
+            />
             <MarginBox marginLeftPx={5}>
-              <TextPrimaryBlack css={fontSizeCss}>{likeCount}</TextPrimaryBlack>
+              <span css={fontSizeCss}>{likeCount}</span>
             </MarginBox>
-            <MarginBox marginLeftPx={10}>
+            {/* <MarginBox marginLeftPx={10}>
               <FlexHorAlignCenterBox>
                 <AiOutlineDislike size={20} />
                 <MarginBox marginLeftPx={5}>
@@ -137,7 +170,7 @@ const TimelineItem = ({
                   </TextPrimaryBlack>
                 </MarginBox>
               </FlexHorAlignCenterBox>
-            </MarginBox>
+            </MarginBox> */}
           </FlexHorAlignCenterBox>
         </FlexHorBox>
       </MarginBox>
@@ -147,13 +180,15 @@ const TimelineItem = ({
 
 type PostItemProps = {
   post: Post;
+  onClickLike: () => void;
   isLinkable?: boolean;
 };
-export const PostItem = ({ post, isLinkable }: PostItemProps) => {
+export const PostItem = ({ post, onClickLike, isLinkable }: PostItemProps) => {
   const Content = () => (
     <AtomTransparentLightBrownPaper>
       <TimelineItem
         timelineItem={post}
+        onClickLike={onClickLike}
         commentCountChildren={
           <FlexHorAlignCenterBox>
             <HiOutlineChatAlt2 size={20} />
@@ -182,9 +217,14 @@ export const PostItem = ({ post, isLinkable }: PostItemProps) => {
 
 type CommentItemProps = {
   comment: Comment;
+  onClickLike: () => void;
 };
-export const CommentItem = ({ comment }: CommentItemProps) => (
+export const CommentItem = ({ comment, onClickLike }: CommentItemProps) => (
   <AtomTransparentIndigoPaper>
-    <TimelineItem timelineItem={comment} isComment={true} />
+    <TimelineItem
+      timelineItem={comment}
+      isComment={true}
+      onClickLike={onClickLike}
+    />
   </AtomTransparentIndigoPaper>
 );

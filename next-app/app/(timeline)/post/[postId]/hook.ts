@@ -9,9 +9,13 @@ import {
   useFetchPost,
   useFetchCommentList,
   useSubmitComment,
+  usePutReactionToComment,
+  usePutReactionToPost,
+  UsePutReactionToCommentArgs,
 } from "@apis/(timeline)";
-import { Comment } from "@apis/(timeline)/type";
+import { Comment, REACTION_TYPE } from "@apis/(timeline)/type";
 import { ROUTER } from "@app/links";
+import { toggleReaction } from "@domains/timeline/utils";
 import { useHandleError } from "@hooks/useHandleError";
 import { useUserStore } from "@stores/user";
 
@@ -64,12 +68,100 @@ export const usePostTimeline = (postId: string) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const router = useRouter();
+  const { user } = useUserStore();
+
+  const [toggledReactionPost, setToggledReactionPost] = useState(post);
+
+  useEffect(() => {
+    setToggledReactionPost(post);
+  }, [post]);
+
+  const { mutate: putReactionToPost } = usePutReactionToPost();
+  const handleReactionToPost = (postId: string) => {
+    if (!user) {
+      toast.error(
+        "リアクションするにはサインインが必要です。サインインしてください。"
+      );
+      router.push(ROUTER.SIGN_IN);
+      return;
+    }
+
+    putReactionToPost(
+      {
+        postId: postId,
+        reqBody: {
+          uuid: user.uuid,
+          type: REACTION_TYPE.LIKE,
+        },
+      },
+      {
+        onSuccess() {
+          setToggledReactionPost((prev) => {
+            if (!prev) return;
+            return toggleReaction(prev, user.uuid);
+          });
+        },
+        onError: (error) => handleError(error),
+      }
+    );
+  };
+
+  const { mutate: putReactionToComment } = usePutReactionToComment();
+
+  const [
+    currentToggledReactionCommentList,
+    setCurrentToggledReactionCommentList,
+  ] = useState<Array<Comment>>([]);
+
+  useEffect(() => {
+    setCurrentToggledReactionCommentList(commentList);
+  }, [commentList]);
+
+  const handleReactionToComment = (commentId: string) => {
+    if (!user) {
+      toast.error(
+        "リアクションするにはサインインが必要です。サインインしてください。"
+      );
+      router.push(ROUTER.SIGN_IN);
+      return;
+    }
+
+    const args: UsePutReactionToCommentArgs = {
+      commentId: commentId,
+      reqBody: {
+        uuid: user.uuid,
+        type: REACTION_TYPE.LIKE,
+      },
+    };
+
+    putReactionToComment(args, {
+      onSuccess() {
+        const newToggledCommentList = currentToggledReactionCommentList.map(
+          (comment) => {
+            if (comment.comment_id === commentId) {
+              return toggleReaction(comment, user.uuid);
+            }
+            return comment;
+          }
+        );
+
+        setCurrentToggledReactionCommentList(newToggledCommentList);
+      },
+      onError(error) {
+        handleError(error, "リアクションに失敗しました。");
+      },
+    });
+  };
+
   return {
-    post,
+    toggledReactionPost,
     isFetchingPost,
     isErrorFetchingPost,
     refetchPost,
-    commentList,
+    currentToggledReactionCommentList,
+    handleReactionToPost,
+    handleReactionToComment,
     isFetchingCommentList,
     isErrorFetchingCommentList,
     refetchInitialCommentList,
@@ -142,6 +234,7 @@ export const usePostComment = (
       }
     );
   });
+
   return {
     onSubmitComment,
     isSubmittingComment,
