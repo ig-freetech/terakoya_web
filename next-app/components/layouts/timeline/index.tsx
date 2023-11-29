@@ -74,6 +74,7 @@ const TimelineItem = ({
   const { isCurrentUserLiked } = useReactionToggle(timelineItem);
   const handleClickLike = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     // Prevent from triggering parent onClick event so that it can't move to the post page
+    // https://qiita.com/yokoto/items/27c56ebc4b818167ef9e
     e.preventDefault();
 
     onClickLike();
