@@ -50,3 +50,8 @@ export const IndigoSecondaryButton = ({
     </StyledIndigoSecondaryButton>
   );
 };
+
+export const GrayButton = styled.button`
+  ${basicButton}
+  background-color: ${colors.gray};
+`;

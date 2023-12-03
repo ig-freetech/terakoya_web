@@ -2,6 +2,7 @@
 
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { HTMLAttributes } from "react";
 
 import {
   flexCol,
@@ -59,7 +60,7 @@ type MarginBoxProps = {
   marginRightPx?: number;
   isWidthMax?: boolean;
   children?: React.ReactNode;
-};
+} & HTMLAttributes<HTMLDivElement>; // HTMLAttributes<HTMLDivElement> means all props of div element
 export const MarginBox = ({
   marginTopPx,
   marginLeftPx,
@@ -67,8 +68,10 @@ export const MarginBox = ({
   marginRightPx,
   isWidthMax,
   children,
+  ...props
 }: MarginBoxProps) => (
   <div
+    {...props} // Pass all props of div element
     css={css`
       margin-top: ${marginTopPx || 0}px;
       margin-left: ${marginLeftPx || 0}px;
