@@ -7,6 +7,9 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { colors } from "@styles/colors";
 import { MEDIA_QUERIES, clickable } from "@styles/utils";
 
+// Create a modal with overlay and content by full-scratching
+// https://qiita.com/yokoto/items/7570ee5529a28da6527b
+
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;

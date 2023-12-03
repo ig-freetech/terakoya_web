@@ -6,6 +6,8 @@ import NextImage from "next/image";
 import React, { useState } from "react";
 // https://react-dropzone.js.org/
 import { useDropzone } from "react-dropzone";
+// react-easy-crop is better than react-image-crop because it supports zooming images in addition to cropping images.
+// https://zenn.dev/kyosuke_14/articles/e892bffc0357da
 import Cropper, {
   type MediaSize,
   type Area,
@@ -51,7 +53,7 @@ const StyledSpan = styled.span`
 
 function ImageCrop() {
   const [srcImgDataUrl, setSrcImgDataUrl] = useState("");
-  const [srcImgType, setSrcImgType] = useState(""); // Ex: "png", "jpeg", etc...
+  const [srcImgType, setSrcImgType] = useState(""); // ex: "png", "jpeg", "jpg", etc...
   const [cropedImgDataUrl, setCropedImgDataUrl] = useState("");
   const [previewImgDataUrl, setPreviewImgDataUrl] = useState("");
   const [crop, setCrop] = useState<Point>({
