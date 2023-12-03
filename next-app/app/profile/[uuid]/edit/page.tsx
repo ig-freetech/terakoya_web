@@ -22,6 +22,7 @@ import {
 import { Loading } from "@components/elements/loading";
 import { PagePaper } from "@components/elements/paper";
 import { CaptionDarkBrown } from "@components/elements/text";
+import ImageCrop from "@components/layouts/input/file";
 
 import { useProfileEdit } from "./hook";
 
@@ -81,6 +82,10 @@ export default function Page({ params }: { params: { uuid: string } }) {
       <FlexHorCenteredBox>
         <form onSubmit={onSubmit}>
           <FlexColStartLeftBox>
+            <MarginBox marginTopPx={30}>
+              <CaptionDarkBrown>プロフィール画像</CaptionDarkBrown>
+              <ImageCrop />
+            </MarginBox>
             <MarginBox marginTopPx={30}>
               <CaptionDarkBrown>名前</CaptionDarkBrown>
             </MarginBox>
