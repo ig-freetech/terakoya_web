@@ -14,13 +14,13 @@ export const useProfile = (uuid: string) => {
 
   const { user: currentUser, disposeUser } = useUserStore();
 
-  const [profile, setProfile] = useState<UserProfile>();
-
   const { handleError } = useHandleError();
-  const { isLoading, isError, refetch } = useFetchProfile(uuid, {
-    onSuccess: (data) => {
-      setProfile(data);
-    },
+  const {
+    data: profile,
+    isLoading,
+    isError,
+    refetch,
+  } = useFetchProfile(uuid, {
     onError: (error) => handleError(error),
   });
   const isSameUser = currentUser?.uuid === uuid;
