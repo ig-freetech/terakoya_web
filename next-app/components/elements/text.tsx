@@ -52,6 +52,10 @@ export const CaptionDanger = styled(BoldDangerText)`
   font-size: 24px;
 `;
 
+export const TextGray = styled.span`
+  color: ${colors.darkGray};
+  opacity: 0.7;
+`;
 export const TextDarkBrown = styled.span`
   color: ${colors.darkBrown};
 `;

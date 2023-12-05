@@ -27,8 +27,9 @@ const ModalContent = styled.div`
   top: 25%;
   left: 25%;
   width: 50%;
-  height: 50%;
-  border: 2px solid ${colors.indigo};
+  height: auto;
+  padding: 10px;
+  border: 2px solid ${colors.white};
   border-radius: 10px;
   background-color: ${colors.white};
   z-index: 100;
@@ -36,7 +37,6 @@ const ModalContent = styled.div`
     top: 10%;
     left: 10%;
     width: 80%;
-    height: 80%;
   }
 `;
 

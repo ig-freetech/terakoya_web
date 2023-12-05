@@ -13,6 +13,7 @@ import {
   MarginBox,
 } from "@components/elements/box";
 import { DarkBrownButton } from "@components/elements/button";
+import { GrayDivider } from "@components/elements/divider";
 import { ErrorReloading } from "@components/elements/error";
 import {
   StyledComboBox,
@@ -22,7 +23,7 @@ import {
 import { Loading } from "@components/elements/loading";
 import { PagePaper } from "@components/elements/paper";
 import { CaptionDarkBrown } from "@components/elements/text";
-import ImageCrop from "@components/layouts/input/file";
+import { ImageCropper } from "@components/layouts/image-cropper";
 
 import { useProfileEdit } from "./hook";
 
@@ -84,7 +85,12 @@ export default function Page({ params }: { params: { uuid: string } }) {
           <FlexColStartLeftBox>
             <MarginBox marginTopPx={30}>
               <CaptionDarkBrown>プロフィール画像</CaptionDarkBrown>
-              <ImageCrop />
+              <MarginBox marginTopPx={10}>
+                <ImageCropper />
+              </MarginBox>
+            </MarginBox>
+            <MarginBox marginTopPx={30} isWidthMax={true}>
+              <GrayDivider />
             </MarginBox>
             <MarginBox marginTopPx={30}>
               <CaptionDarkBrown>名前</CaptionDarkBrown>
