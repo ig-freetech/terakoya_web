@@ -76,6 +76,7 @@ import { Loading } from "@components/elements/loading";
 import { PagePaper, AtomStyledPaper } from "@components/elements/paper";
 import { CaptionSuccess, TextDanger } from "@components/elements/text";
 import { PostItem } from "@components/layouts/timeline";
+import { useUserStore } from "@stores/user";
 import { colors } from "@styles/colors";
 
 import { useFetchTimeline, usePostTimeline, usePutReaction } from "./hook";
@@ -98,6 +99,8 @@ export default function Page() {
   const { currentToggledPostList, handleReactionToPost } =
     usePutReaction(postList);
 
+  const { user } = useUserStore();
+
   return (
     <PagePaper>
       {isSubmittingPost ? (
@@ -108,7 +111,17 @@ export default function Page() {
             <CaptionSuccess>今日の学びを投稿しよう</CaptionSuccess>
             <MarginBox marginTopPx={10}>
               <FlexHorBox>
-                <HiOutlineUserCircle size={30} />
+                {user?.user_profile_img_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={user.user_profile_img_url}
+                    alt="プロフィールアイコン"
+                    width={30}
+                    height={30}
+                  />
+                ) : (
+                  <HiOutlineUserCircle size={30} />
+                )}
                 <MarginBox marginLeftPx={20} isWidthMax={true}>
                   <FlexColBox>
                     <StyledTextArea
