@@ -4,7 +4,7 @@
 
 import { css } from "@emotion/react";
 import Linkify from "linkify-react";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineLike } from "react-icons/ai";
 import { HiOutlineUserCircle, HiOutlineChatAlt2 } from "react-icons/hi";

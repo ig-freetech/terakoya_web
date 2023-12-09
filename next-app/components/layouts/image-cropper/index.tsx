@@ -23,11 +23,11 @@ import {
 import { IndigoSecondaryButton } from "@components/elements/button";
 import { Modal } from "@components/elements/modal";
 import { TextGray } from "@components/elements/text";
+import { useUserStore } from "@stores/user";
 import { colors } from "@styles/colors";
 import { cursorPointer } from "@styles/utils";
 
 import { ASPECT_RATIO, useImageCropper } from "./hook";
-import { useUserStore } from "@stores/user";
 
 const PreviewSize = 192;
 

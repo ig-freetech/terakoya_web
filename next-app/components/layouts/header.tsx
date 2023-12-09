@@ -2,7 +2,7 @@
 
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import NextImage from "next/image";
+// import NextImage from "next/image";
 import { useEffect, useState } from "react";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { RxHamburgerMenu } from "react-icons/rx";
