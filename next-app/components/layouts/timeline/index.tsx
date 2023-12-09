@@ -107,8 +107,15 @@ const TimelineItem = ({
       <FlexHorSpaceBetweenBox>
         <FlexHorAlignCenterBox>
           {userProfileImageUrl ? (
-            <Image alt="userIcon" src={userProfileImageUrl} />
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              alt="ユーザーアイコン"
+              src={userProfileImageUrl}
+              width={isComment ? 20 : 30}
+              height={isComment ? 20 : 30}
+            />
           ) : (
+            // <Image alt="userIcon" src={userProfileImageUrl} />
             <HiOutlineUserCircle size={isComment ? 20 : 30} />
           )}
           <MarginBox marginLeftPx={10}>

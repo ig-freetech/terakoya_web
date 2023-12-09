@@ -6,7 +6,7 @@ import {
   User,
   UserProfile,
 } from "@apis/(user)/common";
-import { CustomQueryOptions, get, put } from "@apis/common";
+import { CustomQueryOptions, get, put, putFormData } from "@apis/common";
 
 export const useFetchUser = (
   uuid: string,
@@ -29,4 +29,9 @@ export const useFetchProfile = (
     USER_PROFILE_QUERY_KEY,
     ({ signal }) => get(`/user/${uuid}/profile`, UserProfile, signal),
     options
+  );
+
+export const useUpdateUserProfileImg = (uuid: string) =>
+  useMutation((formData: FormData) =>
+    putFormData(`/user/${uuid}/profile-img`, formData)
   );

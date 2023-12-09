@@ -1,6 +1,6 @@
 // npm i io-ts fp-ts becaise fp-ts is a peer dependency of io-ts
 // https://github.com/gcanti/io-ts#installation
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, type AxiosResponse } from "axios";
 import { isLeft } from "fp-ts/Either";
 import * as t from "io-ts";
 // https://github.com/gillchristian/io-ts-reporters
@@ -21,6 +21,13 @@ export const api = axios.create({
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
+  },
+});
+export const formDataApi = axios.create({
+  baseURL: API_BASE_URL,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "multipart/form-data",
   },
 });
 
@@ -136,6 +143,24 @@ export const put = <T>(url: string, requestBody: unknown, validator?: T) =>
   refreshHandler(() =>
     api
       .put(url, requestBody)
+      .then((res) => {
+        if (!validator) {
+          return;
+        }
+        return parseResponse(res, validator);
+      })
+      .catch((err: AxiosError) => {
+        throw handleError(url, err);
+      })
+  );
+export const putFormData = <T>(
+  url: string,
+  formData: FormData,
+  validator?: T
+) =>
+  refreshHandler(() =>
+    formDataApi
+      .put(url, formData)
       .then((res) => {
         if (!validator) {
           return;

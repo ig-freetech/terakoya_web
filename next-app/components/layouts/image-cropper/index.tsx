@@ -27,6 +27,7 @@ import { colors } from "@styles/colors";
 import { cursorPointer } from "@styles/utils";
 
 import { ASPECT_RATIO, useImageCropper } from "./hook";
+import { useUserStore } from "@stores/user";
 
 const PreviewSize = 192;
 
@@ -59,10 +60,12 @@ const OverlayStyle = css`
 `;
 
 type ImageCropperProps = {
+  uuid: string;
   currentImgUrl?: string;
 };
 
-export const ImageCropper = ({ currentImgUrl }: ImageCropperProps) => {
+export const ImageCropper = ({ uuid, currentImgUrl }: ImageCropperProps) => {
+  const { user } = useUserStore();
   const {
     previewImgDataUrl,
     // Loading image from local
@@ -81,7 +84,7 @@ export const ImageCropper = ({ currentImgUrl }: ImageCropperProps) => {
     isOpenModal,
     handleOnApply,
     handleCloseModal,
-  } = useImageCropper(currentImgUrl);
+  } = useImageCropper(uuid, currentImgUrl);
 
   return (
     <FlexColBox>
@@ -109,9 +112,17 @@ export const ImageCropper = ({ currentImgUrl }: ImageCropperProps) => {
         {previewImgDataUrl ? (
           <NextImage
             src={previewImgDataUrl}
-            alt="プレビュー"
+            alt="プレビュー画像"
             // Countermeasure against layout shift
             // https://coliss.com/articles/build-websites/operation/work/avoiding-img-layout-shifts.html
+            width={PreviewSize}
+            height={PreviewSize}
+          />
+        ) : user?.user_profile_img_url ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            alt="プレビュー画像"
+            src={user.user_profile_img_url}
             width={PreviewSize}
             height={PreviewSize}
           />

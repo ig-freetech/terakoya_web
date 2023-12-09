@@ -4,9 +4,12 @@ import { useDropzone } from "react-dropzone";
 import { type Point, type Area } from "react-easy-crop";
 import toast from "react-hot-toast";
 
+import { useFetchProfile, useUpdateUserProfileImg } from "@apis/(user)/user";
+import { useHandleError } from "@hooks/useHandleError";
+
 export const ASPECT_RATIO = 1; // The same as Twitter
 
-export const useImageCropper = (imgUrl?: string) => {
+export const useImageCropper = (uuid: string, imgUrl?: string) => {
   const [srcImgUrl, setSrcImgUrl] = useState(imgUrl ?? "");
   const [srcImgType, setSrcImgType] = useState(""); // ex: "png", "jpeg", "jpg", etc...
   const [croppedImgDataUrl, setCroppedImgDataUrl] = useState("");
@@ -21,10 +24,46 @@ export const useImageCropper = (imgUrl?: string) => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const handleCloseModal = () => setIsOpenModal(false);
+
   const handleOnApply = () => {
-    setPreviewImgDataUrl(croppedImgDataUrl);
-    setIsOpenModal(false);
+    if (!previewCanvasRef.current) return;
+
+    const canvas = previewCanvasRef.current as HTMLCanvasElement;
+
+    // toBlob() converts the image generated from the canvas to a Blob object.
+    // https://developer.mozilla.org/ja/docs/Web/API/HTMLCanvasElement/toBlob
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+      const formData = new FormData();
+      // Fast API's UploadFile requires "name" to be set to "file".
+      // 3rd argument "filename" is converted to UploadFile.filename by Fast API.
+      // https://developer.mozilla.org/ja/docs/Web/API/FormData/append
+      formData.append("file", blob, `profile_img.${srcImgType}`);
+
+      // Debug code for whether the formData is correct or not.
+      // for (const [key, value] of formData.entries()) {
+      //   console.log(key, value);
+      // }
+
+      updateProfileImg(formData, {
+        onSuccess: () => {
+          toast.success("プロフィール画像を更新しました");
+          refetch();
+        },
+        onError: () => {
+          toast.error("プロフィール画像の更新に失敗しました");
+        },
+      });
+      setPreviewImgDataUrl(croppedImgDataUrl);
+      setIsOpenModal(false);
+    });
   };
+
+  const { handleError } = useHandleError();
+  const { refetch } = useFetchProfile(uuid, {
+    onError: (error) => handleError(error),
+  });
+  const { mutate: updateProfileImg } = useUpdateUserProfileImg(uuid);
 
   const onDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;

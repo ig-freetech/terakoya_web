@@ -86,7 +86,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
             <MarginBox marginTopPx={30}>
               <CaptionDarkBrown>プロフィール画像</CaptionDarkBrown>
               <MarginBox marginTopPx={10}>
-                <ImageCropper />
+                <ImageCropper uuid={params.uuid} />
               </MarginBox>
             </MarginBox>
             <MarginBox marginTopPx={30} isWidthMax={true}>

@@ -42,7 +42,10 @@ export const IndigoSecondaryButton = ({
 }: ButtonProps) => {
   return (
     <StyledIndigoSecondaryButton
-      onClick={onClick}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick && onClick();
+      }}
       type={type}
       disabled={disabled}
     >
