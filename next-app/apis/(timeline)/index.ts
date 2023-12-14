@@ -48,8 +48,8 @@ export const useFetchAllPostList = (
 
 export const useFetchUserPostList = (
   uuid: string,
-  lastEvaluatedTimestamp?: number,
-  lastEvaluatedPostId?: string,
+  lastEvaluatedTimestamp?: number | null,
+  lastEvaluatedPostId?: string | null,
   options?: CustomQueryOptions<FetchPostListResponseBody>
 ) =>
   useQuery<FetchPostListResponseBody>(

@@ -19,12 +19,15 @@ import { Loading } from "@components/elements/loading";
 import { PagePaper } from "@components/elements/paper";
 import { TextDanger } from "@components/elements/text";
 import { CommentItem, PostItem } from "@components/layouts/timeline";
+import { useUserStore } from "@stores/user";
 import { MEDIA_QUERIES } from "@styles/utils";
 
 import { usePostComment, usePostTimeline } from "./hook";
 
 export default function Page({ params }: { params: { postId: string } }) {
   const postId = params.postId;
+  const { user } = useUserStore();
+
   const {
     toggledReactionPost,
     isFetchingPost,
@@ -89,7 +92,17 @@ export default function Page({ params }: { params: { postId: string } }) {
                   `}
                 >
                   <FlexHorBox>
-                    <HiOutlineUserCircle size={30} />
+                    {user?.user_profile_img_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={user.user_profile_img_url}
+                        alt="プロフィールアイコン"
+                        width={30}
+                        height={30}
+                      />
+                    ) : (
+                      <HiOutlineUserCircle size={30} />
+                    )}
                     <MarginBox marginLeftPx={10} isWidthMax={true}>
                       <StyledTextArea
                         {...rest}

@@ -6,14 +6,14 @@ import {
   User,
   UserProfile,
 } from "@apis/(user)/common";
-import { CustomQueryOptions, get, put } from "@apis/common";
+import { CustomQueryOptions, get, put, putFormData } from "@apis/common";
 
 export const useFetchUser = (
   uuid: string,
   options?: CustomQueryOptions<User>
 ) =>
   useQuery<User>(
-    USER_QUERY_KEY,
+    [USER_QUERY_KEY, uuid],
     ({ signal }) => get(`/user/${uuid}`, User, signal),
     options
   );
@@ -26,7 +26,12 @@ export const useFetchProfile = (
   options?: CustomQueryOptions<UserProfile>
 ) =>
   useQuery<UserProfile>(
-    USER_PROFILE_QUERY_KEY,
+    [USER_PROFILE_QUERY_KEY, uuid],
     ({ signal }) => get(`/user/${uuid}/profile`, UserProfile, signal),
     options
+  );
+
+export const useUpdateUserProfileImg = (uuid: string) =>
+  useMutation((formData: FormData) =>
+    putFormData(`/user/${uuid}/profile-img`, formData)
   );

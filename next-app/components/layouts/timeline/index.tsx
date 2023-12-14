@@ -4,8 +4,9 @@
 
 import { css } from "@emotion/react";
 import Linkify from "linkify-react";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { AiOutlineLike } from "react-icons/ai";
 import { HiOutlineUserCircle, HiOutlineChatAlt2 } from "react-icons/hi";
 
@@ -83,6 +84,12 @@ const TimelineItem = ({
   //   (reaction) => reaction.type == REACTION_TYPE.BAD
   // ).length;
 
+  const router = useRouter();
+  const handleClickUserInfo = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    router.push(ROUTER.PROFILE + `/${timelineItem.uuid}`);
+  };
+
   const dayjsPostedTime = cvtTimestampToJstDayjs(timestamp);
   const datetime = dayjsPostedTime.format(ISO_FORMAT_WITH_TIME);
   const diffDays = TODAY_JST.diff(dayjsPostedTime, "day");
@@ -105,10 +112,17 @@ const TimelineItem = ({
   return (
     <FlexColBox>
       <FlexHorSpaceBetweenBox>
-        <FlexHorAlignCenterBox>
+        <FlexHorAlignCenterBox onClick={handleClickUserInfo}>
           {userProfileImageUrl ? (
-            <Image alt="userIcon" src={userProfileImageUrl} />
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              alt="ユーザーアイコン"
+              src={userProfileImageUrl}
+              width={isComment ? 20 : 30}
+              height={isComment ? 20 : 30}
+            />
           ) : (
+            // <Image alt="userIcon" src={userProfileImageUrl} />
             <HiOutlineUserCircle size={isComment ? 20 : 30} />
           )}
           <MarginBox marginLeftPx={10}>
