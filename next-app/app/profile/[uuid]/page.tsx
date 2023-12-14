@@ -9,11 +9,10 @@ import {
   FlexColCenteredBox,
   FlexColStartLeftBox,
   FlexHorAlignCenterBox,
-  FlexHorStartLeftBox,
   MarginBox,
 } from "@components/elements/box";
-import { DarkBrownButton } from "@components/elements/button";
-import { BlackDivider, GrayDivider } from "@components/elements/divider";
+import { RoundedTransparentIndigoButton } from "@components/elements/button";
+import { GrayDivider } from "@components/elements/divider";
 import { ErrorReloading } from "@components/elements/error";
 import { Loading } from "@components/elements/loading";
 import { PagePaper } from "@components/elements/paper";
@@ -21,14 +20,13 @@ import {
   BoldLargeTextPrimaryBlack,
   BoldTextGray,
   CaptionDarkBrown,
-  SmallTextDarkGray,
-  TextDanger,
+  SmallTextDanger,
   TextPrimaryBlack,
 } from "@components/elements/text";
 import { PostItem } from "@components/layouts/timeline";
 import { GRADE, COURSE_CHOICE } from "@domains/user/const";
 import { usePutReaction } from "@hooks/timeline/usePutReaction";
-import { clickable } from "@styles/utils";
+import { MEDIA_QUERIES, clickable } from "@styles/utils";
 
 import { useProfile } from "./hook";
 
@@ -83,8 +81,15 @@ export default function Page({ params }: { params: { uuid: string } }) {
 
   return (
     <PagePaper>
-      <FlexColCenteredBox>
-        <FlexHorStartLeftBox>
+      <FlexColCenteredBox
+        css={css`
+          margin: 0 20%;
+          ${MEDIA_QUERIES.upTo600} {
+            margin: initial;
+          }
+        `}
+      >
+        <FlexHorAlignCenterBox>
           {user_profile_img_url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -107,11 +112,13 @@ export default function Page({ params }: { params: { uuid: string } }) {
               </MarginBox>
             </FlexColStartLeftBox>
           </MarginBox>
-        </FlexHorStartLeftBox>
-        <MarginBox marginTopPx={20}>
-          <BlackDivider />
-        </MarginBox>
-        <FlexColStartLeftBox>
+        </FlexHorAlignCenterBox>
+
+        <FlexColStartLeftBox
+          css={css`
+            width: 100%;
+          `}
+        >
           <MarginBox marginTopPx={30}>
             <CaptionDarkBrown>学年</CaptionDarkBrown>
           </MarginBox>
@@ -130,32 +137,49 @@ export default function Page({ params }: { params: { uuid: string } }) {
           <MarginBox marginTopPx={10}>
             <TextPrimaryBlack>{like_thing || "未設定"}</TextPrimaryBlack>
           </MarginBox>
+        </FlexColStartLeftBox>
 
-          {isSameUser ? (
-            <>
-              <MarginBox marginTopPx={30}>
-                <DarkBrownButton onClick={handleGoToEdit}>編集</DarkBrownButton>
-              </MarginBox>
-              <MarginBox marginTopPx={50}>
+        {isSameUser ? (
+          <MarginBox marginTopPx={50}>
+            <FlexHorAlignCenterBox>
+              <RoundedTransparentIndigoButton
+                onClick={handleGoToEdit}
+                css={css`
+                  width: 150px;
+                `}
+              >
+                編集
+              </RoundedTransparentIndigoButton>
+              <MarginBox marginLeftPx={50}>
                 {isDeleting ? (
                   <Loading />
                 ) : (
-                  <TextDanger
+                  <SmallTextDanger
                     css={css`
                       ${clickable}
                     `}
                     onClick={handleDeleteAccount}
                   >
                     アカウントを削除
-                  </TextDanger>
+                  </SmallTextDanger>
                 )}
               </MarginBox>
-              <MarginBox marginTopPx={30} isWidthMax={true}>
-                <GrayDivider />
-              </MarginBox>
-            </>
-          ) : null}
+            </FlexHorAlignCenterBox>
+          </MarginBox>
+        ) : null}
 
+        <MarginBox marginTopPx={30} isWidthMax={true}>
+          <GrayDivider />
+        </MarginBox>
+
+        <FlexColStartLeftBox
+          css={css`
+            width: 100%;
+          `}
+        >
+          <MarginBox marginTopPx={30}>
+            <CaptionDarkBrown>投稿一覧</CaptionDarkBrown>
+          </MarginBox>
           <MarginBox marginTopPx={20}>
             {isFetchingPostList ? (
               <Loading text="最新の投稿を取得中..." />
@@ -164,8 +188,8 @@ export default function Page({ params }: { params: { uuid: string } }) {
                 text="タイムラインの読み込みに失敗しました。"
                 onClick={refetchInitialPostList}
               />
-            ) : (
-              currentToggledPostList?.map((post, index) => (
+            ) : currentToggledPostList?.length > 0 ? (
+              currentToggledPostList.map((post, index) => (
                 <MarginBox key={index} marginTopPx={10}>
                   <PostItem
                     post={post}
@@ -174,6 +198,8 @@ export default function Page({ params }: { params: { uuid: string } }) {
                   />
                 </MarginBox>
               ))
+            ) : (
+              <TextPrimaryBlack>投稿はありません</TextPrimaryBlack>
             )}
           </MarginBox>
         </FlexColStartLeftBox>

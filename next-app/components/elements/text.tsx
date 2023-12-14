@@ -82,6 +82,10 @@ export const SmallTextDarkGray = styled.span`
   font-size: 12px;
   color: ${colors.darkGray};
 `;
+export const SmallTextDanger = styled.span`
+  font-size: 12px;
+  color: ${colors.danger};
+`;
 export const BoldLargeTextPrimaryBlack = styled(BoldText)`
   font-size: 24px;
   color: ${colors.primaryBlack};

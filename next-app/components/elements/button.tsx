@@ -58,3 +58,10 @@ export const GrayButton = styled.button`
   ${basicButton}
   background-color: ${colors.gray};
 `;
+
+export const RoundedTransparentIndigoButton = styled.button`
+  ${basicButton}
+  border: 1px solid ${colors.indigo};
+  background-color: transparent;
+  border-radius: 20px;
+`;
