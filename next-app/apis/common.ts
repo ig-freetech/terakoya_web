@@ -1,6 +1,6 @@
 // npm i io-ts fp-ts becaise fp-ts is a peer dependency of io-ts
 // https://github.com/gcanti/io-ts#installation
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, type AxiosResponse } from "axios";
 import { isLeft } from "fp-ts/Either";
 import * as t from "io-ts";
 // https://github.com/gillchristian/io-ts-reporters
@@ -21,6 +21,13 @@ export const api = axios.create({
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
+  },
+});
+export const formDataApi = axios.create({
+  baseURL: API_BASE_URL,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "multipart/form-data",
   },
 });
 
@@ -66,13 +73,25 @@ const refreshHandler = async <T>(api_request: () => Promise<T>) => {
 // export const createValidator = <T extends t.Mixed>(additonalProps: T) =>
 //   t.intersection([BasicResponseData, additonalProps]);
 
+export class ErrorData extends Error {
+  detail: string;
+  statusCode?: number;
+
+  constructor(detail: string, statusCode?: number) {
+    super(detail); // Call parent class constructor
+    this.detail = detail;
+    this.statusCode = statusCode;
+    this.name = "ErrorData"; // エラーの名前を設定
+  }
+}
+
 const handleError = (url: string, err: AxiosError) => {
   const errorResponse = err.response?.data as ErrorResponse;
   if (!errorResponse) {
-    throw new Error("Error response type is not { detail: string }");
+    throw new ErrorData("Error response type is not { detail: string }");
   }
   notifyErrorMsg(url, errorResponse.detail);
-  throw new Error(errorResponse.detail);
+  throw new ErrorData(errorResponse.detail, err.response?.status);
 };
 
 const parseResponse = <T extends t.Mixed>(
@@ -124,6 +143,24 @@ export const put = <T>(url: string, requestBody: unknown, validator?: T) =>
   refreshHandler(() =>
     api
       .put(url, requestBody)
+      .then((res) => {
+        if (!validator) {
+          return;
+        }
+        return parseResponse(res, validator);
+      })
+      .catch((err: AxiosError) => {
+        throw handleError(url, err);
+      })
+  );
+export const putFormData = <T>(
+  url: string,
+  formData: FormData,
+  validator?: T
+) =>
+  refreshHandler(() =>
+    formDataApi
+      .put(url, formData)
       .then((res) => {
         if (!validator) {
           return;

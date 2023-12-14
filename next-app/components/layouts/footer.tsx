@@ -11,10 +11,10 @@ import {
 } from "@components/elements/box";
 import { ExternalLinkNoUnderline } from "@components/elements/link";
 import { colors } from "@styles/colors";
-import { flexSpaceBetween, borderTop, MEDIA_QUERIES } from "@styles/utils";
+import { flexHorSpaceBetween, borderTop, MEDIA_QUERIES } from "@styles/utils";
 
 const StyledFooter = styled.footer`
-  ${flexSpaceBetween}
+  ${flexHorSpaceBetween}
   ${borderTop}
   padding: 30px;
   ${MEDIA_QUERIES.upTo600} {

@@ -15,7 +15,7 @@ import {
   TERAKOYA_TYPE,
 } from "@apis/(booking)/book";
 import {
-  FlexColStartLeft,
+  FlexColStartLeftBox,
   FlexHorCenteredBox,
   MarginBox,
 } from "@components/elements/box";
@@ -262,12 +262,13 @@ export default function Page() {
           <div className={styles["form-container"]}>
             <form className={styles["form"]} onSubmit={onSubmit}>
               {step === 1 ? (
-                <FlexColStartLeft>
+                <FlexColStartLeftBox>
                   <Label text="参加希望">
-                    <MarginBox marginTopPx={20} />
-                    <span className={styles["label-description"]}>
-                      ※下記の選択に応じて参加希望日で選択できる日程が切り替わります。
-                    </span>
+                    <MarginBox marginTopPx={20}>
+                      <span className={styles["label-description"]}>
+                        ※下記の選択に応じて参加希望日で選択できる日程が切り替わります。
+                      </span>
+                    </MarginBox>
                     <MarginBox marginTopPx={20} />
                     {TERAKOYA_TYPE_RADIO_DATA.map((data, i) => (
                       <GroupInput
@@ -287,17 +288,18 @@ export default function Page() {
                       />
                     ))}
                   </Label>
-                  <MarginBox marginTopPx={40} />
-                  <DarkBrownButton
-                    onClick={onNextStep}
-                    disabled={isDisabledOnNextStep}
-                  >
-                    次へ
-                  </DarkBrownButton>
-                </FlexColStartLeft>
+                  <MarginBox marginTopPx={40}>
+                    <DarkBrownButton
+                      onClick={onNextStep}
+                      disabled={isDisabledOnNextStep}
+                    >
+                      次へ
+                    </DarkBrownButton>
+                  </MarginBox>
+                </FlexColStartLeftBox>
               ) : null}
               {step === 2 ? (
-                <FlexColStartLeft>
+                <FlexColStartLeftBox>
                   <Label text="テラコヤへのご参加は？">
                     <MarginBox marginTopPx={20} />
                     {TERAKOYA_EXPERIENCE_RADIO_DATA.map((data, i) => (
@@ -313,22 +315,24 @@ export default function Page() {
                       />
                     ))}
                   </Label>
-                  <MarginBox marginTopPx={40} />
-                  <div className={styles.buttonGroup}>
-                    <FlexHorCenteredBox>
-                      <DarkBrownButton
-                        onClick={onNextStep}
-                        disabled={isDisabledOnNextStep}
-                      >
-                        次へ
-                      </DarkBrownButton>
-                      <MarginBox marginLeftPx={10} />
-                      <IndigoSecondaryButton onClick={onPrevStep}>
-                        戻る
-                      </IndigoSecondaryButton>
-                    </FlexHorCenteredBox>
-                  </div>
-                </FlexColStartLeft>
+                  <MarginBox marginTopPx={40}>
+                    <div className={styles.buttonGroup}>
+                      <FlexHorCenteredBox>
+                        <DarkBrownButton
+                          onClick={onNextStep}
+                          disabled={isDisabledOnNextStep}
+                        >
+                          次へ
+                        </DarkBrownButton>
+                        <MarginBox marginLeftPx={10}>
+                          <IndigoSecondaryButton onClick={onPrevStep}>
+                            戻る
+                          </IndigoSecondaryButton>
+                        </MarginBox>
+                      </FlexHorCenteredBox>
+                    </div>
+                  </MarginBox>
+                </FlexColStartLeftBox>
               ) : null}
               {step === 3 ? (
                 <>
@@ -465,10 +469,11 @@ export default function Page() {
                     ) : (
                       <FlexHorCenteredBox>
                         <DarkBrownButton type="submit">送信</DarkBrownButton>
-                        <MarginBox marginLeftPx={10} />
-                        <IndigoSecondaryButton onClick={onPrevStep}>
-                          戻る
-                        </IndigoSecondaryButton>
+                        <MarginBox marginLeftPx={10}>
+                          <IndigoSecondaryButton onClick={onPrevStep}>
+                            戻る
+                          </IndigoSecondaryButton>
+                        </MarginBox>
                       </FlexHorCenteredBox>
                     )}
                   </div>

@@ -66,21 +66,21 @@ export const useSimpleModal = () => {
     // https://mui.com/material-ui/react-modal/#basic-modal
     <MuiModal open={isOpen} onClose={onClose}>
       <FlexColCenteredBox>
-        <MarginBox marginTopPx={20} />
-        <Caption />
+        <MarginBox marginTopPx={20}>
+          <Caption />
+        </MarginBox>
         {texts.map((text, index) => (
           <StyledDiv key={index}>
             <BoldTextLightBrown>{text}</BoldTextLightBrown>
           </StyledDiv>
         ))}
-        {btnProps && (
-          <>
-            <MarginBox marginTopPx={20} />
+        {btnProps ? (
+          <MarginBox marginTopPx={20}>
             <DarkBrownButton onClick={btnProps.onClick}>
               {btnProps.text}
             </DarkBrownButton>
-          </>
-        )}
+          </MarginBox>
+        ) : null}
       </FlexColCenteredBox>
     </MuiModal>
   );

@@ -6,12 +6,12 @@
 "use client";
 
 import { Loading as LoadingElement } from "@components/elements/loading";
-import { BasicPaper } from "@components/elements/paper";
+import { PagePaper } from "@components/elements/paper";
 
 export default function Loading() {
   return (
-    <BasicPaper>
+    <PagePaper>
       <LoadingElement />;
-    </BasicPaper>
+    </PagePaper>
   );
 }

@@ -69,6 +69,9 @@ const UserCommonProperties = t.type({
   grade: GRADE,
   course_choice: COURSE_CHOICE,
   like_thing: t.string,
+  // optional
+  // t.null is not proper because the field in JSON response is not null but undefined
+  user_profile_img_url: t.union([t.string, t.undefined]),
 });
 
 export const User = t.intersection([

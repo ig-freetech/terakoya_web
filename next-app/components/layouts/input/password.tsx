@@ -8,7 +8,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import { AuthAccountRequestBody } from "@apis/(user)/auth";
 import {
-  FlexColStartLeft,
+  FlexColStartLeftBox,
   MarginBox,
   FlexHorCenteredBox,
 } from "@components/elements/box";
@@ -28,9 +28,9 @@ const StyledIconButton = styled.span`
 
 type PasswordInputProps = {
   register: UseFormRegister<AuthAccountRequestBody>;
+  onSubmit: () => Promise<void>;
 };
-export const PasswordInput = (props: PasswordInputProps) => {
-  const { register } = props;
+export const PasswordInput = ({ register, onSubmit }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -38,32 +38,41 @@ export const PasswordInput = (props: PasswordInputProps) => {
   };
 
   return (
-    <FlexColStartLeft>
-      <MarginBox marginTopPx={20} />
-      <CaptionDarkBrown>パスワード</CaptionDarkBrown>
-      <MarginBox marginTopPx={10} />
-      <FlexHorCenteredBox
-        css={css`
-          // Set position: relative to the parent element of the DOM element to be positioned absolutely.
-          // https://zero-plus.io/media/css-position-absolute/
-          position: relative;
-        `}
-      >
-        <StyledInput
-          {...register("password")}
-          required={true}
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-        />
-        <MarginBox marginLeftPx={2} />
-        <StyledIconButton onClick={togglePasswordVisibility}>
-          {showPassword ? (
-            <AiOutlineEye size={30} />
-          ) : (
-            <AiOutlineEyeInvisible size={30} />
-          )}
-        </StyledIconButton>
-      </FlexHorCenteredBox>
-    </FlexColStartLeft>
+    <FlexColStartLeftBox>
+      <MarginBox marginTopPx={20}>
+        <CaptionDarkBrown>パスワード</CaptionDarkBrown>
+      </MarginBox>
+      <MarginBox marginTopPx={10}>
+        <FlexHorCenteredBox
+          css={css`
+            // Set position: relative to the parent element of the DOM element to be positioned absolutely.
+            // https://zero-plus.io/media/css-position-absolute/
+            position: relative;
+          `}
+        >
+          <StyledInput
+            {...register("password")}
+            required={true}
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                onSubmit();
+              }
+            }}
+          />
+          <MarginBox marginLeftPx={2}>
+            <StyledIconButton onClick={togglePasswordVisibility}>
+              {showPassword ? (
+                <AiOutlineEye size={30} />
+              ) : (
+                <AiOutlineEyeInvisible size={30} />
+              )}
+            </StyledIconButton>
+          </MarginBox>
+        </FlexHorCenteredBox>
+      </MarginBox>
+    </FlexColStartLeftBox>
   );
 };

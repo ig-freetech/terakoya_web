@@ -6,6 +6,9 @@ import { MEDIA_QUERIES } from "@styles/utils";
 export const BoldText = styled.span`
   font-weight: bold;
 `;
+export const BoldWrapText = styled(BoldText)`
+  white-space: pre-wrap;
+`;
 export const BoldDangerText = styled(BoldText)`
   color: ${colors.danger};
 `;
@@ -26,6 +29,9 @@ export const BoldTextWhite = styled(BoldText)`
 `;
 export const BoldTextIndigo = styled(BoldText)`
   color: ${colors.indigo};
+`;
+export const BoldTextGray = styled(BoldText)`
+  color: ${colors.gray};
 `;
 export const CaptionDarkBrown = styled(BoldTextDarkBrown)`
   font-size: 24px;
@@ -49,6 +55,10 @@ export const CaptionDanger = styled(BoldDangerText)`
   font-size: 24px;
 `;
 
+export const TextGray = styled.span`
+  color: ${colors.darkGray};
+  opacity: 0.7;
+`;
 export const TextDarkBrown = styled.span`
   color: ${colors.darkBrown};
 `;
@@ -61,6 +71,9 @@ export const TextIndigo = styled.span`
 export const TextPrimaryBlack = styled.span`
   color: ${colors.primaryBlack};
 `;
+export const TextDanger = styled.span`
+  color: ${colors.danger};
+`;
 export const SmallTextGray = styled.span`
   font-size: 12px;
   color: ${colors.gray};
@@ -68,4 +81,12 @@ export const SmallTextGray = styled.span`
 export const SmallTextDarkGray = styled.span`
   font-size: 12px;
   color: ${colors.darkGray};
+`;
+export const SmallTextDanger = styled.span`
+  font-size: 12px;
+  color: ${colors.danger};
+`;
+export const BoldLargeTextPrimaryBlack = styled(BoldText)`
+  font-size: 24px;
+  color: ${colors.primaryBlack};
 `;
