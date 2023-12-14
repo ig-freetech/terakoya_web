@@ -180,7 +180,7 @@ export default function Page({ params }: { params: { uuid: string } }) {
           <MarginBox marginTopPx={30}>
             <CaptionDarkBrown>投稿一覧</CaptionDarkBrown>
           </MarginBox>
-          <MarginBox marginTopPx={20}>
+          <MarginBox marginTopPx={20} isWidthMax={true}>
             {isFetchingPostList ? (
               <Loading text="最新の投稿を取得中..." />
             ) : isErrorFetchingPostList ? (
