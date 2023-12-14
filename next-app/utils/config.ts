@@ -9,3 +9,5 @@ const API_GATEWAY_ID = IS_DEV
 
 export const API_BASE_URL = `https://${API_GATEWAY_ID}.execute-api.${AWS_DEFAULT_REGION}.amazonaws.com`;
 // export const API_BASE_URL = `http://localhost:8000`;
+
+export const S3_BUCKET_NAME = IS_DEV;

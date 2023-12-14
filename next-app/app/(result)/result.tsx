@@ -9,7 +9,7 @@ import {
   FlexHorCenteredBox,
   MarginBox,
 } from "@components/elements/box";
-import { BasicPaper } from "@components/elements/paper";
+import { PagePaper } from "@components/elements/paper";
 import {
   BoldTextDarkBrown,
   CaptionSuccess,
@@ -25,31 +25,34 @@ type ResultProps = {
 const Result: React.FC<ResultProps> = (props) => {
   const { caption, texts, mode } = props;
   return (
-    <BasicPaper>
+    <PagePaper>
       <FlexColCenteredBox>
         {mode === "success" ? (
           <FlexHorCenteredBox>
             <BsCheckCircle />
-            <MarginBox marginLeftPx={5} />
-            <CaptionSuccess>{caption}</CaptionSuccess>
+            <MarginBox marginLeftPx={5}>
+              <CaptionSuccess>{caption}</CaptionSuccess>
+            </MarginBox>
           </FlexHorCenteredBox>
         ) : mode === "danger" ? (
           <FlexHorCenteredBox>
             <MdOutlineDangerous />
-            <MarginBox marginLeftPx={5} />
-            <CaptionDanger>{caption}</CaptionDanger>
+            <MarginBox marginLeftPx={5}>
+              <CaptionDanger>{caption}</CaptionDanger>
+            </MarginBox>
           </FlexHorCenteredBox>
         ) : (
           <CaptionDarkBrown>{caption}</CaptionDarkBrown>
         )}
         {texts.map((text, index) => (
           <div key={index}>
-            <MarginBox marginTopPx={10} />
-            <BoldTextDarkBrown>{text}</BoldTextDarkBrown>
+            <MarginBox marginTopPx={10}>
+              <BoldTextDarkBrown>{text}</BoldTextDarkBrown>
+            </MarginBox>
           </div>
         ))}
       </FlexColCenteredBox>
-    </BasicPaper>
+    </PagePaper>
   );
   // return (
   //   <div className={styles.result}>

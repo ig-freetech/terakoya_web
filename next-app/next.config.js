@@ -31,6 +31,29 @@ module.exports = withBundleAnalyzer({
       "utils",
     ],
   },
+  // Enable Image of Next.js to show images stored in S3 bucket.
+  // https://nextjs.org/docs/messages/next-image-unconfigured-host
+  // images: {
+  //   domains: [
+  //     `${
+  //       process.env.STAGE === "development"
+  //         ? process.env.S3_PUBLIC_BUCKET_NAME_DEV
+  //         : process.env.S3_PUBLIC_BUCKET_NAME_PROD
+  //     }.s3.amazonaws.com`,
+  //   ],
+  //   remotePatterns: [
+  //     {
+  //       protocol: "https",
+  //       hostname: `${
+  //         process.env.STAGE === "development"
+  //           ? process.env.S3_PUBLIC_BUCKET_NAME_DEV
+  //           : process.env.S3_PUBLIC_BUCKET_NAME_PROD
+  //       }.s3.amazonaws.com`,
+  //       port: "",
+  //       pathname: "/users/**",
+  //     },
+  //   ],
+  // },
   // ! Error occurs when using the following settings because app/**/page.tsx is Server Component.
   // It's not required to install @emotion/babel-plugin in order to use "css" prop by configuring compiler settings in Next.js v12.2 or later.
   // https://zenn.dev/tatsuyasusukida/articles/easy-to-use-emotion-from-nextjs-12-2

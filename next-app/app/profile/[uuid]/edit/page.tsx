@@ -8,11 +8,12 @@ import {
   HOW_TO_KNOW_TERAKOYA,
 } from "@apis/(user)/common";
 import {
-  FlexColStartLeft,
+  FlexColStartLeftBox,
   FlexHorCenteredBox,
   MarginBox,
 } from "@components/elements/box";
 import { DarkBrownButton } from "@components/elements/button";
+import { GrayDivider } from "@components/elements/divider";
 import { ErrorReloading } from "@components/elements/error";
 import {
   StyledComboBox,
@@ -20,8 +21,9 @@ import {
   StyledTextArea,
 } from "@components/elements/input";
 import { Loading } from "@components/elements/loading";
-import { BasicPaper } from "@components/elements/paper";
+import { PagePaper } from "@components/elements/paper";
 import { CaptionDarkBrown } from "@components/elements/text";
+import { ImageCropper } from "@components/layouts/image-cropper";
 
 import { useProfileEdit } from "./hook";
 
@@ -61,108 +63,134 @@ export default function Page({ params }: { params: { uuid: string } }) {
 
   if (isFetching)
     return (
-      <BasicPaper>
+      <PagePaper>
         <Loading />
-      </BasicPaper>
+      </PagePaper>
     );
 
   if (isErrorFetching)
     return (
-      <BasicPaper>
+      <PagePaper>
         <ErrorReloading
           text="プロフィール情報の読み込みに失敗しました。"
           onClick={refetch}
         />
-      </BasicPaper>
+      </PagePaper>
     );
 
   return (
-    <BasicPaper>
+    <PagePaper>
       <FlexHorCenteredBox>
         <form onSubmit={onSubmit}>
-          <FlexColStartLeft>
-            <MarginBox marginTopPx={30} />
-            <CaptionDarkBrown>名前</CaptionDarkBrown>
-            <MarginBox marginTopPx={10} />
-            <StyledInput
-              {...register("name")}
-              type="text"
-              placeholder="西村 博之"
-              required={true}
-            />
-            <MarginBox marginTopPx={20} />
-            <CaptionDarkBrown>
-              ニックネーム
-              <br />
-              （呼んでほしい名前）
-            </CaptionDarkBrown>
-            <MarginBox marginTopPx={10} />
-            <StyledInput
-              {...register("nickname")}
-              type="text"
-              placeholder="ヒロ"
-              required={false}
-            />
-            <MarginBox marginTopPx={30} />
-            <CaptionDarkBrown>メールアドレス</CaptionDarkBrown>
-            <MarginBox marginTopPx={10} />
-            <StyledInput
-              {...register("email")}
-              type="email"
-              placeholder="abc@example.com"
-              required={true}
-            />
-            <MarginBox marginTopPx={30} />
-            <CaptionDarkBrown>学年</CaptionDarkBrown>
-            <MarginBox marginTopPx={10} />
-            <StyledComboBox
-              {...register("grade", { valueAsNumber: true })}
-              required
-            >
-              {GRADE_LIST.map((option, i) => (
-                <option key={i} value={option.value}>
-                  {option.name}
-                </option>
-              ))}
-            </StyledComboBox>
-            <MarginBox marginTopPx={30} />
-            <CaptionDarkBrown>在籍している学校</CaptionDarkBrown>
-            <MarginBox marginTopPx={10} />
-            <StyledInput
-              {...register("school")}
-              type="text"
-              placeholder="○○高等学校"
-              required={false}
-            />
-            <MarginBox marginTopPx={30} />
-            <CaptionDarkBrown>文理選択</CaptionDarkBrown>
-            <MarginBox marginTopPx={10} />
-            <StyledComboBox
-              {...register("course_choice", { valueAsNumber: true })}
-            >
-              {COURSE_CHOICE_LIST.map((option, i) => (
-                <option key={i} value={option.value}>
-                  {option.name}
-                </option>
-              ))}
-            </StyledComboBox>
-            <MarginBox marginTopPx={30} />
-            <CaptionDarkBrown>将来の夢・志望校など</CaptionDarkBrown>
-            <MarginBox marginTopPx={10} />
-            <StyledTextArea {...register("future_path")} rows={2} />
-            <MarginBox marginTopPx={30} />
-            <CaptionDarkBrown>好きなもの(こと)</CaptionDarkBrown>
-            <MarginBox marginTopPx={10} />
-            <StyledTextArea {...register("like_thing")} rows={2} />
-            <MarginBox marginTopPx={30} />
-            {isUpdating ? (
-              <Loading />
-            ) : (
-              <DarkBrownButton type="submit">更新</DarkBrownButton>
-            )}
-          </FlexColStartLeft>
+          <FlexColStartLeftBox>
+            <MarginBox marginTopPx={30}>
+              <CaptionDarkBrown>プロフィール画像</CaptionDarkBrown>
+              <MarginBox marginTopPx={10}>
+                <ImageCropper uuid={params.uuid} />
+              </MarginBox>
+            </MarginBox>
+            <MarginBox marginTopPx={30} isWidthMax={true}>
+              <GrayDivider />
+            </MarginBox>
+            <MarginBox marginTopPx={30}>
+              <CaptionDarkBrown>名前</CaptionDarkBrown>
+            </MarginBox>
+            <MarginBox marginTopPx={10}>
+              <StyledInput
+                {...register("name")}
+                type="text"
+                placeholder="山田 太郎"
+                required={true}
+              />
+            </MarginBox>
+            <MarginBox marginTopPx={20}>
+              <CaptionDarkBrown>
+                ニックネーム
+                <br />
+                （呼んでほしい名前）
+              </CaptionDarkBrown>
+            </MarginBox>
+            <MarginBox marginTopPx={10}>
+              <StyledInput
+                {...register("nickname")}
+                type="text"
+                placeholder="タロウ"
+                required={false}
+              />
+            </MarginBox>
+            <MarginBox marginTopPx={30}>
+              <CaptionDarkBrown>メールアドレス</CaptionDarkBrown>
+            </MarginBox>
+            <MarginBox marginTopPx={10}>
+              <StyledInput
+                {...register("email")}
+                type="email"
+                placeholder="abc@example.com"
+                required={true}
+              />
+            </MarginBox>
+            <MarginBox marginTopPx={30}>
+              <CaptionDarkBrown>学年</CaptionDarkBrown>
+            </MarginBox>
+            <MarginBox marginTopPx={10}>
+              <StyledComboBox
+                {...register("grade", { valueAsNumber: true })}
+                required
+              >
+                {GRADE_LIST.map((option, i) => (
+                  <option key={i} value={option.value}>
+                    {option.name}
+                  </option>
+                ))}
+              </StyledComboBox>
+            </MarginBox>
+            <MarginBox marginTopPx={30}>
+              <CaptionDarkBrown>在籍している学校</CaptionDarkBrown>
+            </MarginBox>
+            <MarginBox marginTopPx={10}>
+              <StyledInput
+                {...register("school")}
+                type="text"
+                placeholder="○○高等学校"
+                required={false}
+              />
+            </MarginBox>
+            <MarginBox marginTopPx={30}>
+              <CaptionDarkBrown>文理選択</CaptionDarkBrown>
+            </MarginBox>
+            <MarginBox marginTopPx={10}>
+              <StyledComboBox
+                {...register("course_choice", { valueAsNumber: true })}
+              >
+                {COURSE_CHOICE_LIST.map((option, i) => (
+                  <option key={i} value={option.value}>
+                    {option.name}
+                  </option>
+                ))}
+              </StyledComboBox>
+            </MarginBox>
+            <MarginBox marginTopPx={30}>
+              <CaptionDarkBrown>将来の夢・志望校など</CaptionDarkBrown>
+            </MarginBox>
+            <MarginBox marginTopPx={10} isWidthMax={true}>
+              <StyledTextArea {...register("future_path")} rows={2} />
+            </MarginBox>
+            <MarginBox marginTopPx={30}>
+              <CaptionDarkBrown>好きなもの(こと)</CaptionDarkBrown>
+            </MarginBox>
+            <MarginBox marginTopPx={10} isWidthMax={true}>
+              <StyledTextArea {...register("like_thing")} rows={2} />
+            </MarginBox>
+            <MarginBox marginTopPx={30}>
+              {isUpdating ? (
+                <Loading />
+              ) : (
+                <DarkBrownButton type="submit">更新</DarkBrownButton>
+              )}
+            </MarginBox>
+          </FlexColStartLeftBox>
         </form>
       </FlexHorCenteredBox>
-    </BasicPaper>
+    </PagePaper>
   );
 }

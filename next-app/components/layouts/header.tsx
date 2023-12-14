@@ -2,6 +2,7 @@
 
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+// import NextImage from "next/image";
 import { useEffect, useState } from "react";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -12,10 +13,10 @@ import { InternalLink } from "@components/elements/link";
 import TerakoyaLogo from "@components/elements/logo";
 import { useUserStore } from "@stores/user";
 import { colors } from "@styles/colors";
-import { flexSpaceBetween, borderBottom, clickable } from "@styles/utils";
+import { flexHorSpaceBetween, borderBottom, clickable } from "@styles/utils";
 
 const StyledHeader = styled.header`
-  ${flexSpaceBetween}
+  ${flexHorSpaceBetween}
   ${borderBottom}
   padding: 20px;
 `;
@@ -50,7 +51,17 @@ export default function Header(props: HeaderProps) {
             color: ${colors.primaryBlack};
           `}
         >
-          <HiOutlineUserCircle size={30} />
+          {user?.user_profile_img_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={user?.user_profile_img_url}
+              alt="プロフィール画像"
+              width={30}
+              height={30}
+            />
+          ) : (
+            <HiOutlineUserCircle size={30} />
+          )}
           <span>プロフィール</span>
         </FlexColCenteredBox>
       </InternalLink>

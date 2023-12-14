@@ -8,6 +8,7 @@ import {
   AuthAccountRequestBody,
 } from "@apis/(user)/auth";
 import { ROUTER } from "@app/links";
+import { useHandleError } from "@hooks/useHandleError";
 import { useUserStore } from "@stores/user";
 
 export const useSignUp = () => {
@@ -20,8 +21,9 @@ export const useSignUp = () => {
   });
 
   const { mutate: signUp, isLoading } = useSignUpMutation();
-
+  const { handleError } = useHandleError();
   const { isSignedIn } = useUserStore();
+
   useEffect(() => {
     if (isSignedIn) {
       router.push(ROUTER.PROFILE);
@@ -34,13 +36,12 @@ export const useSignUp = () => {
       return;
     }
     signUp(inputs, {
-      onError: (error) => {
-        toast.error(`アカウントの作成に失敗しました。\n${error}`);
-      },
       onSuccess: () => {
         toast.success("アカウントの仮登録が完了しました。");
         router.push(ROUTER.SIGN_UP + ROUTER.SUCCESS);
       },
+      onError: (error) =>
+        handleError(error, "アカウントの作成に失敗しました。"),
     });
   });
 

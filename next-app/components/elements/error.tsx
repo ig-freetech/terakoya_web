@@ -12,8 +12,9 @@ export const ErrorReloading = (props: ErrorReloadingProps) => {
   return (
     <FlexColCenteredBox>
       <BoldText>{text}</BoldText>
-      <MarginBox marginTopPx={20} />
-      <DarkBrownButton onClick={onClick}>再読み込み</DarkBrownButton>
+      <MarginBox marginTopPx={20}>
+        <DarkBrownButton onClick={onClick}>再読み込み</DarkBrownButton>
+      </MarginBox>
     </FlexColCenteredBox>
   );
 };

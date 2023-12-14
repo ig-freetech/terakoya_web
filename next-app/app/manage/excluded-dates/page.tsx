@@ -8,7 +8,7 @@ import { Controller } from "react-hook-form";
 
 import { ROUTER } from "@app/links";
 import { Loading } from "@components/elements/loading";
-import { BasicMuiPaper } from "@components/elements/paper";
+import { PageMuiPaper } from "@components/elements/paper";
 import { useRedirectToSignIn } from "@hooks/useAuth";
 import { useUserStore } from "@stores/user";
 
@@ -59,7 +59,7 @@ export default function Page() {
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
-      <BasicMuiPaper backgroundColor="#f5f5f5">
+      <PageMuiPaper backgroundColor="#f5f5f5">
         <Box flexDirection="column">
           <Box
             display="flex"
@@ -148,7 +148,7 @@ export default function Page() {
             </form>
           )}
         </Box>
-      </BasicMuiPaper>
+      </PageMuiPaper>
     </Box>
   );
 }
