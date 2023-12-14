@@ -30,6 +30,9 @@ export const BoldTextWhite = styled(BoldText)`
 export const BoldTextIndigo = styled(BoldText)`
   color: ${colors.indigo};
 `;
+export const BoldTextGray = styled(BoldText)`
+  color: ${colors.gray};
+`;
 export const CaptionDarkBrown = styled(BoldTextDarkBrown)`
   font-size: 24px;
   ${MEDIA_QUERIES.upTo600} {
@@ -78,4 +81,8 @@ export const SmallTextGray = styled.span`
 export const SmallTextDarkGray = styled.span`
   font-size: 12px;
   color: ${colors.darkGray};
+`;
+export const BoldLargeTextPrimaryBlack = styled(BoldText)`
+  font-size: 24px;
+  color: ${colors.primaryBlack};
 `;

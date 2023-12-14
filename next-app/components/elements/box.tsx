@@ -21,6 +21,11 @@ export const FlexHorAlignCenterBox = styled.div`
 export const FlexHorCenteredBox = styled.div`
   ${flexHorCentered}
 `;
+export const FlexHorStartLeftBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`;
 export const FlexHorSpaceBetweenBox = styled.div`
   ${flexHorSpaceBetween}
 `;

@@ -76,10 +76,11 @@ import { Loading } from "@components/elements/loading";
 import { PagePaper, AtomStyledPaper } from "@components/elements/paper";
 import { CaptionSuccess, TextDanger } from "@components/elements/text";
 import { PostItem } from "@components/layouts/timeline";
+import { usePutReaction } from "@hooks/timeline/usePutReaction";
 import { useUserStore } from "@stores/user";
 import { colors } from "@styles/colors";
 
-import { useFetchTimeline, usePostTimeline, usePutReaction } from "./hook";
+import { useFetchTimeline, usePostTimeline } from "./hook";
 
 const PostFormPaper = styled(AtomStyledPaper)`
   border: 1px solid ${colors.primaryBrown};
