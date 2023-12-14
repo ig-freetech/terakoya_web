@@ -218,8 +218,7 @@ export const usePostComment = (
       {
         uuid: user.uuid,
         user_name: user.name,
-        // user_profile_img_url: user.profile_img_url,
-        user_profile_img_url: "",
+        user_profile_img_url: user.user_profile_img_url ?? "",
         texts: inputs.texts,
         post_id: postId,
       },
