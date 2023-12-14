@@ -47,6 +47,7 @@ export const useProfile = (uuid: string) => {
   const refetchInitialPostList = () => {
     setPostList([]);
     setLastTimestamp(undefined);
+    setLastPostId(undefined);
     refetchPostList();
   };
 

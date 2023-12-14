@@ -127,7 +127,7 @@ export default function Page() {
                   <FlexColBox>
                     <StyledTextArea
                       rows={3}
-                      placeholder="What did you learn today? (※10文字以上)"
+                      placeholder="What did you learn today? (※5文字以上)"
                       {...register("texts")}
                     />
                     {errorText ? <TextDanger>{errorText}</TextDanger> : null}

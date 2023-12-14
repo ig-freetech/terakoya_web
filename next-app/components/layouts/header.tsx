@@ -60,12 +60,6 @@ export default function Header(props: HeaderProps) {
               height={30}
             />
           ) : (
-            // <NextImage
-            //   alt="プロフィール画像"
-            //   src={user?.user_profile_img_url}
-            //   width={30}
-            //   height={30}
-            // />
             <HiOutlineUserCircle size={30} />
           )}
           <span>プロフィール</span>

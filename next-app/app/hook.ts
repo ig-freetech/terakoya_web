@@ -35,6 +35,7 @@ export const useFetchTimeline = () => {
   const refetchInitialPostList = () => {
     setPostList([]);
     setLastTimestamp(undefined);
+    setLastPostId(undefined);
     refetch();
   };
 
@@ -95,8 +96,8 @@ export const usePostTimeline = (refetchInitialPostList: () => void) => {
       yup.object().shape({
         texts: yup
           .string()
-          .required("投稿内容を10文字以上で入力してください。")
-          .min(10, "10文字以上入力してください。"),
+          .required("投稿内容を5文字以上で入力してください。")
+          .min(5, "5文字以上入力してください。"),
       })
     ),
   });
@@ -123,8 +124,7 @@ export const usePostTimeline = (refetchInitialPostList: () => void) => {
       {
         uuid: user.uuid,
         user_name: user.name,
-        // user_profile_img_url: user.profile_img_url,
-        user_profile_img_url: "",
+        user_profile_img_url: user.user_profile_img_url ?? "",
         texts: inputs.texts,
       },
       {
