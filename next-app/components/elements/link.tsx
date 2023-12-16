@@ -7,21 +7,21 @@ import Link from "next/link";
 import { colors } from "@styles/colors";
 import { opacity } from "@styles/utils";
 
-const StyledInternalLink = styled(Link)`
+const BaseStyledInternalLink = styled(Link)`
   text-decoration: none;
-  color: ${colors.darkBrown};
   &:hover {
     ${opacity}
   }
 `;
-type InternalLinkProps = {
-  path: string;
-  children: string | JSX.Element;
-};
-export function InternalLink(props: InternalLinkProps) {
-  const { path, children } = props;
-  return <StyledInternalLink href={path}>{children}</StyledInternalLink>;
-}
+export const DarkBrownInternalLink = styled(BaseStyledInternalLink)`
+  color: ${colors.darkBrown};
+`;
+export const IndifoInternalLink = styled(BaseStyledInternalLink)`
+  color: ${colors.indigo};
+`;
+export const MidGrayInternalLink = styled(BaseStyledInternalLink)`
+  color: ${colors.midGray};
+`;
 
 const StyledExternalLink = styled.a`
   // text-decoration: none is to remove underline from <a> tag.

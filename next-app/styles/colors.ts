@@ -5,6 +5,7 @@ export const colors = {
   primaryBlack: "#172b4d",
   white: "#f8f9fa",
   darkGray: "#343a40",
+  midGray: "#6c757d",
   gray: "#e0e0e0",
   indigo: "#3f51b5",
   // Default color codes from Bootstrap

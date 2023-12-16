@@ -9,7 +9,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 import { ROUTER } from "@app/links";
 import { FlexColCenteredBox } from "@components/elements/box";
-import { InternalLink } from "@components/elements/link";
+import { DarkBrownInternalLink } from "@components/elements/link";
 import TerakoyaLogo from "@components/elements/logo";
 import { useUserStore } from "@stores/user";
 import { colors } from "@styles/colors";
@@ -45,7 +45,7 @@ export default function Header(props: HeaderProps) {
         <span>メニュー</span>
       </FlexColCenteredBox>
       <TerakoyaLogo />
-      <InternalLink path={profilePath}>
+      <DarkBrownInternalLink href={profilePath}>
         <FlexColCenteredBox
           css={css`
             color: ${colors.primaryBlack};
@@ -64,7 +64,7 @@ export default function Header(props: HeaderProps) {
           )}
           <span>プロフィール</span>
         </FlexColCenteredBox>
-      </InternalLink>
+      </DarkBrownInternalLink>
     </StyledHeader>
   );
 }

@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useSignOut } from "@apis/(user)/auth";
 import { ROUTER } from "@app/links";
 import { MarginBox } from "@components/elements/box";
-import { InternalLink } from "@components/elements/link";
+import { DarkBrownInternalLink } from "@components/elements/link";
 import { Loading } from "@components/elements/loading";
 import TerakoyaLogo from "@components/elements/logo";
 import {
@@ -35,15 +35,9 @@ type MenuItemProps = {
 const MenuItem = (props: MenuItemProps) => {
   const { path, text } = props;
   return (
-    <div
-      css={css`
-        margin-top: 10px;
-      `}
-    >
-      <InternalLink path={path}>
-        <BoldText>{text}</BoldText>
-      </InternalLink>
-    </div>
+    <DarkBrownInternalLink href={path}>
+      <BoldText>{text}</BoldText>
+    </DarkBrownInternalLink>
   );
 };
 const MENU_ITEM_PROPS_LIST: MenuItemProps[] = [
