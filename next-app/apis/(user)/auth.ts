@@ -28,3 +28,21 @@ export const useDeleteAccount = () =>
   useMutation((reqBody: DeleteAccountRequestBody) =>
     post("/account/delete", reqBody)
   );
+
+export type ForgotPasswordRequestBody = {
+  email: string;
+};
+export const useForgotPassword = () =>
+  useMutation((reqBody: ForgotPasswordRequestBody) =>
+    post("/forgot-password", reqBody)
+  );
+
+export type ResetPasswordRequestBody = {
+  email: string;
+  confirmation_code: string;
+  new_password: string;
+};
+export const useResetPassword = () =>
+  useMutation((reqBody: ResetPasswordRequestBody) =>
+    post("/reset-password", reqBody)
+  );
