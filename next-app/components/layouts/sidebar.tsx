@@ -17,6 +17,7 @@ import {
   BoldDangerText,
   BoldText,
   BoldSuccessText,
+  BoldTextGray,
 } from "@components/elements/text";
 import { useUserStore } from "@stores/user";
 import { colors } from "@styles/colors";
@@ -93,8 +94,23 @@ export default function Sidebar(props: SidebarProps) {
           ))}
         </MarginBox>
         {user?.is_admin ? (
-          <MarginBox marginTopPx={10}>
-            <MenuItem path={ROUTER.MANAGE} text="予約情報管理画面" />
+          <MarginBox marginTopPx={20}>
+            <Divider />
+            <MarginBox marginTopPx={20}>
+              <BoldTextGray>(For administrators)</BoldTextGray>
+            </MarginBox>
+            <MarginBox marginTopPx={10}>
+              <MenuItem path={ROUTER.MANAGE} text="予約情報管理画面" />
+            </MarginBox>
+            <MarginBox marginTopPx={10}>
+              <MenuItem
+                path={ROUTER.SETTING_EXCLUDED_DATES}
+                text="予約可能日除外設定画面"
+              />
+            </MarginBox>
+            <MarginBox marginTopPx={20}>
+              <Divider />
+            </MarginBox>
           </MarginBox>
         ) : null}
         <MarginBox marginTopPx={20}>
