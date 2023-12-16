@@ -17,7 +17,7 @@ import { CaptionDarkBrown } from "@components/elements/text";
 import { colors } from "@styles/colors";
 import { clickable, absoluteVerticalCentered } from "@styles/utils";
 
-const StyledIconButton = styled.span`
+export const StyledIconButton = styled.span`
   ${clickable}
   color: ${colors.darkGray};
   ${absoluteVerticalCentered}
