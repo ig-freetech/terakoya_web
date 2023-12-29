@@ -5,6 +5,9 @@ node_modules
 .next/
 analyze/
 
+# Cypress
+screenshots/
+
 .env
 .env.local
 .env.development

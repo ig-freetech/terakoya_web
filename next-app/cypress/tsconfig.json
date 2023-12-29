@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "isolatedModules": false,
+    "types": ["cypress"] // Add "cypress" to the types so that intellisense can be used.
+  },
+  "include": ["../node_modules/cypress", "**/*.ts"]
+}
