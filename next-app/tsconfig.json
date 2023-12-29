@@ -91,6 +91,6 @@
   },
   // Specify files to be included in the compilation.
   "include": ["./**/*.ts", "./**/*.tsx", ".next/types/**/*.ts"],
-  // Specify files to be excluded from the compilation.
-  "exclude": ["node_modules"]
+  // Specify files to be excluded from the compilation when "next build".
+  "exclude": ["node_modules", "cypress"]
 }
