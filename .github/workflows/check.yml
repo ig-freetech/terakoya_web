@@ -16,7 +16,7 @@ jobs:
       - name: Test
         working-directory: ./next-app
         run: |
-          npm run test
+          npm run jest
 
       - name: Lint
         working-directory: ./next-app
