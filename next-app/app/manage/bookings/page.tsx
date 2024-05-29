@@ -165,6 +165,7 @@ const AccordionTableRow = (props: AccordionTableRowProps) => {
             <MenuItem value={3}>テラコヤ事務所（ベースキャンプ）</MenuItem>
             <MenuItem value={4}>キャリア・マム</MenuItem>
             <MenuItem value={5}>キカガク</MenuItem>
+            <MenuItem value={6}>ひばりヶ丘校</MenuItem>
           </Select>
         </TableCell>
         <TableCell>
