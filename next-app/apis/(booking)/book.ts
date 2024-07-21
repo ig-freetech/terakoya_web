@@ -13,6 +13,8 @@ export const TERAKOYA_TYPE = {
   MID_SHIBU: 4,
   /**ひばりヶ丘校 */
   HIBARI: 5,
+  /**神田校 */
+  KANDA: 6,
 } as const;
 /**テラコヤ種別 (terakoya_type) - required */
 export type TERAKOYA_TYPE = (typeof TERAKOYA_TYPE)[keyof typeof TERAKOYA_TYPE];

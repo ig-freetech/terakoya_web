@@ -108,6 +108,7 @@ const TERAKOYA_TYPE_RADIO_DATA: Array<GroupInputData> = [
   { text: "テラコヤ中等部(池袋)", value: TERAKOYA_TYPE.MID_IKE.toString() },
   { text: "テラコヤ中等部(渋谷)", value: TERAKOYA_TYPE.MID_SHIBU.toString() },
   { text: "ひばりヶ丘校", value: TERAKOYA_TYPE.HIBARI.toString() },
+  { text: "神田校", value: TERAKOYA_TYPE.KANDA.toString() },
 ];
 const TERAKOYA_EXPERIENCE_RADIO_DATA: Array<GroupInputData> = [
   { text: "今回が初回", value: TERAKOYA_EXPERIENCE.FIRST_TIME.toString() },
