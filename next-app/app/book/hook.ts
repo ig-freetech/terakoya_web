@@ -198,7 +198,8 @@ export const useBook = () => {
       selectedTerakoyaType == TERAKOYA_TYPE.MID_IKE.toString() ||
       selectedTerakoyaType == TERAKOYA_TYPE.MID_SHIBU.toString(),
     attendanceDateList: _getNextThreeDateList(
-      selectedTerakoyaType == TERAKOYA_TYPE.MID_SHIBU.toString()
+      selectedTerakoyaType == TERAKOYA_TYPE.MID_SHIBU.toString() ||
+        selectedTerakoyaType == TERAKOYA_TYPE.HIBARI.toString()
         ? SATURDAY
         : TUESUDAY
     ),
